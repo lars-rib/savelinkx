@@ -346,7 +346,36 @@ def download():
 
     return send_file(path, as_attachment=True, download_name=filename)
 
-
+@app.route('/sitemap.xml')
+def sitemap():
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://www.savelinkx.com/</loc>
+        <lastmod>2026-04-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/faq</loc>
+        <lastmod>2026-04-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/termos</loc>
+        <lastmod>2026-04-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/privacidade</loc>
+        <lastmod>2026-04-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+      </url>
+    </urlset>"""
+    return xml, 200, {'Content-Type': 'application/xml'}
 if __name__ == "__main__":
     debug_enabled = os.getenv("FLASK_DEBUG", "0") == "1"
     app.run(host="127.0.0.1", port=int(os.getenv("PORT", "5000")), debug=debug_enabled)
