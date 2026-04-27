@@ -5,104 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
   <title>SaveLinkX | Download X (Twitter) Videos Online for Free</title>
-  <meta name="description" content="Download videos from X (Twitter) instantly and for free. Paste any tweet link and save it as MP4 - no signup, no software, works on any device." />
-  <link rel="canonical" href="{{ site_url }}/" />
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="SaveLinkX" />
-  <meta name="theme-color" content="#0f0f0f" />
-  <meta property="og:title" content="SaveLinkX - Download X (Twitter) Videos Online for Free" />
-  <meta property="og:description" content="Paste any tweet link and download in the highest available quality in seconds. Free, no account needed." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ site_url }}/" />
-  <meta property="og:site_name" content="SaveLinkX" />
-  <meta property="og:locale" content="en_US" />
-  <meta name="keywords" content="X video downloader, Twitter video downloader, download X videos, download Twitter videos, save tweet video, twitter video download MP4, x.com video download, free twitter downloader, download video from X, twitter to mp4" />
-  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="SaveLinkX - Download X (Twitter) Videos for Free" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SaveLinkX - Download X (Twitter) Videos for Free" />
-  <meta name="twitter:description" content="Download X and Twitter videos for free. Fast, easy, no signup required." />
-  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
-  <link rel="alternate" hreflang="en" href="{{ site_url }}/" />
+  <meta name="description" content="Download videos from X (Twitter) instantly and for free. Paste any tweet link and save it as MP4." />
   
   <style>
+    :root { --primary: #1d9bf0; --bg: #0f0f0f; --card-bg: #1a1a1a; --border: #2a2a2a; --text: #e8e8e8; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
-    header { text-align: center; margin-bottom: 36px; }
-    .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .logo svg { width: 32px; height: 32px; fill: #1d9bf0; }
-    header h1 { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-    header h1 span { color: #1d9bf0; }
-    header p { color: #888; margin-top: 8px; font-size: 0.95rem; }
-    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 32px; width: 100%; max-width: 620px; }
-    .input-row { display: flex; gap: 8px; }
+    
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 16px 64px; line-height: 1.5; }
+
+    /* Top Navigation Original */
+    .topnav { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; padding: 32px 0; }
+    .topnav-brand { font-size: 1.25rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .topnav-brand svg { width: 24px; height: 24px; fill: var(--primary); }
+    .topnav-links { display: flex; gap: 24px; list-style: none; }
+    .topnav-links a { color: #888; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.2s; }
+    .topnav-links a:hover { color: var(--primary); }
+
+    header { text-align: center; margin: 20px 0 48px; max-width: 700px; }
+    header h1 { font-size: 2.5rem; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 12px; }
+    header h1 span { color: var(--primary); }
+    header p { color: #888; font-size: 1.1rem; }
+
+    /* Main Card */
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 48px; width: 100%; max-width: 720px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    .input-row { display: flex; gap: 12px; position: relative; }
     .input-wrap { position: relative; flex: 1; }
-    input[type="text"] { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 13px 44px 13px 16px; color: #e8e8e8; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-    input[type="text"]:focus { border-color: #1d9bf0; }
-    #pasteBtn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 4px; cursor: pointer; color: #555; border-radius: 6px; transition: color 0.2s; font-size: 0; }
-    #pasteBtn:hover { color: #1d9bf0; }
-    #pasteBtn svg { width: 18px; height: 18px; }
-    button { cursor: pointer; border: none; border-radius: 12px; padding: 13px 22px; font-size: 0.9rem; font-weight: 700; transition: opacity 0.2s, background 0.2s, transform 0.1s; }
-    button:active:not(:disabled) { transform: scale(0.97); }
-    button:disabled { opacity: 0.4; cursor: not-allowed; }
-    #fetchBtn { background: #1d9bf0; color: #fff; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
-    #fetchBtn:hover:not(:disabled) { background: #1a8cd8; }
-    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #status { margin-top: 14px; font-size: 0.85rem; text-align: center; min-height: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    #statusSpinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.2); border-top-color: #aaa; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
-    .status-loading { color: #aaa; }
-    .status-error { color: #ff6b6b; }
-    .status-ok { color: #4caf50; }
-    #videoInfo { display: none; margin-top: 24px; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    .divider { border: none; border-top: 1px solid #2a2a2a; margin-bottom: 20px; }
-    .thumb-row { display: flex; gap: 16px; align-items: flex-start; }
-    .thumb-wrap { position: relative; flex-shrink: 0; }
-    .thumb-wrap img { width: 130px; border-radius: 10px; object-fit: cover; display: block; }
-    .play-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-    .play-icon svg { width: 36px; height: 36px; opacity: 0.85; }
-    .meta { flex: 1; min-width: 0; }
-    .meta h2 { font-size: 0.95rem; font-weight: 600; line-height: 1.45; margin-bottom: 8px; word-break: break-word; }
-    .meta-badges { display: flex; flex-wrap: wrap; gap: 6px; }
-    .badge { background: #222; border: 1px solid #333; border-radius: 20px; padding: 3px 10px; font-size: 0.75rem; color: #aaa; }
-    .format-section { margin-top: 20px; }
-    .format-section label { font-size: 0.8rem; color: #777; display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
-    select { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 12px 14px; color: #e8e8e8; font-size: 0.9rem; outline: none; cursor: pointer; }
-    select:focus { border-color: #1d9bf0; }
-    #downloadBtn { margin-top: 14px; width: 100%; background: #1d9bf0; color: #fff; padding: 15px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    #downloadBtn:hover:not(:disabled) { background: #1a8cd8; }
-    #dlSpinner { width: 17px; height: 17px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
-    .how-to { margin-top: 40px; width: 100%; max-width: 620px; }
-    .how-to h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 16px; text-align: center; }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .step { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; padding: 20px 16px; text-align: center; }
-    .step-num { width: 32px; height: 32px; background: #1d9bf0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; margin: 0 auto 10px; }
-    .step p { font-size: 0.82rem; color: #999; line-height: 1.5; }
-    .faq { margin-top: 32px; width: 100%; max-width: 620px; }
-    .faq h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 14px; text-align: center; }
-    details { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
-    summary { padding: 14px 18px; cursor: pointer; font-size: 0.9rem; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
-    summary::after { content: '+'; color: #555; font-size: 1.2rem; transition: transform 0.2s; }
-    details[open] summary::after { transform: rotate(45deg); }
-    details p { padding: 0 18px 14px; font-size: 0.85rem; color: #888; line-height: 1.6; }
-    footer { margin-top: 40px; font-size: 0.75rem; color: #444; text-align: center; line-height: 1.6; }
-    .topnav { width: 100%; max-width: 620px; display: flex; justify-content: space-between; align-items: center; padding: 0 0 28px; }
-    .topnav-brand { font-size: 1rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 7px; }
-    .topnav-brand svg { width: 20px; height: 20px; fill: #1d9bf0; }
-    .topnav-links { display: flex; gap: 20px; list-style: none; }
-    .topnav-links a { color: #666; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-    .topnav-links a:hover { color: #1d9bf0; }
-    @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } header h1 { font-size: 1.5rem; } .topnav-links { gap: 14px; } }
+    
+    input[type="text"] { width: 100%; background: #000; border: 2px solid #333; border-radius: 16px; padding: 18px 20px; color: #fff; font-size: 1.05rem; outline: none; transition: 0.2s; }
+    input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(29, 155, 240, 0.1); }
+
+    #fetchBtn { background: var(--primary); color: #fff; padding: 0 32px; border-radius: 16px; font-weight: 800; font-size: 1rem; cursor: pointer; border: none; transition: 0.2s; }
+    #fetchBtn:hover { background: #1a8cd8; transform: translateY(-2px); }
+
+    .promo-text { margin-top: 24px; color: #666; font-size: 0.9rem; text-align: center; }
+    .promo-text strong { color: #888; }
+
+    /* Video Info Section */
+    #videoInfo { display: none; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); animation: slideUp 0.4s ease-out; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .thumb-row { display: flex; gap: 24px; align-items: center; }
+    #thumbnail { width: 180px; border-radius: 16px; border: 1px solid #333; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+    .meta h2 { font-size: 1.2rem; margin-bottom: 12px; color: #fff; }
+    
+    .badge-group { display: flex; gap: 8px; }
+    .badge { background: #252525; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: #aaa; font-weight: 600; }
+
+    #downloadBtn { width: 100%; background: var(--primary); color: #fff; padding: 20px; border-radius: 16px; font-weight: 800; margin-top: 24px; border: none; cursor: pointer; font-size: 1.2rem; }
+
+    /* Steps Section */
+    .how-to { margin-top: 64px; width: 100%; max-width: 800px; text-align: center; }
+    .how-to h2 { margin-bottom: 32px; font-size: 1.75rem; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .step { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 32px 24px; transition: 0.3s; }
+    .step:hover { transform: translateY(-8px); border-color: var(--primary); }
+    .step-num { background: var(--primary); width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #fff; }
+    .step p { font-size: 0.95rem; color: #999; font-weight: 500; }
+
+    /* FAQ */
+    .faq { margin-top: 64px; width: 100%; max-width: 720px; }
+    .faq h2 { text-align: center; margin-bottom: 32px; }
+    details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 12px; transition: 0.2s; }
+    summary { padding: 20px 24px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; align-items: center; outline: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '→'; color: var(--primary); transition: 0.3s; }
+    details[open] { border-color: var(--primary); }
+    details[open] summary::after { transform: rotate(90deg); }
+    details p { padding: 0 24px 24px; color: #888; }
+
+    footer { margin-top: 80px; padding: 48px 0; border-top: 1px solid var(--border); width: 100%; max-width: 800px; text-align: center; }
+    footer p { color: #555; margin-bottom: 16px; font-weight: 600; }
+    footer .links a { color: #444; text-decoration: none; margin: 0 12px; font-size: 0.85rem; transition: 0.2s; }
+    footer .links a:hover { color: var(--primary); }
+
+    @media (max-width: 768px) {
+      .steps { grid-template-columns: 1fr; }
+      .card { padding: 24px; }
+      header h1 { font-size: 1.8rem; }
+      .topnav-links { display: none; }
+    }
   </style>
 </head>
 <body>
 
-  <nav class="topnav" aria-label="Main navigation">
-    <a href="/" class="topnav-brand" aria-label="SaveLinkX home">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  <nav class="topnav">
+    <a href="/" class="topnav-brand">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       SaveLinkX
     </a>
     <ul class="topnav-links">
@@ -113,108 +101,104 @@
   </nav>
 
   <header>
-    <div class="logo">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-    </div>
-    <h1><span>X (Twitter) Video Downloader</span> - Fast, Free and Safe</h1>
-    <p>Paste any X (Twitter) link and download in the highest available quality - free, no signup required.</p>
+    <h1><span>X Video Downloader</span> - Fast & Free</h1>
+    <p>The most reliable way to download X (Twitter) videos in high quality MP4.</p>
   </header>
 
-  <main class="card" role="main">
+  <main class="card">
     <div class="input-row">
       <div class="input-wrap">
-        <input type="text" id="urlInput" placeholder="Paste X (Twitter) URL..." />
-        <button id="pasteBtn" title="Paste from clipboard" onclick="pasteUrl()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/></svg>
-        </button>
+        <input type="text" id="urlInput" placeholder="Paste X (Twitter) link here..." />
       </div>
-      <button id="fetchBtn" onclick="fetchInfo()">
-        <div class="spinner" id="fetchSpinner"></div>
-        <span id="fetchLabel">Download</span>
-      </button>
+      <button id="fetchBtn" onclick="fetchInfo()">Download</button>
     </div>
-
-    <p style="font-size:0.85rem;color:#777;line-height:1.6;margin-top:16px;text-align:center;">SaveLinkX is the fastest free <strong>X video downloader</strong> online. Paste a link from <strong>x.com</strong> and download any public tweet video as MP4.</p>
-
-    <div id="status"><div id="statusSpinner"></div><span id="statusText"></span></div>
+    <p class="promo-text"><strong>SaveLinkX</strong> is 100% free. No registration required.</p>
 
     <div id="videoInfo">
-      <hr class="divider" />
       <div class="thumb-row">
-        <div class="thumb-wrap"><img id="thumbnail" src="" alt="Thumbnail" /><div class="play-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.45)"/><polygon points="10,8 16,12 10,16" fill="white"/></svg></div></div>
-        <div class="meta"><h2 id="title"></h2><div class="meta-badges"><span class="badge" id="uploaderBadge"></span><span class="badge" id="durationBadge"></span></div></div>
+        <img id="thumbnail" src="" alt="Thumbnail" />
+        <div class="meta">
+          <h2 id="title">Video Title</h2>
+          <div class="badge-group">
+            <span class="badge" id="uploaderBadge">Twitter User</span>
+            <span class="badge">HD MP4</span>
+          </div>
+        </div>
       </div>
-      <div class="format-section"><label>Format / Quality</label><select id="formatSelect"></select></div>
-      <button id="downloadBtn" onclick="startDownload()"><div id="dlSpinner"></div><span id="dlLabel">Download Now</span></button>
+      <button id="downloadBtn" onclick="startDownload()">Download Now</button>
     </div>
+    <div id="status" style="margin-top: 15px; text-align: center; color: #888;"></div>
   </main>
 
-  <section class="how-to" aria-label="How to download">
-    <h2>How to Download X (Twitter) Videos</h2>
+  <section class="how-to">
+    <h2>How to Download</h2>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><p>Find a tweet with a video on X.com and copy the link.</p></div>
-      <div class="step"><div class="step-num">2</div><p>Paste the link above and click <strong>Download</strong>.</p></div>
-      <div class="step"><div class="step-num">3</div><p>Choose quality and click <strong>Download Now</strong>.</p></div>
+      <div class="step"><div class="step-num">1</div><p>Copy the link of the X (Twitter) tweet containing the video.</p></div>
+      <div class="step"><div class="step-num">2</div><p>Paste the link into the box above and click Download.</p></div>
+      <div class="step"><div class="step-num">3</div><p>Select the quality and save the video to your device.</p></div>
     </div>
   </section>
 
-  <section class="faq" aria-label="Frequently asked questions">
+  <section class="faq">
     <h2>Frequently Asked Questions</h2>
-    <details><summary>Is it free to download X (Twitter) videos?</summary><p>Yes, SaveLinkX is completely free. No account or payment required.</p></details>
-    <details><summary>Does it work on iPhone and Android?</summary><p>Yes. SaveLinkX works in any mobile browser.</p></details>
+    <details><summary>Is it really free?</summary><p>Yes, SaveLinkX is and will always be free to use.</p></details>
+    <details><summary>Does it work on iPhone?</summary><p>Absolutely! You can use it in Safari or any other browser on your iPhone.</p></details>
   </section>
 
-  <footer style="margin-top:40px;width:100%;max-width:620px;text-align:center;">
-    <p style="font-size:0.9rem;font-weight:700;color:#aaa;margin-bottom:12px;">SaveLinkX - Your favorite link processor.</p>
-    <p style="font-size:0.8rem;color:#555;margin-bottom:16px;">
-      <a href="/faq" style="color:#555;text-decoration:underline;">FAQ</a>&nbsp;|&nbsp;<a href="/termos" style="color:#555;text-decoration:underline;">Terms</a>&nbsp;|&nbsp;<a href="/privacidade" style="color:#555;text-decoration:underline;">Privacy</a>&nbsp;|&nbsp;<a href="/contato" style="color:#555;text-decoration:underline;">Contact</a>
-    </p>
+  <footer>
+    <p>SaveLinkX © 2026 - Your favorite link processor.</p>
+    <div class="links">
+      <a href="/faq">FAQ</a>
+      <a href="/termos">Terms</a>
+      <a href="/privacidade">Privacy</a>
+      <a href="/contato">Contact</a>
+    </div>
   </footer>
 
   <script>
     let currentUrl = "";
-    function setStatus(msg, type = "") {
-      document.getElementById("statusText").textContent = msg;
-      document.getElementById("status").className = type ? `status-${type}` : "";
-      document.getElementById("statusSpinner").style.display = type === "loading" ? "block" : "none";
-    }
-    async function pasteUrl() {
-      try { const text = await navigator.clipboard.readText(); document.getElementById("urlInput").value = text; } catch {}
-    }
     async function fetchInfo() {
       const url = document.getElementById("urlInput").value.trim();
-      if (!url) return;
+      if(!url) return;
       currentUrl = url;
-      document.getElementById("fetchSpinner").style.display = "block";
-      document.getElementById("videoInfo").style.display = "none";
-      setStatus("Preparing download options...", "loading");
+      document.getElementById("status").textContent = "Fetching video info...";
       try {
-        const res = await fetch("/info", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url }) });
+        const res = await fetch("/info", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url }),
+        });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Error");
         document.getElementById("thumbnail").src = data.thumbnail;
         document.getElementById("title").textContent = data.title;
-        document.getElementById("uploaderBadge").textContent = data.uploader || "";
-        document.getElementById("durationBadge").textContent = data.duration || "";
-        const sel = document.getElementById("formatSelect"); sel.innerHTML = "";
-        [{value:"best", label:"MP4 - Best Quality"}].forEach(f=>{ const opt=document.createElement("option"); opt.value=f.value; opt.textContent=f.label; sel.appendChild(opt); });
-        document.getElementById("videoInfo").style.display = "block"; setStatus("");
-      } catch (err) { setStatus("Error loading video", "error"); } finally { document.getElementById("fetchSpinner").style.display = "none"; }
+        document.getElementById("uploaderBadge").textContent = data.uploader || "X Video";
+        document.getElementById("videoInfo").style.display = "block";
+        document.getElementById("status").textContent = "";
+      } catch (err) {
+        document.getElementById("status").textContent = "Error: Invalid link.";
+      }
     }
+
     async function startDownload() {
-      const btn = document.getElementById("downloadBtn"); btn.disabled = true;
-      document.getElementById("dlSpinner").style.display = "block";
+      const btn = document.getElementById("downloadBtn");
+      btn.textContent = "Processing...";
       try {
-        const res = await fetch("/download", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: currentUrl, format_id: "best" }) });
-        if (!res.ok) throw new Error("Download failed");
-        const blob = await res.blob(); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "video.mp4"; a.click();
-        setStatus("Download started!", "ok");
-      } catch (err) { setStatus("Error", "error"); } finally { btn.disabled = false; document.getElementById("dlSpinner").style.display = "none"; }
+        const res = await fetch("/download", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: currentUrl, format_id: "best" }),
+        });
+        const blob = await res.blob();
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "savelinkx_video.mp4";
+        a.click();
+      } finally {
+        btn.textContent = "Download Now";
+      }
     }
-    document.getElementById("urlInput").addEventListener("keydown", e => { if (e.key === "Enter") fetchInfo(); });
   </script>
 
   <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="If SaveLinkX helped you, consider buying me a coffee! ☕" data-color="#1DA1F2" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-
 </body>
 </html>
