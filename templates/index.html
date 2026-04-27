@@ -1,204 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
-  <title>SaveLinkX | Download X (Twitter) Videos Online for Free</title>
-  <meta name="description" content="Download videos from X (Twitter) instantly and for free. Paste any tweet link and save it as MP4." />
-  
-  <style>
-    :root { --primary: #1d9bf0; --bg: #0f0f0f; --card-bg: #1a1a1a; --border: #2a2a2a; --text: #e8e8e8; }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 16px 64px; line-height: 1.5; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <title>SaveLinkX | Download X (Twitter) Videos Online for Free</title>
+    <meta name="description" content="Download videos from X (Twitter) instantly and for free. Paste any tweet link and save it as MP4 - no signup, no software, works on any device.">
+    <link rel="canonical" href="{{ site_url }}/">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="SaveLinkX">
+    <meta name="theme-color" content="#0f0f0f">
 
-    /* Top Navigation Original */
-    .topnav { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; padding: 32px 0; }
-    .topnav-brand { font-size: 1.25rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-    .topnav-brand svg { width: 24px; height: 24px; fill: var(--primary); }
-    .topnav-links { display: flex; gap: 24px; list-style: none; }
-    .topnav-links a { color: #888; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.2s; }
-    .topnav-links a:hover { color: var(--primary); }
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site_url }}/">
+    <meta property="og:title" content="SaveLinkX - Download X (Twitter) Videos Online for Free">
+    <meta property="og:description" content="Paste any tweet link and download in the highest available quality in seconds. Free, no account needed.">
+    <meta property="og:image" content="{{ site_url }}/static/og-image.png">
 
-    header { text-align: center; margin: 20px 0 48px; max-width: 700px; }
-    header h1 { font-size: 2.5rem; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 12px; }
-    header h1 span { color: var(--primary); }
-    header p { color: #888; font-size: 1.1rem; }
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ site_url }}/">
+    <meta name="twitter:title" content="SaveLinkX - Download X (Twitter) Videos for Free">
+    <meta name="twitter:description" content="Download X and Twitter videos for free. Fast, easy, no signup required.">
+    <meta name="twitter:image" content="{{ site_url }}/static/og-image.png">
 
-    /* Main Card */
-    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 48px; width: 100%; max-width: 720px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-    .input-row { display: flex; gap: 12px; position: relative; }
-    .input-wrap { position: relative; flex: 1; }
-    
-    input[type="text"] { width: 100%; background: #000; border: 2px solid #333; border-radius: 16px; padding: 18px 20px; color: #fff; font-size: 1.05rem; outline: none; transition: 0.2s; }
-    input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(29, 155, 240, 0.1); }
+    <style>
+        :root { --primary: #1d9bf0; --bg: #0f0f0f; --card-bg: #1a1a1a; --border: #2a2a2a; --text: #e8e8e8; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 16px 64px; }
 
-    #fetchBtn { background: var(--primary); color: #fff; padding: 0 32px; border-radius: 16px; font-weight: 800; font-size: 1rem; cursor: pointer; border: none; transition: 0.2s; }
-    #fetchBtn:hover { background: #1a8cd8; transform: translateY(-2px); }
+        .topnav { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; padding: 32px 0; }
+        .topnav-brand { font-size: 1.25rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .topnav-brand svg { width: 24px; height: 24px; fill: var(--primary); }
+        .topnav-links { display: flex; gap: 24px; list-style: none; }
+        .topnav-links a { color: #888; text-decoration: none; font-size: 0.95rem; transition: 0.2s; }
+        .topnav-links a:hover { color: var(--primary); }
 
-    .promo-text { margin-top: 24px; color: #666; font-size: 0.9rem; text-align: center; }
-    .promo-text strong { color: #888; }
+        header { text-align: center; margin: 40px 0 48px; }
+        header h1 { font-size: 2.8rem; font-weight: 900; color: #fff; letter-spacing: -1.5px; margin-bottom: 12px; }
+        header h1 span { color: var(--primary); }
+        header p { color: #888; font-size: 1.1rem; max-width: 500px; margin: 0 auto; }
 
-    /* Video Info Section */
-    #videoInfo { display: none; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); animation: slideUp 0.4s ease-out; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    
-    .thumb-row { display: flex; gap: 24px; align-items: center; }
-    #thumbnail { width: 180px; border-radius: 16px; border: 1px solid #333; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-    .meta h2 { font-size: 1.2rem; margin-bottom: 12px; color: #fff; }
-    
-    .badge-group { display: flex; gap: 8px; }
-    .badge { background: #252525; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: #aaa; font-weight: 600; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 28px; padding: 48px; width: 100%; max-width: 720px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .input-row { display: flex; gap: 12px; }
+        .input-wrap { position: relative; flex: 1; }
+        input[type="text"] { width: 100%; background: #000; border: 2px solid #333; border-radius: 18px; padding: 20px 24px; color: #fff; font-size: 1.1rem; outline: none; transition: 0.2s; }
+        input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(29, 155, 240, 0.15); }
 
-    #downloadBtn { width: 100%; background: var(--primary); color: #fff; padding: 20px; border-radius: 16px; font-weight: 800; margin-top: 24px; border: none; cursor: pointer; font-size: 1.2rem; }
+        #fetchBtn { background: var(--primary); color: #fff; padding: 0 36px; border-radius: 18px; font-weight: 800; font-size: 1.05rem; cursor: pointer; border: none; transition: 0.2s; }
+        #fetchBtn:hover:not(:disabled) { background: #1a8cd8; transform: translateY(-2px); }
 
-    /* Steps Section */
-    .how-to { margin-top: 64px; width: 100%; max-width: 800px; text-align: center; }
-    .how-to h2 { margin-bottom: 32px; font-size: 1.75rem; }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .step { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 32px 24px; transition: 0.3s; }
-    .step:hover { transform: translateY(-8px); border-color: var(--primary); }
-    .step-num { background: var(--primary); width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #fff; }
-    .step p { font-size: 0.95rem; color: #999; font-weight: 500; }
+        #videoInfo { display: none; margin-top: 40px; border-top: 1px solid var(--border); padding-top: 32px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .thumb-row { display: flex; gap: 24px; align-items: center; }
+        #thumbnail { width: 180px; border-radius: 18px; border: 1px solid #333; }
+        .meta h2 { font-size: 1.2rem; color: #fff; margin-bottom: 12px; }
+        .badge { background: #252525; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: #aaa; margin-right: 8px; }
 
-    /* FAQ */
-    .faq { margin-top: 64px; width: 100%; max-width: 720px; }
-    .faq h2 { text-align: center; margin-bottom: 32px; }
-    details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 12px; transition: 0.2s; }
-    summary { padding: 20px 24px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; align-items: center; outline: none; }
-    summary::-webkit-details-marker { display: none; }
-    summary::after { content: '→'; color: var(--primary); transition: 0.3s; }
-    details[open] { border-color: var(--primary); }
-    details[open] summary::after { transform: rotate(90deg); }
-    details p { padding: 0 24px 24px; color: #888; }
+        #downloadBtn { width: 100%; background: var(--primary); color: #fff; padding: 20px; border-radius: 18px; font-weight: 800; margin-top: 24px; border: none; cursor: pointer; font-size: 1.2rem; transition: 0.2s; }
+        #downloadBtn:hover { filter: brightness(1.1); }
 
-    footer { margin-top: 80px; padding: 48px 0; border-top: 1px solid var(--border); width: 100%; max-width: 800px; text-align: center; }
-    footer p { color: #555; margin-bottom: 16px; font-weight: 600; }
-    footer .links a { color: #444; text-decoration: none; margin: 0 12px; font-size: 0.85rem; transition: 0.2s; }
-    footer .links a:hover { color: var(--primary); }
+        .how-to { margin-top: 80px; width: 100%; max-width: 850px; text-align: center; }
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+        .step { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 40px 24px; }
+        .step-num { background: var(--primary); width: 44px; height: 44px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #fff; }
 
-    @media (max-width: 768px) {
-      .steps { grid-template-columns: 1fr; }
-      .card { padding: 24px; }
-      header h1 { font-size: 1.8rem; }
-      .topnav-links { display: none; }
-    }
-  </style>
+        .faq { margin-top: 80px; width: 100%; max-width: 720px; }
+        details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 12px; }
+        summary { padding: 24px; cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; }
+        summary::after { content: '+'; color: var(--primary); }
+
+        footer { margin-top: 100px; padding: 60px 0; border-top: 1px solid var(--border); width: 100%; max-width: 800px; text-align: center; color: #555; }
+        footer a { color: #666; text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
+        footer a:hover { color: var(--primary); }
+
+        @media (max-width: 768px) { .steps { grid-template-columns: 1fr; } .input-row { flex-direction: column; } #fetchBtn { padding: 20px; } }
+    </style>
 </head>
 <body>
 
-  <nav class="topnav">
-    <a href="/" class="topnav-brand">
-      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      SaveLinkX
-    </a>
-    <ul class="topnav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/faq">FAQ</a></li>
-      <li><a href="/contato">Contact</a></li>
-    </ul>
-  </nav>
+    <nav class="topnav">
+        <a href="/" class="topnav-brand">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            SaveLinkX
+        </a>
+        <ul class="topnav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/contato">Contact</a></li>
+        </ul>
+    </nav>
 
-  <header>
-    <h1><span>X Video Downloader</span> - Fast & Free</h1>
-    <p>The most reliable way to download X (Twitter) videos in high quality MP4.</p>
-  </header>
+    <header>
+        <h1><span>X Video</span> Downloader</h1>
+        <p>Download X (Twitter) videos in high quality MP4 instantly and for free.</p>
+    </header>
 
-  <main class="card">
-    <div class="input-row">
-      <div class="input-wrap">
-        <input type="text" id="urlInput" placeholder="Paste X (Twitter) link here..." />
-      </div>
-      <button id="fetchBtn" onclick="fetchInfo()">Download</button>
-    </div>
-    <p class="promo-text"><strong>SaveLinkX</strong> is 100% free. No registration required.</p>
-
-    <div id="videoInfo">
-      <div class="thumb-row">
-        <img id="thumbnail" src="" alt="Thumbnail" />
-        <div class="meta">
-          <h2 id="title">Video Title</h2>
-          <div class="badge-group">
-            <span class="badge" id="uploaderBadge">Twitter User</span>
-            <span class="badge">HD MP4</span>
-          </div>
+    <main class="card">
+        <div class="input-row">
+            <div class="input-wrap">
+                <input type="text" id="urlInput" placeholder="Paste tweet link here...">
+            </div>
+            <button id="fetchBtn" onclick="fetchInfo()">Download</button>
         </div>
-      </div>
-      <button id="downloadBtn" onclick="startDownload()">Download Now</button>
-    </div>
-    <div id="status" style="margin-top: 15px; text-align: center; color: #888;"></div>
-  </main>
+        
+        <div id="status" style="text-align: center; margin-top: 15px; color: #888;"></div>
 
-  <section class="how-to">
-    <h2>How to Download</h2>
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><p>Copy the link of the X (Twitter) tweet containing the video.</p></div>
-      <div class="step"><div class="step-num">2</div><p>Paste the link into the box above and click Download.</p></div>
-      <div class="step"><div class="step-num">3</div><p>Select the quality and save the video to your device.</p></div>
-    </div>
-  </section>
+        <div id="videoInfo">
+            <div class="thumb-row">
+                <img id="thumbnail" src="" alt="Thumbnail">
+                <div class="meta">
+                    <h2 id="title"></h2>
+                    <span class="badge">HD Quality</span>
+                    <span class="badge" id="uploaderBadge"></span>
+                </div>
+            </div>
+            <button id="downloadBtn" onclick="startDownload()">Download Now</button>
+        </div>
+    </main>
 
-  <section class="faq">
-    <h2>Frequently Asked Questions</h2>
-    <details><summary>Is it really free?</summary><p>Yes, SaveLinkX is and will always be free to use.</p></details>
-    <details><summary>Does it work on iPhone?</summary><p>Absolutely! You can use it in Safari or any other browser on your iPhone.</p></details>
-  </section>
+    <section class="how-to">
+        <h2>How to use SaveLinkX</h2>
+        <div class="steps">
+            <div class="step"><div class="step-num">1</div><p>Copy the video URL from X (Twitter).</p></div>
+            <div class="step"><div class="step-num">2</div><p>Paste the link into the search box above.</p></div>
+            <div class="step"><div class="step-num">3</div><p>Click Download and save your MP4 file.</p></div>
+        </div>
+    </section>
 
-  <footer>
-    <p>SaveLinkX © 2026 - Your favorite link processor.</p>
-    <div class="links">
-      <a href="/faq">FAQ</a>
-      <a href="/termos">Terms</a>
-      <a href="/privacidade">Privacy</a>
-      <a href="/contato">Contact</a>
-    </div>
-  </footer>
+    <section class="faq">
+        <h2 style="text-align: center; margin-bottom: 32px;">FAQ</h2>
+        <details><summary>Is it free?</summary><p>Yes, 100% free forever.</p></details>
+        <details><summary>Does it work on mobile?</summary><p>Yes, it works perfectly on Android and iPhone (iOS).</p></details>
+    </section>
 
-  <script>
-    let currentUrl = "";
-    async function fetchInfo() {
-      const url = document.getElementById("urlInput").value.trim();
-      if(!url) return;
-      currentUrl = url;
-      document.getElementById("status").textContent = "Fetching video info...";
-      try {
-        const res = await fetch("/info", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url }),
-        });
-        const data = await res.json();
-        document.getElementById("thumbnail").src = data.thumbnail;
-        document.getElementById("title").textContent = data.title;
-        document.getElementById("uploaderBadge").textContent = data.uploader || "X Video";
-        document.getElementById("videoInfo").style.display = "block";
-        document.getElementById("status").textContent = "";
-      } catch (err) {
-        document.getElementById("status").textContent = "Error: Invalid link.";
-      }
-    }
+    <footer>
+        <p>© 2026 SaveLinkX - All Rights Reserved</p>
+        <div style="margin-top: 15px;">
+            <a href="/termos">Terms</a> | <a href="/privacidade">Privacy</a> | <a href="/contato">Contact</a>
+        </div>
+    </footer>
 
-    async function startDownload() {
-      const btn = document.getElementById("downloadBtn");
-      btn.textContent = "Processing...";
-      try {
-        const res = await fetch("/download", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url: currentUrl, format_id: "best" }),
-        });
-        const blob = await res.blob();
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "savelinkx_video.mp4";
-        a.click();
-      } finally {
-        btn.textContent = "Download Now";
-      }
-    }
-  </script>
+    <script>
+        let currentUrl = "";
+        async function fetchInfo() {
+            const url = document.getElementById("urlInput").value.trim();
+            if(!url) return;
+            currentUrl = url;
+            document.getElementById("status").textContent = "Fetching video details...";
+            try {
+                const res = await fetch("/info", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url }),
+                });
+                const data = await res.json();
+                if(!res.ok) throw new Error();
+                document.getElementById("thumbnail").src = data.thumbnail;
+                document.getElementById("title").textContent = data.title;
+                document.getElementById("uploaderBadge").textContent = "@" + (data.uploader || "user");
+                document.getElementById("videoInfo").style.display = "block";
+                document.getElementById("status").textContent = "";
+            } catch (err) {
+                document.getElementById("status").textContent = "Error: Link not supported or private.";
+            }
+        }
 
-  <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="If SaveLinkX helped you, consider buying me a coffee! ☕" data-color="#1DA1F2" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+        async function startDownload() {
+            const btn = document.getElementById("downloadBtn");
+            btn.textContent = "Downloading...";
+            try {
+                const res = await fetch("/download", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: currentUrl, format_id: "best" }),
+                });
+                const blob = await res.blob();
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = "video.mp4";
+                a.click();
+            } finally {
+                btn.textContent = "Download Now";
+            }
+        }
+    </script>
+
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="If SaveLinkX helped you, consider buying me a coffee! ☕" data-color="#1DA1F2" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
 </html>
