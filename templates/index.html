@@ -5,104 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
   <title>SaveLinkX | Download X (Twitter) Videos Online for Free</title>
-  <meta name="description" content="Download videos from X (Twitter) instantly and for free. Paste any tweet link and save it as MP4 - no signup, no software, works on any device." />
-  <link rel="canonical" href="{{ site_url }}/" />
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="SaveLinkX" />
-  <meta name="theme-color" content="#0f0f0f" />
-  <meta property="og:title" content="SaveLinkX - Download X (Twitter) Videos Online for Free" />
-  <meta property="og:description" content="Paste any tweet link and download in the highest available quality in seconds. Free, no account needed." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ site_url }}/" />
-  <meta property="og:site_name" content="SaveLinkX" />
-  <meta property="og:locale" content="en_US" />
-  <meta name="keywords" content="X video downloader, Twitter video downloader, download X videos, download Twitter videos, save tweet video, twitter video download MP4, x.com video download, free twitter downloader, download video from X, twitter to mp4" />
-  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="SaveLinkX - Download X (Twitter) Videos for Free" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SaveLinkX - Download X (Twitter) Videos for Free" />
-  <meta name="twitter:description" content="Download X and Twitter videos for free. Fast, easy, no signup required." />
-  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
-  <link rel="alternate" hreflang="en" href="{{ site_url }}/" />
+  <meta name="description" content="Download videos from X (Twitter) instantly and for free. Paste any tweet link and save it as MP4." />
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "X Video Downloader",
-    "description": "Download X (Twitter) videos online for free in MP4 format. No account required.",
-    "url": "{{ site_url }}/",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "All",
-    "inLanguage": "en",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "publisher": {
-      "@type": "Organization",
-      "name": "SaveLinkX",
-      "url": "{{ site_url }}/"
-    }
-  }
-  </script>
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 64px; }
+    
+    /* Topnav Original */
+    .topnav { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; padding: 20px 0 40px; }
+    .topnav-brand { font-size: 1.2rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .topnav-brand svg { width: 24px; fill: #1d9bf0; }
+    .topnav-links { display: flex; gap: 20px; list-style: none; }
+    .topnav-links a { color: #888; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .topnav-links a:hover { color: #1d9bf0; }
+
     header { text-align: center; margin-bottom: 36px; }
-    .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .logo svg { width: 32px; height: 32px; fill: #1d99f0; }
-    header h1 { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+    header h1 { font-size: 2.2rem; font-weight: 800; color: #fff; letter-spacing: -1px; }
     header h1 span { color: #1d9bf0; }
-    header p { color: #888; margin-top: 8px; font-size: 0.95rem; }
-    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 32px; width: 100%; max-width: 620px; }
-    .input-row { display: flex; gap: 8px; }
+    header p { color: #888; margin-top: 10px; font-size: 1rem; }
+
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 24px; padding: 40px; width: 100%; max-width: 700px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .input-row { display: flex; gap: 12px; }
     .input-wrap { position: relative; flex: 1; }
-    input[type="text"] { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 13px 44px 13px 16px; color: #e8e8e8; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+    input[type="text"] { width: 100%; background: #0f0f0f; border: 2px solid #333; border-radius: 14px; padding: 15px 18px; color: #fff; font-size: 1rem; outline: none; transition: border-color 0.2s; }
     input[type="text"]:focus { border-color: #1d9bf0; }
-    #pasteBtn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 4px; cursor: pointer; color: #555; border-radius: 6px; transition: color 0.2s; font-size: 0; }
-    #pasteBtn:hover { color: #1d9bf0; }
-    #pasteBtn svg { width: 18px; height: 18px; }
-    button { cursor: pointer; border: none; border-radius: 12px; padding: 13px 22px; font-size: 0.9rem; font-weight: 700; transition: opacity 0.2s, background 0.2s, transform 0.1s; }
-    button:active:not(:disabled) { transform: scale(0.97); }
-    button:disabled { opacity: 0.4; cursor: not-allowed; }
-    #fetchBtn { background: #1d9bf0; color: #fff; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
-    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #status { margin-top: 14px; font-size: 0.85rem; text-align: center; min-height: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    #statusSpinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.2); border-top-color: #aaa; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+
+    #fetchBtn { background: #1d9bf0; color: #fff; padding: 15px 28px; border-radius: 14px; font-weight: 700; cursor: pointer; border: none; transition: background 0.2s; }
+    #fetchBtn:hover { background: #1a8cd8; }
+
+    #status { margin-top: 20px; text-align: center; min-height: 24px; font-size: 0.9rem; }
     .status-error { color: #ff6b6b; }
     .status-loading { color: #aaa; }
-    #videoInfo { display: none; margin-top: 24px; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    .divider { border: none; border-top: 1px solid #2a2a2a; margin-bottom: 20px; }
-    .thumb-row { display: flex; gap: 16px; align-items: flex-start; }
-    .thumb-wrap img { width: 130px; border-radius: 10px; object-fit: cover; display: block; }
-    .meta h2 { font-size: 0.95rem; font-weight: 600; line-height: 1.45; margin-bottom: 8px; word-break: break-word; }
-    .badge { background: #222; border: 1px solid #333; border-radius: 20px; padding: 3px 10px; font-size: 0.75rem; color: #aaa; }
-    .format-section { margin-top: 20px; }
-    .format-section label { font-size: 0.8rem; color: #777; display: block; margin-bottom: 8px; text-transform: uppercase; }
-    select { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 12px 14px; color: #e8e8e8; font-size: 0.9rem; outline: none; }
-    #downloadBtn { margin-top: 14px; width: 100%; background: #1d9bf0; color: #fff; padding: 15px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .how-to { margin-top: 40px; width: 100%; max-width: 620px; }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .step { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; padding: 20px 16px; text-align: center; }
-    .step-num { width: 32px; height: 32px; background: #1d9bf0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: 700; }
-    .faq { margin-top: 32px; width: 100%; max-width: 620px; }
-    details { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; margin-bottom: 8px; }
-    summary { padding: 14px 18px; cursor: pointer; font-size: 0.9rem; font-weight: 600; display: flex; justify-content: space-between; }
-    .topnav { width: 100%; max-width: 620px; display: flex; justify-content: space-between; padding-bottom: 28px; }
-    .topnav-brand { color: #fff; text-decoration: none; font-weight: 800; display: flex; align-items: center; gap: 7px; }
-    .topnav-links { display: flex; gap: 20px; list-style: none; }
-    .topnav-links a { color: #666; text-decoration: none; font-size: 0.85rem; }
-    @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+
+    #videoInfo { display: none; margin-top: 32px; border-top: 1px solid #2a2a2a; padding-top: 24px; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    
+    .thumb-row { display: flex; gap: 20px; align-items: center; }
+    #thumbnail { width: 150px; border-radius: 12px; border: 1px solid #333; }
+    .meta h2 { font-size: 1.1rem; font-weight: 600; color: #fff; }
+
+    .format-section { margin-top: 24px; }
+    .format-section label { font-size: 0.8rem; color: #666; text-transform: uppercase; font-weight: 700; }
+    select { width: 100%; background: #0f0f0f; border: 2px solid #333; padding: 14px; color: #fff; border-radius: 14px; margin-top: 10px; cursor: pointer; }
+
+    #downloadBtn { width: 100%; background: #1d9bf0; color: #fff; padding: 18px; border-radius: 14px; font-weight: 700; margin-top: 20px; border: none; cursor: pointer; font-size: 1.1rem; }
+
+    /* Steps */
+    .how-to { margin-top: 48px; width: 100%; max-width: 700px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+    .step { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 24px; text-align: center; transition: transform 0.2s; }
+    .step:hover { transform: translateY(-5px); }
+    .step-num { background: #1d9bf0; width: 32px; height: 32px; border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; }
+    .step p { font-size: 0.9rem; color: #888; font-weight: 500; }
+
+    footer { margin-top: 60px; padding: 40px 0; border-top: 1px solid #1a1a1a; width: 100%; max-width: 700px; text-align: center; color: #444; }
+    footer a { color: #666; text-decoration: none; margin: 0 10px; font-size: 0.85rem; }
+    footer a:hover { color: #1d9bf0; text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .steps { grid-template-columns: 1fr; }
+      .input-row { flex-direction: column; }
+      header h1 { font-size: 1.8rem; }
+    }
   </style>
 </head>
 <body>
 
   <nav class="topnav">
     <a href="/" class="topnav-brand">
-      <svg viewBox="0 0 24 24" width="20" fill="#1d9bf0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       SaveLinkX
     </a>
     <ul class="topnav-links">
@@ -114,77 +85,72 @@
 
   <header>
     <h1><span>X Video Downloader</span> - Fast & Free</h1>
-    <p>Paste any X (Twitter) link and download videos instantly.</p>
+    <p>Paste any X (Twitter) link and download videos instantly in MP4.</p>
   </header>
 
   <main class="card">
     <div class="input-row">
       <div class="input-wrap">
-        <input type="text" id="urlInput" placeholder="Paste X URL here..." />
-        <button id="pasteBtn" onclick="pasteUrl()">Paste</button>
+        <input type="text" id="urlInput" placeholder="Paste tweet link here..." />
       </div>
-      <button id="fetchBtn" onclick="fetchInfo()">
-        <div class="spinner" id="fetchSpinner"></div>
-        <span id="fetchLabel">Download</span>
-      </button>
+      <button id="fetchBtn" onclick="fetchInfo()">Download</button>
     </div>
-
-    <div id="status"><div id="statusSpinner"></div><span id="statusText"></span></div>
+    <div id="status"><span id="statusText"></span></div>
 
     <div id="videoInfo">
-      <hr class="divider" />
       <div class="thumb-row">
-        <div class="thumb-wrap"><img id="thumbnail" src="" /></div>
+        <img id="thumbnail" src="" alt="Thumbnail" />
         <div class="meta">
-          <h2 id="title"></h2>
-          <div class="meta-badges">
-            <span class="badge" id="uploaderBadge"></span>
-            <span class="badge" id="durationBadge"></span>
-          </div>
+          <h2 id="title">Video Title</h2>
         </div>
       </div>
       <div class="format-section">
-        <label>Quality</label>
-        <select id="formatSelect"></select>
+        <label>Select Quality</label>
+        <select id="formatSelect">
+            <option value="best">Best Quality (MP4)</option>
+        </select>
       </div>
-      <button id="downloadBtn" onclick="startDownload()">
-        <div id="dlSpinner"></div>
-        <span id="dlLabel">Download Now</span>
-      </button>
+      <button id="downloadBtn" onclick="startDownload()">Download Now</button>
     </div>
   </main>
 
   <section class="how-to">
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><p>Copy link</p></div>
-      <div class="step"><div class="step-num">2</div><p>Paste link</p></div>
-      <div class="step"><div class="step-num">3</div><p>Download!</p></div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Copy tweet URL</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Paste link above</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Save video file</p>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 SaveLinkX - <a href="/termos" style="color:#555">Terms</a> | <a href="/privacidade" style="color:#555">Privacy</a></p>
+    <p>© 2026 SaveLinkX - All Rights Reserved</p>
+    <div style="margin-top: 15px;">
+        <a href="/termos">Terms</a>
+        <a href="/privacidade">Privacy</a>
+        <a href="/contato">Contact</a>
+    </div>
   </footer>
 
   <script>
     let currentUrl = "";
 
-    function setStatus(msg, type = "") {
-      document.getElementById("statusText").textContent = msg;
-      document.getElementById("status").className = type ? `status-${type}` : "";
-      document.getElementById("statusSpinner").style.display = type === "loading" ? "block" : "none";
-    }
-
-    async function pasteUrl() {
-      const text = await navigator.clipboard.readText();
-      document.getElementById("urlInput").value = text;
-    }
-
     async function fetchInfo() {
       const url = document.getElementById("urlInput").value.trim();
-      if (!url) return;
+      if(!url) return;
       currentUrl = url;
-      document.getElementById("fetchSpinner").style.display = "block";
+      const statusText = document.getElementById("statusText");
+      statusText.textContent = "Fetching video info...";
+      statusText.className = "status-loading";
+      
       try {
         const res = await fetch("/info", {
           method: "POST",
@@ -192,44 +158,40 @@
           body: JSON.stringify({ url }),
         });
         const data = await res.json();
+        if(!res.ok) throw new Error();
+
         document.getElementById("thumbnail").src = data.thumbnail;
         document.getElementById("title").textContent = data.title;
-        document.getElementById("uploaderBadge").textContent = data.uploader;
-        document.getElementById("durationBadge").textContent = data.duration;
-        
-        const sel = document.getElementById("formatSelect");
-        sel.innerHTML = '<option value="best">Best Quality</option><option value="worst">Low Quality</option>';
-        
         document.getElementById("videoInfo").style.display = "block";
-        setStatus("");
+        statusText.textContent = "";
       } catch (err) {
-        setStatus("Error loading video", "error");
-      } finally {
-        document.getElementById("fetchSpinner").style.display = "none";
+        statusText.textContent = "Error: Make sure the link is valid and public.";
+        statusText.className = "status-error";
       }
     }
 
     async function startDownload() {
       const btn = document.getElementById("downloadBtn");
+      const originalText = btn.textContent;
+      btn.textContent = "Processing...";
       btn.disabled = true;
-      document.getElementById("dlSpinner").style.display = "block";
+
       try {
         const res = await fetch("/download", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url: currentUrl, format_id: document.getElementById("formatSelect").value }),
+          body: JSON.stringify({ url: currentUrl, format_id: "best" }),
         });
         const blob = await res.blob();
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "video.mp4";
+        a.download = "savelinkx_video.mp4";
         a.click();
-        setStatus("Download started!", "ok");
       } catch (err) {
-        setStatus("Download failed", "error");
+        alert("Download failed. Please try again.");
       } finally {
+        btn.textContent = originalText;
         btn.disabled = false;
-        document.getElementById("dlSpinner").style.display = "none";
       }
     }
 
