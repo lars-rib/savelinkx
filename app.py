@@ -378,4 +378,4 @@ def sitemap():
     return xml, 200, {'Content-Type': 'application/xml'}
 if __name__ == "__main__":
     debug_enabled = os.getenv("FLASK_DEBUG", "0") == "1"
-    app.run(host="127.0.0.1", port=int(os.getenv("PORT", "5000")), debug=debug_enabled)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=debug_enabled)
