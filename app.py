@@ -67,7 +67,7 @@ def get_site_base_url():
     env_url = os.getenv("SITE_URL", "").strip().rstrip("/")
     if env_url:
         return env_url
-    return "http://127.0.0.1:5000"
+    return "https://www.savelinkx.com"
 
 
 def base_ydl_opts():
@@ -214,37 +214,6 @@ def robots():
     return Response(content, mimetype="text/plain")
 
 
-@app.route("/sitemap.xml")
-def sitemap():
-    site_url = get_site_base_url()
-    today = date.today().isoformat()
-    urls = [
-        {"loc": f"{site_url}/", "priority": "1.0", "changefreq": "daily", "lastmod": today},
-        {"loc": f"{site_url}/faq", "priority": "0.8", "changefreq": "monthly", "lastmod": today},
-        {"loc": f"{site_url}/contato", "priority": "0.4", "changefreq": "monthly", "lastmod": today},
-        {"loc": f"{site_url}/termos", "priority": "0.3", "changefreq": "monthly", "lastmod": today},
-        {"loc": f"{site_url}/privacidade", "priority": "0.3", "changefreq": "monthly", "lastmod": today},
-    ]
-    body = "".join(
-        (
-            "<url>"
-            f"<loc>{u['loc']}</loc>"
-            f"<lastmod>{u['lastmod']}</lastmod>"
-            f"<changefreq>{u['changefreq']}</changefreq>"
-            f"<priority>{u['priority']}</priority>"
-            "</url>"
-        )
-        for u in urls
-    )
-    xml = (
-        '<?xml version="1.0" encoding="UTF-8"?>'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-        f"{body}"
-        "</urlset>"
-    )
-    return Response(xml, mimetype="application/xml")
-
-
 @app.route("/info", methods=["POST"])
 @limiter.limit("60 per minute")
 def get_info():
@@ -272,7 +241,7 @@ def get_info():
         }
         set_cached_metadata(url, data)
         return jsonify(data)
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         logger.exception("/info failed for url=%s", url)
         return jsonify({"error": map_yt_dlp_error(exc)}), 400
 
@@ -308,8 +277,7 @@ def download():
 
     try:
         path = run_download(fmt)
-    except Exception as primary_exc:  # noqa: BLE001
-        # Fallback for unavailable/merge-heavy formats: try a compatible best MP4 output.
+    except Exception as primary_exc:
         if fmt != "best[ext=mp4]/best":
             try:
                 logger.warning(
@@ -318,7 +286,7 @@ def download():
                     primary_exc,
                 )
                 path = run_download("best[ext=mp4]/best")
-            except Exception as fallback_exc:  # noqa: BLE001
+            except Exception as fallback_exc:
                 logger.exception("/download fallback failed for url=%s format=%s", url, fmt)
                 return jsonify({"error": map_yt_dlp_error(fallback_exc)}), 400
         else:
@@ -340,11 +308,12 @@ def download():
     def remove_file(response):
         try:
             threading.Timer(5, os.remove, args=[path]).start()
-        except Exception:  # noqa: BLE001
+        except Exception:
             logger.warning("Could not schedule temporary file cleanup for %s", path)
         return response
 
     return send_file(path, as_attachment=True, download_name=filename)
+
 
 @app.route('/sitemap.xml')
 def sitemap():
@@ -376,7 +345,10 @@ def sitemap():
       </url>
     </urlset>"""
     return xml, 200, {'Content-Type': 'application/xml'}
+
+
 if __name__ == "__main__":
     debug_enabled = os.getenv("FLASK_DEBUG", "0") == "1"
-    # MUDANÇA AQUI: host de "127.0.0.1" para "0.0.0.0"
+    # Configurado para 0.0.0.0 para funcionar no Railway
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=debug_enabled)
+    
