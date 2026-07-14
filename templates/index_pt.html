@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+  <title>SaveLinkX | Baixar Vídeos do X (Twitter) Grátis Online</title>
+  <meta name="description" content="Baixe vídeos do X (Twitter) instantaneamente e de graça. Cole o link do tweet e salve como MP4 - sem cadastro, sem programas, funciona em qualquer dispositivo." />
+  <link rel="canonical" href="{{ site_url }}/pt/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="SaveLinkX - Baixar Vídeos do X (Twitter) Grátis" />
+  <meta property="og:description" content="Cole o link de qualquer tweet e baixe na melhor qualidade em segundos. Grátis, sem precisar de conta." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/pt/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="keywords" content="baixar video twitter, baixar video do x, download video twitter, salvar video twitter, twitter video mp4, baixar video x.com, download twitter gratis, baixar gif twitter" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaveLinkX - Baixar Vídeos do X (Twitter) Grátis" />
+  <meta name="twitter:description" content="Baixe vídeos do X e Twitter de graça. Rápido, fácil, sem cadastro." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Baixador de Vídeos do X (Twitter)",
+    "description": "Baixe vídeos do X (Twitter) online e de graça em formato MP4. Sem necessidade de conta.",
+    "url": "{{ site_url }}/pt/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "pt-BR",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+    "publisher": { "@type": "Organization", "name": "SaveLinkX", "url": "{{ site_url }}/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Como Baixar Vídeos do X (Twitter)",
+    "description": "Baixe vídeos do X e Twitter de graça em 3 passos simples - sem instalar nada.",
+    "inLanguage": "pt-BR",
+    "totalTime": "PT1M",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Copie o link do tweet", "text": "Encontre um tweet com vídeo no X.com ou Twitter e copie o link pela barra de endereço ou botão de compartilhar." },
+      { "@type": "HowToStep", "position": 2, "name": "Cole o link e clique em Baixar", "text": "Cole o link no campo do SaveLinkX e clique em Baixar para carregar as opções de qualidade." },
+      { "@type": "HowToStep", "position": 3, "name": "Escolha a qualidade e baixe", "text": "Selecione a qualidade desejada no menu e clique em Baixar Agora - o arquivo MP4 será salvo no seu dispositivo." }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "É grátis baixar vídeos do X (Twitter)?", "acceptedAnswer": { "@type": "Answer", "text": "Sim, o SaveLinkX é totalmente gratuito. Não precisa de conta, assinatura ou pagamento de nenhum tipo." } },
+      { "@type": "Question", "name": "Quais formatos de vídeo são suportados?", "acceptedAnswer": { "@type": "Answer", "text": "Os vídeos são baixados em MP4, compatível com todos os celulares, tablets e computadores." } },
+      { "@type": "Question", "name": "Funciona no iPhone e Android?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. O SaveLinkX funciona em qualquer navegador de celular. Cole o link do tweet e o vídeo será salvo direto no seu aparelho." } },
+      { "@type": "Question", "name": "Por que alguns vídeos não podem ser baixados?", "acceptedAnswer": { "@type": "Answer", "text": "Vídeos de contas privadas ou protegidas não podem ser baixados. Apenas tweets públicos com vídeo são suportados." } },
+      { "@type": "Question", "name": "É legal baixar vídeos do X (Twitter)?", "acceptedAnswer": { "@type": "Answer", "text": "Você só deve baixar vídeos que possui ou tem permissão explícita para salvar. Sempre respeite os direitos autorais e os Termos de Serviço do X." } },
+      { "@type": "Question", "name": "Preciso instalar algum programa ou extensão?", "acceptedAnswer": { "@type": "Answer", "text": "Não. O SaveLinkX funciona 100% no navegador, sem aplicativos, extensões ou plugins." } },
+      { "@type": "Question", "name": "O SaveLinkX armazena meus vídeos?", "acceptedAnswer": { "@type": "Answer", "text": "Não. Os vídeos são processados e enviados diretamente para o seu dispositivo. Não guardamos nenhum arquivo em nossos servidores." } },
+      { "@type": "Question", "name": "Posso baixar GIFs animados do Twitter?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. GIFs do Twitter são tratados como vídeos na plataforma e podem ser baixados normalmente em MP4." } }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
+    header { text-align: center; margin-bottom: 36px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .logo svg { width: 32px; height: 32px; fill: #1d9bf0; }
+    header h1 { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+    header h1 span { color: #1d9bf0; }
+    header p { color: #888; margin-top: 8px; font-size: 0.95rem; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 32px; width: 100%; max-width: 620px; }
+    .input-row { display: flex; gap: 8px; }
+    .input-wrap { position: relative; flex: 1; }
+    input[type="text"] { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 13px 44px 13px 16px; color: #e8e8e8; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+    input[type="text"]:focus { border-color: #1d9bf0; }
+    #pasteBtn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 4px; cursor: pointer; color: #555; border-radius: 6px; transition: color 0.2s; font-size: 0; }
+    #pasteBtn:hover { color: #1d9bf0; }
+    #pasteBtn svg { width: 18px; height: 18px; }
+    button { cursor: pointer; border: none; border-radius: 12px; padding: 13px 22px; font-size: 0.9rem; font-weight: 700; transition: opacity 0.2s, background 0.2s, transform 0.1s; }
+    button:active:not(:disabled) { transform: scale(0.97); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    #fetchBtn { background: #1d9bf0; color: #fff; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+    #fetchBtn:hover:not(:disabled) { background: #1a8cd8; }
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #status { margin-top: 14px; font-size: 0.85rem; text-align: center; min-height: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    #statusSpinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.2); border-top-color: #aaa; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; flex-shrink: 0; }
+    .status-loading { color: #aaa; }
+    .status-error   { color: #ff6b6b; }
+    .status-ok      { color: #4caf50; }
+    #videoInfo { display: none; margin-top: 24px; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .divider { border: none; border-top: 1px solid #2a2a2a; margin-bottom: 20px; }
+    .thumb-row { display: flex; gap: 16px; align-items: flex-start; }
+    .thumb-wrap { position: relative; flex-shrink: 0; }
+    .thumb-wrap img { width: 130px; border-radius: 10px; object-fit: cover; display: block; }
+    .play-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+    .play-icon svg { width: 36px; height: 36px; opacity: 0.85; }
+    .meta { flex: 1; min-width: 0; }
+    .meta h2 { font-size: 0.95rem; font-weight: 600; line-height: 1.45; margin-bottom: 8px; word-break: break-word; }
+    .meta-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .badge { background: #222; border: 1px solid #333; border-radius: 20px; padding: 3px 10px; font-size: 0.75rem; color: #aaa; }
+    .format-section { margin-top: 20px; }
+    .format-section label { font-size: 0.8rem; color: #777; display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+    select { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 12px 14px; color: #e8e8e8; font-size: 0.9rem; outline: none; cursor: pointer; }
+    select:focus { border-color: #1d9bf0; }
+    #downloadBtn { margin-top: 14px; width: 100%; background: #1d9bf0; color: #fff; padding: 15px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    #downloadBtn:hover:not(:disabled) { background: #1a8cd8; }
+    #dlSpinner { width: 17px; height: 17px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+    .how-to { margin-top: 40px; width: 100%; max-width: 620px; }
+    .how-to h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 16px; text-align: center; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .step { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; padding: 20px 16px; text-align: center; }
+    .step-num { width: 32px; height: 32px; background: #1d9bf0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; margin: 0 auto 10px; }
+    .step p { font-size: 0.82rem; color: #999; line-height: 1.5; }
+    .faq { margin-top: 32px; width: 100%; max-width: 620px; }
+    .faq h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 14px; text-align: center; }
+    details { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
+    summary { padding: 14px 18px; cursor: pointer; font-size: 0.9rem; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; color: #555; font-size: 1.2rem; transition: transform 0.2s; }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p { padding: 0 18px 14px; font-size: 0.85rem; color: #888; line-height: 1.6; }
+    footer { margin-top: 40px; font-size: 0.75rem; color: #444; text-align: center; line-height: 1.6; }
+    .topnav { width: 100%; max-width: 620px; display: flex; justify-content: space-between; align-items: center; padding: 0 0 28px; }
+    .topnav-brand { font-size: 1rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 7px; }
+    .topnav-brand svg { width: 20px; height: 20px; fill: #1d9bf0; }
+    .topnav-links { display: flex; gap: 20px; list-style: none; }
+    .topnav-links a { color: #666; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .topnav-links a:hover { color: #1d9bf0; }
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.5rem; }
+      .thumb-wrap img { width: 100px; }
+      .topnav-links { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topnav" aria-label="Navegação principal">
+    <a href="/pt/" class="topnav-brand" aria-label="SaveLinkX início">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      SaveLinkX
+    </a>
+    <ul class="topnav-links">
+      <li><a href="/pt/">Início</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/contato">Contato</a></li>
+      <li><a href="/">English</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </div>
+    <h1><span>Baixar Vídeos do X (Twitter)</span> - Rápido, Grátis e Seguro</h1>
+    <p>Cole o link de qualquer post do X (Twitter) e baixe na melhor qualidade disponível - grátis, sem cadastro.</p>
+  </header>
+
+  <main class="card" role="main">
+    <div class="input-row">
+      <div class="input-wrap">
+        <input type="text" id="urlInput" placeholder="Cole o link do X (Twitter) ex: https://x.com/user/status/123456789" autocomplete="off" />
+        <button id="pasteBtn" title="Colar da área de transferência" onclick="pasteUrl()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2" width="6" height="4" rx="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/>
+          </svg>
+        </button>
+      </div>
+      <button id="fetchBtn" onclick="fetchInfo()">
+        <div class="spinner" id="fetchSpinner"></div>
+        <span id="fetchLabel">Baixar</span>
+      </button>
+    </div>
+
+    <p style="font-size:0.85rem;color:#777;line-height:1.6;margin-top:16px;text-align:center;">O SaveLinkX é o <strong style="color:#aaa;">baixador de vídeos do X</strong> gratuito mais rápido da internet. Cole um link do <strong style="color:#aaa;">twitter.com</strong> ou <strong style="color:#aaa;">x.com</strong> e baixe qualquer vídeo público em MP4 - sem instalar nada, sem conta, funciona em qualquer dispositivo.</p>
+
+    <div id="status"><div id="statusSpinner"></div><span id="statusText"></span></div>
+
+    <div id="videoInfo">
+      <hr class="divider" />
+      <div class="thumb-row">
+        <div class="thumb-wrap">
+          <img id="thumbnail" src="" alt="Miniatura do vídeo" />
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.45)"/><polygon points="10,8 16,12 10,16" fill="white"/></svg>
+          </div>
+        </div>
+        <div class="meta">
+          <h2 id="title"></h2>
+          <div class="meta-badges">
+            <span class="badge" id="uploaderBadge"></span>
+            <span class="badge" id="durationBadge"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="format-section">
+        <label>Formato / Qualidade</label>
+        <select id="formatSelect"></select>
+      </div>
+
+      <button id="downloadBtn" onclick="startDownload()">
+        <div id="dlSpinner"></div>
+        <span id="dlLabel">Baixar Agora</span>
+      </button>
+    </div>
+  </main>
+
+  <section class="how-to" aria-label="Como baixar">
+    <h2>Como Baixar Vídeos do X (Twitter)</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Encontre um tweet com vídeo no X.com ou Twitter e copie o link pela barra de endereço.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Cole o link no campo acima e clique em <strong>Baixar</strong> para carregar as opções de qualidade.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Escolha a qualidade desejada e clique em <strong>Baixar Agora</strong> - o MP4 será salvo no seu dispositivo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Perguntas frequentes">
+    <h2>Perguntas Frequentes</h2>
+
+    <details>
+      <summary>É grátis baixar vídeos do X (Twitter)?</summary>
+      <p>Sim, o SaveLinkX é totalmente gratuito. Não precisa de conta, assinatura ou pagamento de nenhum tipo.</p>
+    </details>
+    <details>
+      <summary>Quais formatos de vídeo são suportados?</summary>
+      <p>Os vídeos são baixados em MP4, compatível com todos os celulares, tablets e computadores.</p>
+    </details>
+    <details>
+      <summary>Funciona no iPhone e Android?</summary>
+      <p>Sim. O SaveLinkX funciona em qualquer navegador de celular. Cole o link do tweet e o vídeo será salvo direto no seu aparelho.</p>
+    </details>
+    <details>
+      <summary>Por que alguns vídeos não podem ser baixados?</summary>
+      <p>Vídeos de contas privadas ou protegidas não podem ser baixados. Apenas tweets públicos com vídeo são suportados.</p>
+    </details>
+    <details>
+      <summary>É legal baixar vídeos do X (Twitter)?</summary>
+      <p>Você só deve baixar vídeos que possui ou tem permissão explícita para salvar. Sempre respeite os direitos autorais e os Termos de Serviço do X.</p>
+    </details>
+    <details>
+      <summary>Preciso instalar algum programa ou extensão?</summary>
+      <p>Não. O SaveLinkX funciona 100% no navegador - sem aplicativos, extensões ou plugins. É só colar o link.</p>
+    </details>
+    <details>
+      <summary>O SaveLinkX armazena meus vídeos?</summary>
+      <p>Não. Os vídeos são processados e enviados diretamente para o seu dispositivo. Não guardamos nenhum arquivo em nossos servidores.</p>
+    </details>
+    <details>
+      <summary>Posso baixar GIFs animados do X (Twitter)?</summary>
+      <p>Sim. GIFs do Twitter são tratados como vídeos na plataforma e podem ser baixados normalmente em MP4.</p>
+    </details>
+  </section>
+
+  <footer style="margin-top:40px;width:100%;max-width:620px;text-align:center;">
+    <p style="font-size:0.9rem;font-weight:700;color:#aaa;margin-bottom:12px;">SaveLinkX - Seu processador de links favorito.</p>
+    <p style="display:inline-flex;align-items:center;gap:7px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:20px;padding:5px 14px;font-size:0.78rem;font-weight:600;color:#aaa;margin-bottom:14px;">
+      <span style="width:7px;height:7px;background:#1d9bf0;border-radius:50%;flex-shrink:0;"></span>
+      {{ updated }}
+    </p>
+    <p style="font-size:0.8rem;color:#555;margin-bottom:16px;">
+      <a href="/faq" style="color:#555;text-decoration:underline;">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos" style="color:#555;text-decoration:underline;">Termos de Uso</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade" style="color:#555;text-decoration:underline;">Política de Privacidade</a>
+      &nbsp;|&nbsp;
+      <a href="/contato" style="color:#555;text-decoration:underline;">Contato</a>
+    </p>
+    <blockquote style="border-left:3px solid #2a2a2a;padding:10px 16px;text-align:left;font-size:0.78rem;color:#555;line-height:1.7;font-style:italic;">
+      Este site é uma ferramenta pública de processamento de links e não hospeda nenhum arquivo em seus servidores. Respeite as leis de direitos autorais e use os vídeos baixados apenas para uso pessoal. Não somos afiliados à X Corp.
+    </blockquote>
+  </footer>
+
+  <script>
+    let currentUrl = "";
+    let currentFormatLabel = "";
+
+    function trackEvent(eventName, payload = {}) {
+      const event = { event: eventName, ...payload };
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(event);
+    }
+
+    function setStatus(msg, type = "") {
+      document.getElementById("statusText").textContent = msg;
+      document.getElementById("status").className = type ? `status-${type}` : "";
+      document.getElementById("statusSpinner").style.display = type === "loading" ? "block" : "none";
+    }
+
+    async function pasteUrl() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById("urlInput").value = text;
+        document.getElementById("urlInput").focus();
+        trackEvent("paste_url", { source: "clipboard" });
+      } catch {
+        document.getElementById("urlInput").focus();
+      }
+    }
+
+    async function fetchInfo() {
+      const url = document.getElementById("urlInput").value.trim();
+      if (!url) { setStatus("Por favor, insira um link.", "error"); return; }
+
+      currentUrl = url;
+      trackEvent("click_download", { stage: "prepare_options", lang: "pt" });
+      const btn = document.getElementById("fetchBtn");
+      btn.disabled = true;
+      document.getElementById("fetchSpinner").style.display = "block";
+      document.getElementById("fetchLabel").textContent = "Verificando...";
+      document.getElementById("videoInfo").style.display = "none";
+      setStatus("Preparando opções de download...", "loading");
+
+      try {
+        const res = await fetch("/info", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Erro desconhecido");
+
+        document.getElementById("thumbnail").src = data.thumbnail;
+        document.getElementById("title").textContent = data.title;
+
+        const uploader = document.getElementById("uploaderBadge");
+        uploader.textContent = data.uploader || "";
+        uploader.style.display = data.uploader ? "inline-block" : "none";
+
+        const dur = document.getElementById("durationBadge");
+        dur.textContent = data.duration ? `${data.duration}` : "";
+        dur.style.display = data.duration ? "inline-block" : "none";
+
+        const sel = document.getElementById("formatSelect");
+        sel.innerHTML = "";
+
+        const allFormats = [
+          { value: "bestvideo[ext=mp4]+bestaudio/best[ext=mp4]/best", label: "MP4 - Melhor Qualidade (Auto)" },
+          { value: "bestvideo[height<=2160][ext=mp4]+bestaudio/bestvideo[height<=2160]+bestaudio/best[height<=2160]", label: "MP4 - 4K (2160p)" },
+          { value: "bestvideo[height<=1080][ext=mp4]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]", label: "MP4 - Full HD (1080p)" },
+          { value: "bestvideo[height<=720][ext=mp4]+bestaudio/bestvideo[height<=720]+bestaudio/best[height<=720]", label: "MP4 - HD (720p)" },
+          { value: "bestvideo[height<=480][ext=mp4]+bestaudio/bestvideo[height<=480]+bestaudio/best[height<=480]", label: "MP4 - SD (480p)" },
+          { value: "bestvideo[height<=360][ext=mp4]+bestaudio/bestvideo[height<=360]+bestaudio/best[height<=360]", label: "MP4 - Médio (360p)" },
+          { value: "bestaudio[ext=m4a]/bestaudio", label: "M4A - Somente Áudio" },
+          { value: "bestaudio[ext=mp3]/bestaudio", label: "MP3 - Somente Áudio" },
+        ];
+
+        allFormats.forEach(f => {
+          const opt = document.createElement("option");
+          opt.value = f.value;
+          opt.textContent = f.label;
+          sel.appendChild(opt);
+        });
+
+        document.getElementById("videoInfo").style.display = "block";
+        setStatus("");
+        trackEvent("options_loaded", { format_count: data.formats.length });
+      } catch (err) {
+        setStatus("Erro: " + err.message, "error");
+        trackEvent("download_error", { stage: "prepare_options", message: err.message });
+      } finally {
+        btn.disabled = false;
+        document.getElementById("fetchSpinner").style.display = "none";
+        document.getElementById("fetchLabel").textContent = "Baixar";
+      }
+    }
+
+    async function startDownload() {
+      const formatId = document.getElementById("formatSelect").value;
+      const formatSelect = document.getElementById("formatSelect");
+      currentFormatLabel = formatSelect.options[formatSelect.selectedIndex]?.text || "";
+      const btn = document.getElementById("downloadBtn");
+      btn.disabled = true;
+      document.getElementById("dlSpinner").style.display = "block";
+      document.getElementById("dlLabel").textContent = "Baixando...";
+      setStatus("Baixando - aguarde por favor.", "loading");
+
+      try {
+        trackEvent("click_download", { stage: "download_file", format_id: formatId, format_label: currentFormatLabel });
+        const res = await fetch("/download", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: currentUrl, format_id: formatId }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || "Falha no download");
+        }
+
+        const disposition = res.headers.get("Content-Disposition") || "";
+        let filename = "video.mp4";
+        const match = disposition.match(/filename\*?=(?:UTF-8'')?["']?([^"';\n]+)/i);
+        if (match) filename = decodeURIComponent(match[1]);
+
+        const blob = await res.blob();
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        const isAudio = (filename || "").toLowerCase().endsWith(".mp3") || (filename || "").toLowerCase().endsWith(".m4a");
+        setStatus(isAudio ? "Download do áudio iniciado! Confira sua pasta de downloads." : "Download iniciado! Confira sua pasta de downloads.", "ok");
+        trackEvent("download_success", { format_id: formatId, format_label: currentFormatLabel });
+      } catch (err) {
+        setStatus("Erro: " + err.message, "error");
+        trackEvent("download_error", { stage: "download_file", format_id: formatId, message: err.message });
+      } finally {
+        btn.disabled = false;
+        document.getElementById("dlSpinner").style.display = "none";
+        document.getElementById("dlLabel").textContent = "Baixar Agora";
+      }
+    }
+
+    document.getElementById("urlInput").addEventListener("keydown", e => {
+      if (e.key === "Enter") fetchInfo();
+    });
+  </script>
+  <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="Se o SaveLinkX te ajudou, considere me pagar um café! ☕" data-color="#1DA1F2" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+</html>

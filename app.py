@@ -27,9 +27,10 @@ METADATA_CACHE_TTL_SECONDS = int(os.getenv("METADATA_CACHE_TTL_SECONDS", "180"))
 metadata_cache = {}
 
 limiter = Limiter(
-    key_func=get_remote_address,
+    get_remote_address,
     app=app,
     default_limits=["120 per hour"],
+    storage_uri="memory://",
 )
 
 MONTHS_EN = {
@@ -183,6 +184,16 @@ def index():
     return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
+@app.route("/pt/")
+def index_pt():
+    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/es/")
+def index_es():
+    return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
 @app.route("/termos")
 def termos():
     return render_template("termos.html", site_url=get_site_base_url(), updated=get_updated_label())
@@ -324,6 +335,18 @@ def sitemap():
         <lastmod>2026-04-27</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/pt/</loc>
+        <lastmod>2026-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/es/</loc>
+        <lastmod>2026-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
       </url>
       <url>
         <loc>https://www.savelinkx.com/faq</loc>

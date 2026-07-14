@@ -21,7 +21,8 @@
       "Bash(git remote *)",
       "Bash(git branch *)",
       "Bash(git push *)",
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "Bash(git commit -m 'Add Portuguese and Spanish pages with hreflang and updated sitemap *)"
     ]
   }
 }
