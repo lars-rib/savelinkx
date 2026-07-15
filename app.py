@@ -45,6 +45,32 @@ TWITTER_STATUS_PATTERNS = (
     re.compile(r"^/i/web/status/(\d+)(?:/.*)?$", re.IGNORECASE),
 )
 
+TWITTER_HOSTS = {
+    "x.com", "www.x.com",
+    "twitter.com", "www.twitter.com",
+    "mobile.twitter.com",
+}
+
+# Canonical desktop/app links carry a numeric video id; /t/<code> and the
+# vm./vt. short hosts only carry an opaque code that yt-dlp resolves via redirect.
+TIKTOK_STATUS_PATTERNS = (
+    re.compile(r"^/@[\w.\-]+/video/(\d+)(?:/.*)?$", re.IGNORECASE),
+    re.compile(r"^/@[\w.\-]+/photo/(\d+)(?:/.*)?$", re.IGNORECASE),
+    re.compile(r"^/v/(\d+)(?:\.html)?/?$", re.IGNORECASE),
+    re.compile(r"^/t/([A-Za-z0-9]+)/?$", re.IGNORECASE),
+)
+
+TIKTOK_HOSTS = {
+    "tiktok.com", "www.tiktok.com", "m.tiktok.com",
+}
+
+# Short-link hosts: any non-empty alphanumeric path code is accepted; yt-dlp
+# follows the redirect to the canonical video URL.
+TIKTOK_SHORT_HOSTS = {
+    "vm.tiktok.com", "vt.tiktok.com",
+}
+TIKTOK_SHORT_CODE_PATTERN = re.compile(r"^/([A-Za-z0-9]+)/?$")
+
 
 @app.before_request
 def log_request_started():
@@ -71,9 +97,16 @@ def get_site_base_url():
     return "https://www.savelinkx.com"
 
 
-def base_ydl_opts():
+COOKIE_ENV_BY_PLATFORM = {
+    "twitter": "TWITTER_COOKIES_FILE",
+    "tiktok": "TIKTOK_COOKIES_FILE",
+}
+
+
+def base_ydl_opts(platform=None):
     opts = {"quiet": True}
-    cookie_file = os.getenv("TWITTER_COOKIES_FILE", "").strip()
+    cookie_env = COOKIE_ENV_BY_PLATFORM.get(platform, "TWITTER_COOKIES_FILE")
+    cookie_file = os.getenv(cookie_env, "").strip()
     if cookie_file and os.path.exists(cookie_file):
         opts["cookiefile"] = cookie_file
     return opts
@@ -93,11 +126,7 @@ def normalize_and_validate_tweet_url(raw_url):
         return None, "Please enter a valid URL starting with http:// or https://"
 
     hostname = (parsed.hostname or "").lower()
-    if hostname not in {
-        "x.com", "www.x.com",
-        "twitter.com", "www.twitter.com",
-        "mobile.twitter.com",
-    }:
+    if hostname not in TWITTER_HOSTS:
         return None, "Please enter a valid Twitter/X post URL."
 
     path = parsed.path or ""
@@ -108,6 +137,66 @@ def normalize_and_validate_tweet_url(raw_url):
     if parsed.query:
         normalized = f"{normalized}?{parsed.query}"
     return normalized, None
+
+
+def normalize_and_validate_tiktok_url(raw_url):
+    url = (raw_url or "").strip()
+    if not url:
+        return None, "No URL provided"
+
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return None, "Please enter a valid URL starting with http:// or https://"
+
+    hostname = (parsed.hostname or "").lower()
+    path = parsed.path or ""
+
+    if hostname in TIKTOK_SHORT_HOSTS:
+        if not TIKTOK_SHORT_CODE_PATTERN.match(path):
+            return None, "Please paste a valid TikTok link like https://vm.tiktok.com/XXXXXXX/"
+        # Preserve the short host and code; yt-dlp follows the redirect.
+        normalized = f"https://{hostname}{path}"
+        return normalized, None
+
+    if hostname in TIKTOK_HOSTS:
+        if not any(pattern.match(path) for pattern in TIKTOK_STATUS_PATTERNS):
+            return None, "Please paste a direct TikTok video link like https://www.tiktok.com/@user/video/1234567890"
+        normalized = f"https://www.tiktok.com{path}"
+        return normalized, None
+
+    return None, "Please enter a valid TikTok video URL."
+
+
+# Ordered so the dispatcher tries the most specific host match first.
+PLATFORM_VALIDATORS = (
+    ("twitter", TWITTER_HOSTS | {"mobile.twitter.com"}, normalize_and_validate_tweet_url),
+    ("tiktok", TIKTOK_HOSTS | TIKTOK_SHORT_HOSTS, normalize_and_validate_tiktok_url),
+)
+
+
+def detect_and_normalize_url(raw_url):
+    """Detect the platform of a URL and normalize it.
+
+    Returns (normalized_url, platform, error). On success error is None; on
+    failure normalized_url and platform are None.
+    """
+    url = (raw_url or "").strip()
+    if not url:
+        return None, None, "No URL provided"
+
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return None, None, "Please enter a valid URL starting with http:// or https://"
+
+    hostname = (parsed.hostname or "").lower()
+    for platform, hosts, validator in PLATFORM_VALIDATORS:
+        if hostname in hosts:
+            normalized, error = validator(url)
+            if error:
+                return None, None, error
+            return normalized, platform, None
+
+    return None, None, "Unsupported link. Please paste a Twitter/X or TikTok video URL."
 
 
 def map_yt_dlp_error(exc):
@@ -194,6 +283,21 @@ def index_es():
     return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
+@app.route("/tiktok/")
+def index_tiktok():
+    return render_template("index_tiktok.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/tiktok/pt/")
+def index_tiktok_pt():
+    return render_template("index_tiktok_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/tiktok/es/")
+def index_tiktok_es():
+    return render_template("index_tiktok_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
 @app.route("/termos")
 def termos():
     return render_template("termos.html", site_url=get_site_base_url(), updated=get_updated_label())
@@ -231,7 +335,7 @@ def get_info():
     payload = request.get_json(silent=True) or {}
     raw_url = payload.get("url", "")
 
-    url, error = normalize_and_validate_tweet_url(raw_url)
+    url, platform, error = detect_and_normalize_url(raw_url)
     if error:
         return jsonify({"error": error}), 400
 
@@ -240,7 +344,7 @@ def get_info():
         return jsonify(cached)
 
     try:
-        with yt_dlp.YoutubeDL(base_ydl_opts()) as ydl:
+        with yt_dlp.YoutubeDL(base_ydl_opts(platform)) as ydl:
             info = ydl.extract_info(url, download=False)
 
         data = {
@@ -264,12 +368,12 @@ def download():
     raw_url = payload.get("url", "")
     fmt = payload.get("format_id", "best[ext=mp4]/best")
 
-    url, error = normalize_and_validate_tweet_url(raw_url)
+    url, platform, error = detect_and_normalize_url(raw_url)
     if error:
         return jsonify({"error": error}), 400
 
     def run_download(selected_format):
-        opts = base_ydl_opts()
+        opts = base_ydl_opts(platform)
         opts.update({
             "format": selected_format,
             "outtmpl": os.path.join(DOWNLOAD_DIR, "%(title).120s.%(ext)s"),
@@ -345,6 +449,24 @@ def sitemap():
       <url>
         <loc>https://www.savelinkx.com/es/</loc>
         <lastmod>2026-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/tiktok/</loc>
+        <lastmod>2026-07-15</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/tiktok/pt/</loc>
+        <lastmod>2026-07-15</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/tiktok/es/</loc>
+        <lastmod>2026-07-15</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
       </url>
