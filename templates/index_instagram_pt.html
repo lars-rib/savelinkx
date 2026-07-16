@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block lang %}pt-BR{% endblock %}
+
+{% block head %}
+  <title>SaveLinkX | Baixar Vídeo do Instagram - Reels e Vídeos Grátis</title>
+  <meta name="description" content="Baixe Reels e vídeos do Instagram de graça em MP4. Cole o link de qualquer post ou Reel público e salve na hora - sem cadastro, sem app, funciona em qualquer dispositivo." />
+  <link rel="canonical" href="{{ site_url }}/instagram/pt/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="SaveLinkX - Baixar Vídeo e Reels do Instagram" />
+  <meta property="og:description" content="Cole o link de qualquer Reel ou post público do Instagram e baixe na melhor qualidade. Grátis, sem precisar de conta." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/instagram/pt/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="keywords" content="baixar video do instagram, baixar reels, baixar reels do instagram, download instagram, salvar video instagram, baixar video instagram mp4, baixar igtv, baixar video do instagram no iphone" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaveLinkX - Baixar Vídeo e Reels do Instagram" />
+  <meta name="twitter:description" content="Baixe Reels e vídeos do Instagram de graça. Rápido, fácil, sem cadastro." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/instagram/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/instagram/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/instagram/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/instagram/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Baixador de Vídeos do Instagram",
+    "description": "Baixe Reels e vídeos públicos do Instagram online e de graça em MP4. Sem necessidade de conta.",
+    "url": "{{ site_url }}/instagram/pt/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "pt-BR",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+    "publisher": { "@type": "Organization", "name": "SaveLinkX", "url": "{{ site_url }}/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Como Baixar Reels e Vídeos do Instagram",
+    "description": "Baixe Reels e vídeos públicos do Instagram de graça em 3 passos simples - sem app.",
+    "inLanguage": "pt-BR",
+    "totalTime": "PT1M",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Copie o link do Instagram", "text": "Abra o app ou o site do Instagram, toque nos três pontinhos do post ou Reel e escolha Copiar link." },
+      { "@type": "HowToStep", "position": 2, "name": "Cole o link e clique em Baixar", "text": "Cole o link no campo do SaveLinkX e clique em Baixar para carregar as opções de qualidade." },
+      { "@type": "HowToStep", "position": 3, "name": "Escolha a qualidade e baixe", "text": "Selecione a qualidade desejada e clique em Baixar Agora - o MP4 será salvo no seu dispositivo." }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Como baixar um Reels do Instagram?", "acceptedAnswer": { "@type": "Answer", "text": "Toque nos três pontinhos do Reels, escolha Copiar link, cole no SaveLinkX e clique em Baixar. O Reels é salvo como MP4." } },
+      { "@type": "Question", "name": "É grátis baixar vídeos do Instagram?", "acceptedAnswer": { "@type": "Answer", "text": "Sim, o SaveLinkX é totalmente gratuito. Não precisa de conta, assinatura ou pagamento." } },
+      { "@type": "Question", "name": "Funciona no iPhone e Android?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. O SaveLinkX funciona em qualquer navegador de celular. Cole o link do Instagram e o vídeo é salvo direto no seu aparelho." } },
+      { "@type": "Question", "name": "Posso baixar Stories do Instagram?", "acceptedAnswer": { "@type": "Answer", "text": "Não. Os Stories do Instagram exigem login, então não podem ser baixados. O SaveLinkX suporta posts públicos, Reels e vídeos do IGTV." } },
+      { "@type": "Question", "name": "Posso baixar o áudio ou a música de um Reels?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. Escolha a opção de áudio MP3 ou M4A para salvar apenas o áudio de um Reels ou vídeo do Instagram." } },
+      { "@type": "Question", "name": "Por que alguns vídeos do Instagram não podem ser baixados?", "acceptedAnswer": { "@type": "Answer", "text": "Vídeos de contas privadas não podem ser baixados. Apenas posts públicos, Reels e vídeos do IGTV são suportados." } },
+      { "@type": "Question", "name": "Preciso instalar algum app ou extensão?", "acceptedAnswer": { "@type": "Answer", "text": "Não. O SaveLinkX funciona 100% no navegador, sem apps, extensões ou plugins." } }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Navegação principal{% endblock %}
+{% block brand_href %}/instagram/pt/{% endblock %}
+{% block brand_aria %}SaveLinkX início{% endblock %}
+{% block nav_links %}
+      <li><a href="/instagram/pt/">Instagram</a></li>
+      <li><a href="/pt/">X (Twitter)</a></li>
+      <li><a href="/tiktok/pt/">TikTok</a></li>
+      <li><a href="/instagram/">EN</a></li>
+{% endblock %}
+
+{% block h1 %}<span>Baixar Vídeo do Instagram</span> - Reels, Vídeos e IGTV{% endblock %}
+{% block subtitle %}Cole o link de qualquer Reel ou post público do Instagram e baixe na melhor qualidade disponível - grátis, sem cadastro.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Escolha a plataforma">
+    <a href="/pt/">X (Twitter)</a>
+    <a href="/tiktok/pt/">TikTok</a>
+    <a href="/instagram/pt/" class="active">Instagram</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Cole o link do Instagram ex: https://www.instagram.com/reel/Abc123/{% endblock %}
+{% block paste_title %}Colar da área de transferência{% endblock %}
+{% block fetch_label %}Baixar{% endblock %}
+{% block dl_label %}Baixar Agora{% endblock %}
+{% block thumb_alt %}Miniatura do vídeo{% endblock %}
+{% block format_label %}Formato / Qualidade{% endblock %}
+
+{% block intro %}O SaveLinkX é um <strong style="color:#aaa;">baixador de vídeos do Instagram</strong> rápido e gratuito. Cole qualquer link público do <strong style="color:#aaa;">instagram.com</strong> - um <strong style="color:#aaa;">Reels</strong>, post ou vídeo do IGTV - e salve em MP4. Sem instalar nada, sem conta, funciona em qualquer dispositivo.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="Como baixar">
+    <h2>Como Baixar Reels e Vídeos do Instagram</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Toque nos <strong>três pontinhos</strong> do post ou Reels e escolha <strong>Copiar link</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Cole o link no campo acima e clique em <strong>Baixar</strong> para carregar as opções de qualidade.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Escolha a qualidade e clique em <strong>Baixar Agora</strong> - o MP4 será salvo no seu dispositivo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Perguntas frequentes">
+    <h2>Perguntas Frequentes</h2>
+
+    <details>
+      <summary>Como baixar um Reels do Instagram?</summary>
+      <p>Toque nos três pontinhos do Reels, escolha Copiar link, cole no SaveLinkX e clique em Baixar. O Reels é salvo como um arquivo MP4 comum.</p>
+    </details>
+    <details>
+      <summary>É grátis baixar vídeos do Instagram?</summary>
+      <p>Sim, o SaveLinkX é totalmente gratuito. Não precisa de conta, assinatura ou pagamento de nenhum tipo.</p>
+    </details>
+    <details>
+      <summary>Funciona no iPhone e Android?</summary>
+      <p>Sim. O SaveLinkX funciona em qualquer navegador de celular. Cole o link do Instagram e o vídeo será salvo direto no seu aparelho.</p>
+    </details>
+    <details>
+      <summary>Posso baixar Stories do Instagram?</summary>
+      <p>Não. Os Stories do Instagram exigem login, então não podem ser baixados. O SaveLinkX suporta posts públicos, Reels e vídeos do IGTV.</p>
+    </details>
+    <details>
+      <summary>Posso baixar o áudio ou a música de um Reels?</summary>
+      <p>Sim. Escolha a opção de áudio MP3 ou M4A para salvar apenas o áudio de um Reels ou vídeo do Instagram.</p>
+    </details>
+    <details>
+      <summary>Por que alguns vídeos do Instagram não podem ser baixados?</summary>
+      <p>Vídeos de contas privadas não podem ser baixados. Apenas posts públicos, Reels e vídeos do IGTV são suportados.</p>
+    </details>
+    <details>
+      <summary>Preciso instalar algum app ou extensão?</summary>
+      <p>Não. O SaveLinkX funciona 100% no navegador - sem apps, extensões ou plugins. É só colar o link.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Baixar vídeos do Instagram">
+    <div>
+      <h2>Baixe Reels, Posts e IGTV do Instagram</h2>
+      <p>O Instagram não oferece uma forma nativa de salvar vídeos no seu aparelho. O SaveLinkX lê o link público que você cola e devolve o arquivo de vídeo original, para você guardar <strong style="color:#aaa;">Reels</strong>, posts do feed e clipes do IGTV offline - na melhor qualidade disponível.</p>
+      <p>Copie o link no menu de <strong style="color:#aaa;">três pontinhos</strong> de qualquer post público - seja <code>instagram.com/reel/...</code>, <code>instagram.com/p/...</code> ou <code>instagram.com/tv/...</code> - cole acima e clique em Baixar. Contas privadas e Stories não são suportados, pois exigem login.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Seu processador de links favorito.{% endblock %}
+{% block footer_links %}
+      <a href="/pt/">Baixar do X (Twitter)</a>
+      &nbsp;|&nbsp;
+      <a href="/tiktok/pt/">Baixar do TikTok</a>
+      &nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos">Termos de Uso</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade">Política de Privacidade</a>
+      &nbsp;|&nbsp;
+      <a href="/contato">Contato</a>
+{% endblock %}
+{% block disclaimer %}Este site é uma ferramenta pública de processamento de links e não hospeda nenhum arquivo em seus servidores. Respeite as leis de direitos autorais e use os vídeos baixados apenas para uso pessoal. Não somos afiliados ao Instagram ou à Meta.{% endblock %}
+
+{% block bmc_message %}Se o SaveLinkX te ajudou, considere me pagar um café! ☕{% endblock %}
+
+{% block page_config %}
+    "platform": "instagram",
+    "lang": "pt",
+    "formats": [
+      { "value": "bestvideo[ext=mp4]+bestaudio/best[ext=mp4]/best", "label": "MP4 - Melhor Qualidade (Auto)" },
+      { "value": "bestvideo[height<=1080][ext=mp4]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]", "label": "MP4 - Full HD (1080p)" },
+      { "value": "bestvideo[height<=720][ext=mp4]+bestaudio/bestvideo[height<=720]+bestaudio/best[height<=720]", "label": "MP4 - HD (720p)" },
+      { "value": "bestvideo[height<=480][ext=mp4]+bestaudio/bestvideo[height<=480]+bestaudio/best[height<=480]", "label": "MP4 - SD (480p)" },
+      { "value": "bestvideo[height<=360][ext=mp4]+bestaudio/bestvideo[height<=360]+bestaudio/best[height<=360]", "label": "MP4 - Médio (360p)" },
+      { "value": "bestaudio[ext=m4a]/bestaudio", "label": "M4A - Somente Áudio" },
+      { "value": "bestaudio[ext=mp3]/bestaudio", "label": "MP3 - Somente Áudio" }
+    ],
+    "strings": {
+      "enter_link": "Por favor, insira um link.",
+      "preparing": "Preparando opções de download...",
+      "checking": "Verificando...",
+      "fetch": "Baixar",
+      "err_unknown": "Erro desconhecido",
+      "downloading_label": "Baixando...",
+      "downloading_msg": "Baixando - aguarde por favor.",
+      "err_download": "Falha no download",
+      "ok_audio": "Download do áudio iniciado! Confira sua pasta de downloads.",
+      "ok_video": "Download iniciado! Confira sua pasta de downloads.",
+      "download_now": "Baixar Agora",
+      "err_prefix": "Erro: "
+    }
+{% endblock %}

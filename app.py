@@ -71,6 +71,17 @@ TIKTOK_SHORT_HOSTS = {
 }
 TIKTOK_SHORT_CODE_PATTERN = re.compile(r"^/([A-Za-z0-9]+)/?$")
 
+# Posts (/p/), Reels (/reel/, /reels/) and IGTV (/tv/), optionally prefixed by
+# the author's username. Stories are intentionally omitted: they require login.
+INSTAGRAM_STATUS_PATTERNS = (
+    re.compile(r"^/(?:p|reel|reels|tv)/([A-Za-z0-9_-]+)/?$", re.IGNORECASE),
+    re.compile(r"^/[A-Za-z0-9._]+/(?:p|reel|reels|tv)/([A-Za-z0-9_-]+)/?$", re.IGNORECASE),
+)
+
+INSTAGRAM_HOSTS = {
+    "instagram.com", "www.instagram.com", "m.instagram.com",
+}
+
 
 @app.before_request
 def log_request_started():
@@ -100,6 +111,7 @@ def get_site_base_url():
 COOKIE_ENV_BY_PLATFORM = {
     "twitter": "TWITTER_COOKIES_FILE",
     "tiktok": "TIKTOK_COOKIES_FILE",
+    "instagram": "INSTAGRAM_COOKIES_FILE",
 }
 
 
@@ -167,10 +179,37 @@ def normalize_and_validate_tiktok_url(raw_url):
     return None, "Please enter a valid TikTok video URL."
 
 
+def normalize_and_validate_instagram_url(raw_url):
+    url = (raw_url or "").strip()
+    if not url:
+        return None, "No URL provided"
+
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return None, "Please enter a valid URL starting with http:// or https://"
+
+    hostname = (parsed.hostname or "").lower()
+    if hostname not in INSTAGRAM_HOSTS:
+        return None, "Please enter a valid Instagram post or Reel URL."
+
+    path = parsed.path or ""
+    if "/stories/" in path.lower():
+        return None, "Instagram Stories require login and cannot be downloaded. Please use a public post or Reel link."
+
+    if not any(pattern.match(path) for pattern in INSTAGRAM_STATUS_PATTERNS):
+        return None, "Please paste a direct Instagram post or Reel link like https://www.instagram.com/reel/Abc123/"
+
+    normalized = f"https://www.instagram.com{path}"
+    if not normalized.endswith("/"):
+        normalized += "/"
+    return normalized, None
+
+
 # Ordered so the dispatcher tries the most specific host match first.
 PLATFORM_VALIDATORS = (
     ("twitter", TWITTER_HOSTS | {"mobile.twitter.com"}, normalize_and_validate_tweet_url),
     ("tiktok", TIKTOK_HOSTS | TIKTOK_SHORT_HOSTS, normalize_and_validate_tiktok_url),
+    ("instagram", INSTAGRAM_HOSTS, normalize_and_validate_instagram_url),
 )
 
 
@@ -196,11 +235,15 @@ def detect_and_normalize_url(raw_url):
                 return None, None, error
             return normalized, platform, None
 
-    return None, None, "Unsupported link. Please paste a Twitter/X or TikTok video URL."
+    return None, None, "Unsupported link. Please paste a Twitter/X, TikTok, or Instagram video URL."
 
 
 def map_yt_dlp_error(exc):
     text = str(exc).lower()
+    if "no video could be found" in text or "no video formats found" in text:
+        return "This post doesn't contain a video. Please paste a link to a post with a video."
+    if "empty media response" in text or "--cookies" in text:
+        return "This content requires login and cannot be downloaded. Only public posts are supported."
     if "ffmpeg" in text and ("not found" in text or "not installed" in text):
         return "High-quality merging requires FFmpeg on the server. Please choose Best quality or Audio only."
     if "private" in text or "protected" in text:
@@ -296,6 +339,21 @@ def index_tiktok_pt():
 @app.route("/tiktok/es/")
 def index_tiktok_es():
     return render_template("index_tiktok_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/instagram/")
+def index_instagram():
+    return render_template("index_instagram.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/instagram/pt/")
+def index_instagram_pt():
+    return render_template("index_instagram_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/instagram/es/")
+def index_instagram_es():
+    return render_template("index_instagram_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/termos")
@@ -467,6 +525,24 @@ def sitemap():
       <url>
         <loc>https://www.savelinkx.com/tiktok/es/</loc>
         <lastmod>2026-07-15</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/instagram/</loc>
+        <lastmod>2026-07-16</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/instagram/pt/</loc>
+        <lastmod>2026-07-16</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/instagram/es/</loc>
+        <lastmod>2026-07-16</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
       </url>
