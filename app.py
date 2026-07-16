@@ -193,7 +193,7 @@ def normalize_and_validate_instagram_url(raw_url):
         return None, "Please enter a valid Instagram post or Reel URL."
 
     path = parsed.path or ""
-    if "/stories/" in path.lower():
+    if path.lower().startswith("/stories/"):
         return None, "Instagram Stories require login and cannot be downloaded. Please use a public post or Reel link."
 
     if not any(pattern.match(path) for pattern in INSTAGRAM_STATUS_PATTERNS):
@@ -207,7 +207,7 @@ def normalize_and_validate_instagram_url(raw_url):
 
 # Ordered so the dispatcher tries the most specific host match first.
 PLATFORM_VALIDATORS = (
-    ("twitter", TWITTER_HOSTS | {"mobile.twitter.com"}, normalize_and_validate_tweet_url),
+    ("twitter", TWITTER_HOSTS, normalize_and_validate_tweet_url),
     ("tiktok", TIKTOK_HOSTS | TIKTOK_SHORT_HOSTS, normalize_and_validate_tiktok_url),
     ("instagram", INSTAGRAM_HOSTS, normalize_and_validate_instagram_url),
 )
@@ -242,12 +242,14 @@ def map_yt_dlp_error(exc):
     text = str(exc).lower()
     if "no video could be found" in text or "no video formats found" in text:
         return "This post doesn't contain a video. Please paste a link to a post with a video."
-    if "empty media response" in text or "--cookies" in text:
-        return "This content requires login and cannot be downloaded. Only public posts are supported."
     if "ffmpeg" in text and ("not found" in text or "not installed" in text):
         return "High-quality merging requires FFmpeg on the server. Please choose Best quality or Audio only."
     if "private" in text or "protected" in text:
         return "This post is private or protected, so it cannot be downloaded."
+    # Checked after the specific cases above: yt-dlp appends a generic
+    # "use --cookies" hint to many errors, so it must not shadow them.
+    if "empty media response" in text:
+        return "This content requires login and cannot be downloaded. Only public posts are supported."
     if "not available" in text or "unavailable" in text or "deleted" in text:
         return "This post is unavailable or has been removed."
     if "geo" in text or "country" in text or "region" in text:
