@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+{% extends "base.html" %}
+
+{% block lang %}es{% endblock %}
+
+{% block head %}
   <title>SaveLinkX | Descargar Video de TikTok Sin Marca de Agua (Gratis)</title>
   <meta name="description" content="Descarga videos de TikTok sin marca de agua, gratis y al instante. Pega el enlace de TikTok y guárdalo como MP4 - sin registro, sin app, funciona en cualquier dispositivo." />
   <link rel="canonical" href="{{ site_url }}/tiktok/es/" />
@@ -70,166 +69,37 @@
     ]
   }
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
-    header { text-align: center; margin-bottom: 36px; }
-    .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .logo svg { width: 32px; height: 32px; fill: #1d9bf0; }
-    header h1 { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-    header h1 span { color: #1d9bf0; }
-    header p { color: #888; margin-top: 8px; font-size: 0.95rem; }
-    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 32px; width: 100%; max-width: 620px; }
-    .input-row { display: flex; gap: 8px; }
-    .input-wrap { position: relative; flex: 1; }
-    input[type="text"] { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 13px 44px 13px 16px; color: #e8e8e8; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-    input[type="text"]:focus { border-color: #1d9bf0; }
-    #pasteBtn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 4px; cursor: pointer; color: #555; border-radius: 6px; transition: color 0.2s; font-size: 0; }
-    #pasteBtn:hover { color: #1d9bf0; }
-    #pasteBtn svg { width: 18px; height: 18px; }
-    button { cursor: pointer; border: none; border-radius: 12px; padding: 13px 22px; font-size: 0.9rem; font-weight: 700; transition: opacity 0.2s, background 0.2s, transform 0.1s; }
-    button:active:not(:disabled) { transform: scale(0.97); }
-    button:disabled { opacity: 0.4; cursor: not-allowed; }
-    #fetchBtn { background: #1d9bf0; color: #fff; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
-    #fetchBtn:hover:not(:disabled) { background: #1a8cd8; }
-    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #status { margin-top: 14px; font-size: 0.85rem; text-align: center; min-height: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    #statusSpinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.2); border-top-color: #aaa; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; flex-shrink: 0; }
-    .status-loading { color: #aaa; }
-    .status-error   { color: #ff6b6b; }
-    .status-ok      { color: #4caf50; }
-    #videoInfo { display: none; margin-top: 24px; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    .divider { border: none; border-top: 1px solid #2a2a2a; margin-bottom: 20px; }
-    .thumb-row { display: flex; gap: 16px; align-items: flex-start; }
-    .thumb-wrap { position: relative; flex-shrink: 0; }
-    .thumb-wrap img { width: 130px; border-radius: 10px; object-fit: cover; display: block; }
-    .play-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-    .play-icon svg { width: 36px; height: 36px; opacity: 0.85; }
-    .meta { flex: 1; min-width: 0; }
-    .meta h2 { font-size: 0.95rem; font-weight: 600; line-height: 1.45; margin-bottom: 8px; word-break: break-word; }
-    .meta-badges { display: flex; flex-wrap: wrap; gap: 6px; }
-    .badge { background: #222; border: 1px solid #333; border-radius: 20px; padding: 3px 10px; font-size: 0.75rem; color: #aaa; }
-    .format-section { margin-top: 20px; }
-    .format-section label { font-size: 0.8rem; color: #777; display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
-    select { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 12px 14px; color: #e8e8e8; font-size: 0.9rem; outline: none; cursor: pointer; }
-    select:focus { border-color: #1d9bf0; }
-    #downloadBtn { margin-top: 14px; width: 100%; background: #1d9bf0; color: #fff; padding: 15px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    #downloadBtn:hover:not(:disabled) { background: #1a8cd8; }
-    #dlSpinner { width: 17px; height: 17px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
-    .how-to { margin-top: 40px; width: 100%; max-width: 620px; }
-    .how-to h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 16px; text-align: center; }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .step { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; padding: 20px 16px; text-align: center; }
-    .step-num { width: 32px; height: 32px; background: #1d9bf0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; margin: 0 auto 10px; }
-    .step p { font-size: 0.82rem; color: #999; line-height: 1.5; }
-    .faq { margin-top: 32px; width: 100%; max-width: 620px; }
-    .faq h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 14px; text-align: center; }
-    details { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
-    summary { padding: 14px 18px; cursor: pointer; font-size: 0.9rem; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
-    summary::-webkit-details-marker { display: none; }
-    summary::after { content: '+'; color: #555; font-size: 1.2rem; transition: transform 0.2s; }
-    details[open] summary::after { transform: rotate(45deg); }
-    details p { padding: 0 18px 14px; font-size: 0.85rem; color: #888; line-height: 1.6; }
-    footer { margin-top: 40px; font-size: 0.75rem; color: #444; text-align: center; line-height: 1.6; }
-    .topnav { width: 100%; max-width: 620px; display: flex; justify-content: space-between; align-items: center; padding: 0 0 28px; }
-    .topnav-brand { font-size: 1rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 7px; }
-    .topnav-brand svg { width: 20px; height: 20px; fill: #1d9bf0; }
-    .topnav-links { display: flex; gap: 20px; list-style: none; }
-    .topnav-links a { color: #666; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-    .topnav-links a:hover { color: #1d9bf0; }
-    .tool-switch { width: 100%; max-width: 620px; display: flex; gap: 8px; margin-bottom: 20px; }
-    .tool-switch a { flex: 1; text-align: center; padding: 10px; border-radius: 12px; text-decoration: none; font-size: 0.85rem; font-weight: 700; border: 1px solid #2a2a2a; color: #888; background: #1a1a1a; transition: all 0.2s; }
-    .tool-switch a:hover { color: #1d9bf0; border-color: #1d9bf0; }
-    .tool-switch a.active { background: #1d9bf0; color: #fff; border-color: #1d9bf0; }
-    @media (max-width: 480px) {
-      .steps { grid-template-columns: 1fr; }
-      header h1 { font-size: 1.5rem; }
-      .thumb-wrap img { width: 100px; }
-      .topnav-links { gap: 14px; }
-    }
-  </style>
-</head>
-<body>
+{% endblock %}
 
-  <nav class="topnav" aria-label="Navegación principal">
-    <a href="/tiktok/es/" class="topnav-brand" aria-label="SaveLinkX inicio">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      SaveLinkX
-    </a>
-    <ul class="topnav-links">
+{% block nav_aria %}Navegación principal{% endblock %}
+{% block brand_href %}/tiktok/es/{% endblock %}
+{% block brand_aria %}SaveLinkX inicio{% endblock %}
+{% block nav_links %}
       <li><a href="/tiktok/es/">TikTok</a></li>
       <li><a href="/es/">X (Twitter)</a></li>
       <li><a href="/tiktok/">EN</a></li>
-    </ul>
-  </nav>
+{% endblock %}
 
-  <header>
-    <div class="logo">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-      </svg>
-    </div>
-    <h1><span>Descargar Video de TikTok</span> - Sin Marca de Agua, Gratis</h1>
-    <p>Pega el enlace de TikTok y descarga el video en la mejor calidad sin marca de agua - gratis, sin registro.</p>
-  </header>
+{% block h1 %}<span>Descargar Video de TikTok</span> - Sin Marca de Agua, Gratis{% endblock %}
+{% block subtitle %}Pega el enlace de TikTok y descarga el video en la mejor calidad sin marca de agua - gratis, sin registro.{% endblock %}
 
+{% block toolswitch %}
   <div class="tool-switch" aria-label="Elige la plataforma">
     <a href="/es/">X (Twitter)</a>
     <a href="/tiktok/es/" class="active">TikTok</a>
   </div>
+{% endblock %}
 
-  <main class="card" role="main">
-    <div class="input-row">
-      <div class="input-wrap">
-        <input type="text" id="urlInput" placeholder="Pega el enlace de TikTok ej: https://www.tiktok.com/@user/video/123456789" autocomplete="off" />
-        <button id="pasteBtn" title="Pegar del portapapeles" onclick="pasteUrl()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="2" width="6" height="4" rx="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/>
-          </svg>
-        </button>
-      </div>
-      <button id="fetchBtn" onclick="fetchInfo()">
-        <div class="spinner" id="fetchSpinner"></div>
-        <span id="fetchLabel">Descargar</span>
-      </button>
-    </div>
+{% block placeholder %}Pega el enlace de TikTok ej: https://www.tiktok.com/@user/video/123456789{% endblock %}
+{% block paste_title %}Pegar del portapapeles{% endblock %}
+{% block fetch_label %}Descargar{% endblock %}
+{% block dl_label %}Descargar Ahora{% endblock %}
+{% block thumb_alt %}Miniatura del video{% endblock %}
+{% block format_label %}Formato / Calidad{% endblock %}
 
-    <p style="font-size:0.85rem;color:#777;line-height:1.6;margin-top:16px;text-align:center;">SaveLinkX es el <strong style="color:#aaa;">descargador de videos de TikTok</strong> gratuito más rápido de internet. Pega cualquier enlace de <strong style="color:#aaa;">tiktok.com</strong> y descarga videos en MP4 <strong style="color:#aaa;">sin marca de agua</strong> - sin instalar nada, sin cuenta, funciona en cualquier dispositivo.</p>
+{% block intro %}SaveLinkX es el <strong style="color:#aaa;">descargador de videos de TikTok</strong> gratuito más rápido de internet. Pega cualquier enlace de <strong style="color:#aaa;">tiktok.com</strong> y descarga videos en MP4 <strong style="color:#aaa;">sin marca de agua</strong> - sin instalar nada, sin cuenta, funciona en cualquier dispositivo.{% endblock %}
 
-    <div id="status"><div id="statusSpinner"></div><span id="statusText"></span></div>
-
-    <div id="videoInfo">
-      <hr class="divider" />
-      <div class="thumb-row">
-        <div class="thumb-wrap">
-          <img id="thumbnail" src="" alt="Miniatura del video" />
-          <div class="play-icon">
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.45)"/><polygon points="10,8 16,12 10,16" fill="white"/></svg>
-          </div>
-        </div>
-        <div class="meta">
-          <h2 id="title"></h2>
-          <div class="meta-badges">
-            <span class="badge" id="uploaderBadge"></span>
-            <span class="badge" id="durationBadge"></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="format-section">
-        <label>Formato / Calidad</label>
-        <select id="formatSelect"></select>
-      </div>
-
-      <button id="downloadBtn" onclick="startDownload()">
-        <div id="dlSpinner"></div>
-        <span id="dlLabel">Descargar Ahora</span>
-      </button>
-    </div>
-  </main>
-
+{% block content %}
   <section class="how-to" aria-label="Cómo descargar">
     <h2>Cómo Descargar Videos de TikTok Sin Marca de Agua</h2>
     <div class="steps">
@@ -281,180 +151,55 @@
     </details>
   </section>
 
-  <section style="margin-top:32px;width:100%;max-width:620px;" aria-label="Descargar videos de TikTok">
-    <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:20px;padding:28px 32px;">
-      <h2 style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:12px;">Descarga Videos de TikTok Sin la Marca de Agua</h2>
-      <p style="font-size:0.88rem;color:#888;line-height:1.7;margin-bottom:14px;">TikTok agrega una marca de agua en movimiento con el nombre de usuario en cada video. SaveLinkX descarga el archivo original, así obtienes un <strong style="color:#aaa;">MP4 limpio, sin marca de agua</strong> - perfecto para recompartir, editar o guardar tus clips favoritos.</p>
-      <p style="font-size:0.88rem;color:#888;line-height:1.7;">Solo copia el enlace desde el menú <strong style="color:#aaa;">Compartir</strong> de TikTok - ya sea un enlace completo <code style="background:#222;color:#1d9bf0;padding:1px 6px;border-radius:4px;font-size:0.82rem;">tiktok.com/@user/video/...</code> o un enlace corto <code style="background:#222;color:#1d9bf0;padding:1px 6px;border-radius:4px;font-size:0.82rem;">vm.tiktok.com/...</code> - pégalo arriba y haz clic en Descargar.</p>
+  <section class="seo-section" aria-label="Descargar videos de TikTok">
+    <div>
+      <h2>Descarga Videos de TikTok Sin la Marca de Agua</h2>
+      <p>TikTok agrega una marca de agua en movimiento con el nombre de usuario en cada video. SaveLinkX descarga el archivo original, así obtienes un <strong style="color:#aaa;">MP4 limpio, sin marca de agua</strong> - perfecto para recompartir, editar o guardar tus clips favoritos.</p>
+      <p>Solo copia el enlace desde el menú <strong style="color:#aaa;">Compartir</strong> de TikTok - ya sea un enlace completo <code>tiktok.com/@user/video/...</code> o un enlace corto <code>vm.tiktok.com/...</code> - pégalo arriba y haz clic en Descargar.</p>
     </div>
   </section>
+{% endblock %}
 
-  <footer style="margin-top:40px;width:100%;max-width:620px;text-align:center;">
-    <p style="font-size:0.9rem;font-weight:700;color:#aaa;margin-bottom:12px;">SaveLinkX - Tu procesador de enlaces favorito.</p>
-    <p style="display:inline-flex;align-items:center;gap:7px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:20px;padding:5px 14px;font-size:0.78rem;font-weight:600;color:#aaa;margin-bottom:14px;">
-      <span style="width:7px;height:7px;background:#1d9bf0;border-radius:50%;flex-shrink:0;"></span>
-      {{ updated }}
-    </p>
-    <p style="font-size:0.8rem;color:#555;margin-bottom:16px;">
-      <a href="/es/" style="color:#555;text-decoration:underline;">Descargar de X (Twitter)</a>
+{% block footer_tagline %}SaveLinkX - Tu procesador de enlaces favorito.{% endblock %}
+{% block footer_links %}
+      <a href="/es/">Descargar de X (Twitter)</a>
       &nbsp;|&nbsp;
-      <a href="/faq" style="color:#555;text-decoration:underline;">FAQ</a>
+      <a href="/faq">FAQ</a>
       &nbsp;|&nbsp;
-      <a href="/termos" style="color:#555;text-decoration:underline;">Términos de Uso</a>
+      <a href="/termos">Términos de Uso</a>
       &nbsp;|&nbsp;
-      <a href="/privacidade" style="color:#555;text-decoration:underline;">Política de Privacidad</a>
+      <a href="/privacidade">Política de Privacidad</a>
       &nbsp;|&nbsp;
-      <a href="/contato" style="color:#555;text-decoration:underline;">Contacto</a>
-    </p>
-    <blockquote style="border-left:3px solid #2a2a2a;padding:10px 16px;text-align:left;font-size:0.78rem;color:#555;line-height:1.7;font-style:italic;">
-      Este sitio es una herramienta pública de procesamiento de enlaces y no aloja ningún archivo en sus servidores. Respeta las leyes de derechos de autor y usa los videos descargados solo para uso personal. No estamos afiliados a TikTok ni a ByteDance.
-    </blockquote>
-  </footer>
+      <a href="/contato">Contacto</a>
+{% endblock %}
+{% block disclaimer %}Este sitio es una herramienta pública de procesamiento de enlaces y no aloja ningún archivo en sus servidores. Respeta las leyes de derechos de autor y usa los videos descargados solo para uso personal. No estamos afiliados a TikTok ni a ByteDance.{% endblock %}
 
-  <script>
-    let currentUrl = "";
-    let currentFormatLabel = "";
+{% block bmc_message %}¡Si SaveLinkX te ayudó, considera invitarme un café! ☕{% endblock %}
 
-    function trackEvent(eventName, payload = {}) {
-      const event = { event: eventName, platform: "tiktok", lang: "es", ...payload };
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(event);
+{% block page_config %}
+    "platform": "tiktok",
+    "lang": "es",
+    "formats": [
+      { "value": "bestvideo[ext=mp4]+bestaudio/best[ext=mp4]/best", "label": "MP4 - Mejor Calidad (Sin Marca de Agua)" },
+      { "value": "bestvideo[height<=1080][ext=mp4]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]", "label": "MP4 - Full HD (1080p)" },
+      { "value": "bestvideo[height<=720][ext=mp4]+bestaudio/bestvideo[height<=720]+bestaudio/best[height<=720]", "label": "MP4 - HD (720p)" },
+      { "value": "bestvideo[height<=480][ext=mp4]+bestaudio/bestvideo[height<=480]+bestaudio/best[height<=480]", "label": "MP4 - SD (480p)" },
+      { "value": "bestvideo[height<=360][ext=mp4]+bestaudio/bestvideo[height<=360]+bestaudio/best[height<=360]", "label": "MP4 - Medio (360p)" },
+      { "value": "bestaudio[ext=m4a]/bestaudio", "label": "M4A - Solo Audio" },
+      { "value": "bestaudio[ext=mp3]/bestaudio", "label": "MP3 - Solo Audio" }
+    ],
+    "strings": {
+      "enter_link": "Por favor, introduce un enlace.",
+      "preparing": "Preparando opciones de descarga...",
+      "checking": "Verificando...",
+      "fetch": "Descargar",
+      "err_unknown": "Error desconocido",
+      "downloading_label": "Descargando...",
+      "downloading_msg": "Descargando - espera por favor.",
+      "err_download": "Error en la descarga",
+      "ok_audio": "¡Descarga de audio iniciada! Revisa tu carpeta de descargas.",
+      "ok_video": "¡Descarga iniciada! Revisa tu carpeta de descargas.",
+      "download_now": "Descargar Ahora",
+      "err_prefix": "Error: "
     }
-
-    function setStatus(msg, type = "") {
-      document.getElementById("statusText").textContent = msg;
-      document.getElementById("status").className = type ? `status-${type}` : "";
-      document.getElementById("statusSpinner").style.display = type === "loading" ? "block" : "none";
-    }
-
-    async function pasteUrl() {
-      try {
-        const text = await navigator.clipboard.readText();
-        document.getElementById("urlInput").value = text;
-        document.getElementById("urlInput").focus();
-        trackEvent("paste_url", { source: "clipboard" });
-      } catch {
-        document.getElementById("urlInput").focus();
-      }
-    }
-
-    async function fetchInfo() {
-      const url = document.getElementById("urlInput").value.trim();
-      if (!url) { setStatus("Por favor, introduce un enlace.", "error"); return; }
-
-      currentUrl = url;
-      trackEvent("click_download", { stage: "prepare_options" });
-      const btn = document.getElementById("fetchBtn");
-      btn.disabled = true;
-      document.getElementById("fetchSpinner").style.display = "block";
-      document.getElementById("fetchLabel").textContent = "Verificando...";
-      document.getElementById("videoInfo").style.display = "none";
-      setStatus("Preparando opciones de descarga...", "loading");
-
-      try {
-        const res = await fetch("/info", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Error desconocido");
-
-        document.getElementById("thumbnail").src = data.thumbnail;
-        document.getElementById("title").textContent = data.title;
-
-        const uploader = document.getElementById("uploaderBadge");
-        uploader.textContent = data.uploader || "";
-        uploader.style.display = data.uploader ? "inline-block" : "none";
-
-        const dur = document.getElementById("durationBadge");
-        dur.textContent = data.duration ? `${data.duration}` : "";
-        dur.style.display = data.duration ? "inline-block" : "none";
-
-        const sel = document.getElementById("formatSelect");
-        sel.innerHTML = "";
-
-        const allFormats = [
-          { value: "bestvideo[ext=mp4]+bestaudio/best[ext=mp4]/best", label: "MP4 - Mejor Calidad (Sin Marca de Agua)" },
-          { value: "bestvideo[height<=1080][ext=mp4]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]", label: "MP4 - Full HD (1080p)" },
-          { value: "bestvideo[height<=720][ext=mp4]+bestaudio/bestvideo[height<=720]+bestaudio/best[height<=720]", label: "MP4 - HD (720p)" },
-          { value: "bestvideo[height<=480][ext=mp4]+bestaudio/bestvideo[height<=480]+bestaudio/best[height<=480]", label: "MP4 - SD (480p)" },
-          { value: "bestvideo[height<=360][ext=mp4]+bestaudio/bestvideo[height<=360]+bestaudio/best[height<=360]", label: "MP4 - Medio (360p)" },
-          { value: "bestaudio[ext=m4a]/bestaudio", label: "M4A - Solo Audio" },
-          { value: "bestaudio[ext=mp3]/bestaudio", label: "MP3 - Solo Audio" },
-        ];
-
-        allFormats.forEach(f => {
-          const opt = document.createElement("option");
-          opt.value = f.value;
-          opt.textContent = f.label;
-          sel.appendChild(opt);
-        });
-
-        document.getElementById("videoInfo").style.display = "block";
-        setStatus("");
-        trackEvent("options_loaded", { format_count: data.formats.length });
-      } catch (err) {
-        setStatus("Error: " + err.message, "error");
-        trackEvent("download_error", { stage: "prepare_options", message: err.message });
-      } finally {
-        btn.disabled = false;
-        document.getElementById("fetchSpinner").style.display = "none";
-        document.getElementById("fetchLabel").textContent = "Descargar";
-      }
-    }
-
-    async function startDownload() {
-      const formatId = document.getElementById("formatSelect").value;
-      const formatSelect = document.getElementById("formatSelect");
-      currentFormatLabel = formatSelect.options[formatSelect.selectedIndex]?.text || "";
-      const btn = document.getElementById("downloadBtn");
-      btn.disabled = true;
-      document.getElementById("dlSpinner").style.display = "block";
-      document.getElementById("dlLabel").textContent = "Descargando...";
-      setStatus("Descargando - espera por favor.", "loading");
-
-      try {
-        trackEvent("click_download", { stage: "download_file", format_id: formatId, format_label: currentFormatLabel });
-        const res = await fetch("/download", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url: currentUrl, format_id: formatId }),
-        });
-
-        if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error || "Error en la descarga");
-        }
-
-        const disposition = res.headers.get("Content-Disposition") || "";
-        let filename = "video.mp4";
-        const match = disposition.match(/filename\*?=(?:UTF-8'')?["']?([^"';\n]+)/i);
-        if (match) filename = decodeURIComponent(match[1]);
-
-        const blob = await res.blob();
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = filename;
-        a.click();
-        URL.revokeObjectURL(a.href);
-        const isAudio = (filename || "").toLowerCase().endsWith(".mp3") || (filename || "").toLowerCase().endsWith(".m4a");
-        setStatus(isAudio ? "¡Descarga de audio iniciada! Revisa tu carpeta de descargas." : "¡Descarga iniciada! Revisa tu carpeta de descargas.", "ok");
-        trackEvent("download_success", { format_id: formatId, format_label: currentFormatLabel });
-      } catch (err) {
-        setStatus("Error: " + err.message, "error");
-        trackEvent("download_error", { stage: "download_file", format_id: formatId, message: err.message });
-      } finally {
-        btn.disabled = false;
-        document.getElementById("dlSpinner").style.display = "none";
-        document.getElementById("dlLabel").textContent = "Descargar Ahora";
-      }
-    }
-
-    document.getElementById("urlInput").addEventListener("keydown", e => {
-      if (e.key === "Enter") fetchInfo();
-    });
-  </script>
-  <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="¡Si SaveLinkX te ayudó, considera invitarme un café! ☕" data-color="#1DA1F2" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-</body>
-</html>
+{% endblock %}
