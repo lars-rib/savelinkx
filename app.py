@@ -11,7 +11,6 @@ from flask import Flask, Response, after_this_request, jsonify, redirect, render
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import yt_dlp
-from yt_dlp.networking.impersonate import ImpersonateTarget
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", os.urandom(24))
@@ -249,9 +248,6 @@ COOKIE_ENV_BY_PLATFORM = {
 
 def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True}
-    if platform in ("youtube", "tiktok"):
-        opts["impersonate"] = ImpersonateTarget(client="chrome")
-        opts["js_runtimes"] = {"node": {}}
     if cookie_file_override and os.path.exists(cookie_file_override):
         opts["cookiefile"] = cookie_file_override
     else:
