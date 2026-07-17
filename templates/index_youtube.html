@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block lang %}en{% endblock %}
+{% block body_attrs %}data-platform="youtube"{% endblock %}
+
+{% block head %}
+  <title>SaveLinkX | YouTube Video Downloader - Download MP4 Free</title>
+  <meta name="description" content="Download YouTube videos and playlists for free in MP4. Paste any YouTube link and save it instantly - no signup, no software, works on any device." />
+  <link rel="canonical" href="{{ site_url }}/youtube/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="SaveLinkX - YouTube Video Downloader - Free MP4 Downloads" />
+  <meta property="og:description" content="Paste any YouTube link and download in the highest available quality in seconds. Free, no account needed." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/youtube/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="keywords" content="youtube video downloader, download youtube videos, youtube to mp4, save youtube video, youtube downloader free, download youtube playlist, youtube mp4 download, youtube video download online" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SaveLinkX - Download YouTube Videos for Free" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaveLinkX - YouTube Video Downloader" />
+  <meta name="twitter:description" content="Download YouTube videos and playlists for free. Fast, easy, no signup required." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/youtube/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/youtube/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/youtube/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/youtube/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "YouTube Video Downloader",
+    "description": "Download YouTube videos and playlists online for free in MP4 format. No account required.",
+    "url": "{{ site_url }}/youtube/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "en",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "SaveLinkX", "url": "{{ site_url }}/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Download YouTube Videos",
+    "description": "Download YouTube videos for free in 3 simple steps - no software needed.",
+    "inLanguage": "en",
+    "totalTime": "PT1M",
+    "tool": [{ "@type": "HowToTool", "name": "Web browser" }],
+    "supply": [{ "@type": "HowToSupply", "name": "YouTube video or playlist link" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Copy the YouTube link", "text": "Open YouTube, find the video or playlist, and copy the URL from the address bar or Share button." },
+      { "@type": "HowToStep", "position": 2, "name": "Paste the link and click Download", "text": "Paste the link into the input field on SaveLinkX and click Download to load available quality options." },
+      { "@type": "HowToStep", "position": 3, "name": "Choose quality and download", "text": "Select your preferred quality and click Download Now and the MP4 file will be saved to your device automatically." }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is it free to download YouTube videos?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, SaveLinkX is completely free. No account, subscription, or payment of any kind is required." } },
+      { "@type": "Question", "name": "What video formats are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Videos are downloaded in MP4 format, compatible with all phones, tablets, and computers. Audio can be downloaded as MP3 or M4A." } },
+      { "@type": "Question", "name": "Does it work on iPhone and Android?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. SaveLinkX works in any mobile browser. Paste the YouTube link and the video will be saved directly to your device." } },
+      { "@type": "Question", "name": "Can I download YouTube playlists?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Paste a playlist link and SaveLinkX will show you all videos in the playlist. Click Download on any video to save it individually." } },
+      { "@type": "Question", "name": "Can I download in 4K or 1080p?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. SaveLinkX offers multiple quality options including 4K, 1080p, 720p, and lower resolutions when available." } },
+      { "@type": "Question", "name": "Do I need to install any software or extension?", "acceptedAnswer": { "@type": "Answer", "text": "No. SaveLinkX works 100% in your browser with no apps, extensions, or plugins to install." } },
+      { "@type": "Question", "name": "Can I download just the audio from a YouTube video?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Choose the MP3 or M4A audio option to save just the audio track from any YouTube video." } },
+      { "@type": "Question", "name": "Does SaveLinkX store my videos?", "acceptedAnswer": { "@type": "Answer", "text": "No. Videos are processed and sent directly to your device. We do not store any files on our servers after the download completes." } }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Main navigation{% endblock %}
+{% block brand_href %}/youtube/{% endblock %}
+{% block brand_aria %}SaveLinkX home{% endblock %}
+{% block nav_links %}
+      <li><a href="/youtube/">YouTube</a></li>
+      <li><a href="/">X (Twitter)</a></li>
+      <li><a href="/tiktok/">TikTok</a></li>
+      <li><a href="/instagram/">Instagram</a></li>
+      <li><a href="/faq">FAQ</a></li>
+{% endblock %}
+
+{% block h1 %}<span>YouTube Video Downloader</span> - Fast, Free, Online{% endblock %}
+{% block subtitle %}Paste any YouTube link and download the video in the highest quality - free, no signup required. Supports videos and playlists.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Choose platform">
+    <a href="/">X (Twitter)</a>
+    <a href="/tiktok/">TikTok</a>
+    <a href="/instagram/">Instagram</a>
+    <a href="/youtube/" class="active">YouTube</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Paste YouTube URL e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ or playlist{% endblock %}
+{% block fetch_label %}Download{% endblock %}
+{% block dl_label %}Download Now{% endblock %}
+
+{% block intro %}SaveLinkX is a fast, free <strong style="color:#aaa;">YouTube video downloader</strong>. Paste any link from <strong style="color:#aaa;">youtube.com</strong> or <strong style="color:#aaa;">youtu.be</strong> and download videos as MP4. Also supports <strong style="color:#aaa;">playlists</strong> - no installation, no account, works on any device.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="How to download">
+    <h2>How to Download YouTube Videos</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Open YouTube, find a video or playlist, and copy the link from the address bar or <strong>Share</strong> button.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Paste the link into the field above and click <strong>Download</strong> to load the available options.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Choose your quality and click <strong>Download Now</strong> - the MP4 saves to your device.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>Is it free to download YouTube videos?</summary>
+      <p>Yes, SaveLinkX is completely free. No account, subscription, or payment of any kind is required.</p>
+    </details>
+    <details>
+      <summary>What video formats are supported?</summary>
+      <p>Videos are downloaded in MP4, compatible with all phones, tablets, and computers. Audio can be saved as MP3 or M4A.</p>
+    </details>
+    <details>
+      <summary>Does it work on iPhone and Android?</summary>
+      <p>Yes. SaveLinkX works in any mobile browser. Paste the YouTube link and the video will be saved directly to your device.</p>
+    </details>
+    <details>
+      <summary>Can I download YouTube playlists?</summary>
+      <p>Yes. Paste a playlist link and SaveLinkX will show you all the videos in the playlist. Click <strong>Download</strong> on any video to save it individually as MP4.</p>
+    </details>
+    <details>
+      <summary>Can I download in 4K or 1080p?</summary>
+      <p>Yes. SaveLinkX offers multiple quality options including 4K (2160p), Full HD (1080p), HD (720p), and lower resolutions when available. Select your quality from the menu before downloading.</p>
+    </details>
+    <details>
+      <summary>Can I download just the audio from a YouTube video?</summary>
+      <p>Yes. Choose the MP3 or M4A audio option from the quality selector to save just the audio track from any YouTube video - perfect for music or podcasts.</p>
+    </details>
+    <details>
+      <summary>Do I need to install any software or extension?</summary>
+      <p>No. SaveLinkX works 100% in your browser - no apps, extensions, or plugins needed. Just paste the link and go.</p>
+    </details>
+    <details>
+      <summary>Does SaveLinkX store my videos?</summary>
+      <p>No. Videos are processed and sent directly to your device. We do not store any files on our servers after the download completes.</p>
+    </details>
+    <details>
+      <summary>What YouTube URL formats are supported?</summary>
+      <p>SaveLinkX supports all common YouTube URL formats: standard watch links (youtube.com/watch?v=), short links (youtu.be/), Shorts (youtube.com/shorts/), embed links, and playlist links (youtube.com/playlist?list=).</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Download YouTube videos">
+    <div>
+      <h2>Download YouTube Videos in MP4 - Fast & Free</h2>
+      <p>SaveLinkX makes it easy to download any YouTube video directly as an MP4 file. Whether it's a music video, tutorial, vlog, or podcast - just paste the link from <strong style="color:#aaa;">youtube.com</strong> or the short <code>youtu.be</code> format, choose your quality, and the download starts immediately.</p>
+      <p>Supported URL formats include <code>youtube.com/watch?v=...</code>, <code>youtu.be/...</code>, <code>youtube.com/shorts/...</code>, and <code>youtube.com/playlist?list=...</code>. No browser extensions, no signup, and no software installation needed.</p>
+    </div>
+  </section>
+
+  <section class="seo-section" aria-label="Download YouTube playlists">
+    <div>
+      <h2>Download YouTube Playlists</h2>
+      <p>Paste any <strong style="color:#aaa;">YouTube playlist link</strong> and SaveLinkX extracts every video for you. Browse the list, pick the videos you want, and download them one by one in your preferred quality. Works with public and unlisted playlists.</p>
+      <p>Simply copy the playlist URL from YouTube - it usually looks like <code>youtube.com/playlist?list=...</code> or <code>youtube.com/watch?v=...&list=...</code> - paste it above, and the full playlist loads for you to choose from.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}
+{% block footer_links %}
+      <a href="/">X (Twitter) Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/tiktok/">TikTok Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/instagram/">Instagram Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos">Terms of Use</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade">Privacy Policy</a>
+      &nbsp;|&nbsp;
+      <a href="/contato">Contact</a>
+{% endblock %}
+{% block disclaimer %}This site is a public link processing tool and does not host any files on its servers. Please respect copyright law and use downloaded videos for personal use only. We are not affiliated with YouTube or Google.{% endblock %}
+
+{% block bmc_message %}If SaveLinkX helped you, consider buying me a coffee! ☕{% endblock %}
+
+{% block page_config %}
+    "platform": "youtube",
+    "lang": "en",
+    "formats": [
+      { "value": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best", "label": "MP4 - Best Quality (Auto)" },
+      { "value": "bestvideo[height<=2160][ext=mp4]+bestaudio/bestvideo[height<=2160]+bestaudio/best[height<=2160]", "label": "MP4 - 4K (2160p)" },
+      { "value": "bestvideo[height<=1080][ext=mp4]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]", "label": "MP4 - Full HD (1080p)" },
+      { "value": "bestvideo[height<=720][ext=mp4]+bestaudio/bestvideo[height<=720]+bestaudio/best[height<=720]", "label": "MP4 - HD (720p)" },
+      { "value": "bestvideo[height<=480][ext=mp4]+bestaudio/bestvideo[height<=480]+bestaudio/best[height<=480]", "label": "MP4 - SD (480p)" },
+      { "value": "bestvideo[height<=360][ext=mp4]+bestaudio/bestvideo[height<=360]+bestaudio/best[height<=360]", "label": "MP4 - Medium (360p)" },
+      { "value": "bestaudio[ext=m4a]/bestaudio", "label": "M4A - Audio Only" },
+      { "value": "bestaudio[ext=mp3]/bestaudio", "label": "MP3 - Audio Only" }
+    ],
+    "strings": {
+      "enter_link": "Please enter a link.",
+      "preparing": "Preparing download options...",
+      "checking": "Checking...",
+      "fetch": "Download",
+      "err_unknown": "Unknown error",
+      "downloading_label": "Downloading...",
+      "downloading_msg": "Downloading - please wait.",
+      "err_download": "Download failed",
+      "ok_audio": "Audio download started! Check your downloads folder.",
+      "ok_video": "Download started! Check your downloads folder.",
+      "download_now": "Download Now",
+      "err_prefix": "Error: "
+    }
+{% endblock %}

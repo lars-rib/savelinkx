@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block lang %}pt-BR{% endblock %}
+{% block body_attrs %}data-platform="youtube"{% endblock %}
+
+{% block head %}
+  <title>SaveLinkX | Baixar Vídeos do YouTube - Download MP4 Grátis</title>
+  <meta name="description" content="Baixe vídeos e playlists do YouTube grátis em MP4. Cole qualquer link do YouTube e salve na hora - sem cadastro, sem programas, funciona em qualquer dispositivo." />
+  <link rel="canonical" href="{{ site_url }}/youtube/pt/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="SaveLinkX - Baixar Vídeos do YouTube Grátis em MP4" />
+  <meta property="og:description" content="Cole qualquer link do YouTube e baixe na melhor qualidade em segundos. Grátis, sem conta." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/youtube/pt/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="keywords" content="baixar vídeos do youtube, download youtube mp4, baixar youtube, youtube to mp4, download playlist youtube, salvar vídeo youtube" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SaveLinkX - Baixar Vídeos do YouTube Grátis" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaveLinkX - Baixar Vídeos do YouTube" />
+  <meta name="twitter:description" content="Baixe vídeos e playlists do YouTube grátis. Rápido, fácil, sem cadastro." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/youtube/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/youtube/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/youtube/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/youtube/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "YouTube Video Downloader",
+    "description": "Baixe vídeos e playlists do YouTube online grátis em MP4. Sem conta necessária.",
+    "url": "{{ site_url }}/youtube/pt/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "pt",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+    "publisher": { "@type": "Organization", "name": "SaveLinkX", "url": "{{ site_url }}/" }
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Navegação principal{% endblock %}
+{% block brand_href %}/youtube/pt/{% endblock %}
+{% block brand_aria %}SaveLinkX início{% endblock %}
+{% block nav_links %}
+      <li><a href="/youtube/pt/">YouTube</a></li>
+      <li><a href="/pt/">X (Twitter)</a></li>
+      <li><a href="/tiktok/pt/">TikTok</a></li>
+      <li><a href="/instagram/pt/">Instagram</a></li>
+      <li><a href="/faq">FAQ</a></li>
+{% endblock %}
+
+{% block h1 %}<span>Baixar Vídeos do YouTube</span> - Rápido, Grátis e Online{% endblock %}
+{% block subtitle %}Cole qualquer link do YouTube e baixe o vídeo na melhor qualidade - grátis, sem cadastro. Suporta vídeos e playlists.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Escolha a plataforma">
+    <a href="/pt/">X (Twitter)</a>
+    <a href="/tiktok/pt/">TikTok</a>
+    <a href="/instagram/pt/">Instagram</a>
+    <a href="/youtube/pt/" class="active">YouTube</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Cole a URL do YouTube ex: https://www.youtube.com/watch?v=dQw4w9WgXcQ ou playlist{% endblock %}
+{% block fetch_label %}Baixar{% endblock %}
+{% block dl_label %}Baixar Agora{% endblock %}
+
+{% block intro %}SaveLinkX é um <strong style="color:#aaa;">baixador de vídeos do YouTube</strong> rápido e grátis. Cole qualquer link do <strong style="color:#aaa;">youtube.com</strong> ou <strong style="color:#aaa;">youtu.be</strong> e baixe vídeos em MP4. Também suporta <strong style="color:#aaa;">playlists</strong> - sem instalação, sem conta, funciona em qualquer dispositivo.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="Como baixar">
+    <h2>Como Baixar Vídeos do YouTube</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Abra o YouTube, encontre um vídeo ou playlist e copie o link da barra de endereços ou do botão <strong>Compartilhar</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Cole o link no campo acima e clique em <strong>Baixar</strong> para carregar as opções disponíveis.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Escolha a qualidade e clique em <strong>Baixar Agora</strong> - o MP4 é salvo no seu dispositivo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Perguntas frequentes">
+    <h2>Perguntas Frequentes</h2>
+
+    <details>
+      <summary>É grátis baixar vídeos do YouTube?</summary>
+      <p>Sim, o SaveLinkX é completamente grátis. Nenhuma conta, assinatura ou pagamento é necessário.</p>
+    </details>
+    <details>
+      <summary>Quais formatos de vídeo são suportados?</summary>
+      <p>Os vídeos são baixados em MP4, compatível com todos os celulares, tablets e computadores. O áudio pode ser salvo como MP3 ou M4A.</p>
+    </details>
+    <details>
+      <summary>Funciona no iPhone e Android?</summary>
+      <p>Sim. O SaveLinkX funciona em qualquer navegador móvel. Cole o link do YouTube e o vídeo será salvo diretamente no seu dispositivo.</p>
+    </details>
+    <details>
+      <summary>Posso baixar playlists do YouTube?</summary>
+      <p>Sim. Cole o link de uma playlist e o SaveLinkX mostrará todos os vídeos. Clique em <strong>Baixar</strong> em qualquer vídeo para salvá-lo individualmente como MP4.</p>
+    </details>
+    <details>
+      <summary>Dá para baixar em 4K ou 1080p?</summary>
+      <p>Sim. O SaveLinkX oferece várias opções de qualidade incluindo 4K (2160p), Full HD (1080p), HD (720p) e resoluções menores quando disponíveis.</p>
+    </details>
+    <details>
+      <summary>Posso baixar só o áudio de um vídeo do YouTube?</summary>
+      <p>Sim. Escolha a opção MP3 ou M4A no seletor de qualidade para salvar apenas a faixa de áudio - ideal para músicas ou podcasts.</p>
+    </details>
+    <details>
+      <summary>Preciso instalar algum programa ou extensão?</summary>
+      <p>Não. O SaveLinkX funciona 100% no seu navegador - sem apps, extensões ou plugins. É só colar o link e pronto.</p>
+    </details>
+    <details>
+      <summary>O SaveLinkX armazena meus vídeos?</summary>
+      <p>Não. Os vídeos são processados e enviados diretamente para o seu dispositivo. Não armazenamos arquivos nos nossos servidores após o download.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Baixar vídeos do YouTube">
+    <div>
+      <h2>Baixar Vídeos do YouTube em MP4 - Rápido e Grátis</h2>
+      <p>O SaveLinkX facilita baixar qualquer vídeo do YouTube diretamente como MP4. Seja um clipe musical, tutorial, vlog ou podcast - basta colar o link do <strong style="color:#aaa;">youtube.com</strong> ou o formato curto <code>youtu.be</code>, escolher a qualidade e o download começa na hora.</p>
+      <p>Formatos de URL suportados: <code>youtube.com/watch?v=...</code>, <code>youtu.be/...</code>, <code>youtube.com/shorts/...</code> e <code>youtube.com/playlist?list=...</code>. Sem extensões, sem cadastro e sem instalar nada.</p>
+    </div>
+  </section>
+
+  <section class="seo-section" aria-label="Baixar playlists do YouTube">
+    <div>
+      <h2>Baixar Playlists do YouTube</h2>
+      <p>Cole qualquer <strong style="color:#aaa;">link de playlist do YouTube</strong> e o SaveLinkX extrai todos os vídeos para você. Navegue pela lista, escolha os vídeos que quiser e baixe um por um na qualidade desejada. Funciona com playlists públicas e não listadas.</p>
+      <p>Copie a URL da playlist no YouTube - geralmente no formato <code>youtube.com/playlist?list=...</code> ou <code>youtube.com/watch?v=...&list=...</code> - cole acima e a playlist completa carrega para você escolher.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Seu processador de links favorito.{% endblock %}
+{% block footer_links %}
+      <a href="/pt/">Baixar X (Twitter)</a>
+      &nbsp;|&nbsp;
+      <a href="/tiktok/pt/">Baixar TikTok</a>
+      &nbsp;|&nbsp;
+      <a href="/instagram/pt/">Baixar Instagram</a>
+      &nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos">Termos de Uso</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade">Política de Privacidade</a>
+      &nbsp;|&nbsp;
+      <a href="/contato">Contato</a>
+{% endblock %}
+{% block disclaimer %}Este site é uma ferramenta pública de processamento de links e não hospeda arquivos em seus servidores. Respeite os direitos autorais e use os vídeos baixados apenas para uso pessoal. Não somos afiliados ao YouTube ou Google.{% endblock %}
+
+{% block bmc_message %}Se o SaveLinkX te ajudou, considere me pagar um café! ☕{% endblock %}
+
+{% block page_config %}
+    "platform": "youtube",
+    "lang": "pt",
+    "formats": [
+      { "value": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best", "label": "MP4 - Melhor Qualidade (Auto)" },
+      { "value": "bestvideo[height<=2160][ext=mp4]+bestaudio/bestvideo[height<=2160]+bestaudio/best[height<=2160]", "label": "MP4 - 4K (2160p)" },
+      { "value": "bestvideo[height<=1080][ext=mp4]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]", "label": "MP4 - Full HD (1080p)" },
+      { "value": "bestvideo[height<=720][ext=mp4]+bestaudio/bestvideo[height<=720]+bestaudio/best[height<=720]", "label": "MP4 - HD (720p)" },
+      { "value": "bestvideo[height<=480][ext=mp4]+bestaudio/bestvideo[height<=480]+bestaudio/best[height<=480]", "label": "MP4 - SD (480p)" },
+      { "value": "bestvideo[height<=360][ext=mp4]+bestaudio/bestvideo[height<=360]+bestaudio/best[height<=360]", "label": "MP4 - Médio (360p)" },
+      { "value": "bestaudio[ext=m4a]/bestaudio", "label": "M4A - Apenas Áudio" },
+      { "value": "bestaudio[ext=mp3]/bestaudio", "label": "MP3 - Apenas Áudio" }
+    ],
+    "strings": {
+      "enter_link": "Por favor, insira um link.",
+      "preparing": "Preparando opções de download...",
+      "checking": "Verificando...",
+      "fetch": "Baixar",
+      "err_unknown": "Erro desconhecido",
+      "downloading_label": "Baixando...",
+      "downloading_msg": "Baixando - aguarde.",
+      "err_download": "Falha no download",
+      "ok_audio": "Download de áudio iniciado! Verifique sua pasta de downloads.",
+      "ok_video": "Download iniciado! Verifique sua pasta de downloads.",
+      "download_now": "Baixar Agora",
+      "err_prefix": "Erro: "
+    }
+{% endblock %}

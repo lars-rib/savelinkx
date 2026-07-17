@@ -9,8 +9,9 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root { --accent: #1d9bf0; --accent-hover: #1a8cd8; }
-    [data-platform="tiktok"]   { --accent: #ff0050; --accent-hover: #d90044; }
-    [data-platform="instagram"] { --accent: #E1306C; --accent-hover: #c7255a; }
+    [data-platform="tiktok"]    { --accent: #ff0050; --accent-hover: #d90044; }
+    [data-platform="instagram"]  { --accent: #E1306C; --accent-hover: #c7255a; }
+    [data-platform="youtube"]    { --accent: #FF0000; --accent-hover: #cc0000; }
 
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
     header { text-align: center; margin-bottom: 36px; }
@@ -100,6 +101,17 @@
     .footer-links { font-size: 0.8rem; color: #555; margin-bottom: 16px; }
     .footer-links a { color: #555; text-decoration: underline; }
     .footer-disclaimer { border-left: 3px solid #2a2a2a; padding: 10px 16px; text-align: left; font-size: 0.78rem; color: #555; line-height: 1.7; font-style: italic; }
+    #playlistInfo { display: none; margin-top: 24px; animation: fadeIn 0.3s ease; }
+    #playlistTitle { font-size: 0.95rem; font-weight: 600; margin-bottom: 16px; color: #fff; }
+    .playlist-stats { font-size: 0.8rem; color: #777; margin-bottom: 16px; }
+    .playlist-entry { display: flex; gap: 12px; align-items: center; background: #111; border: 1px solid #2a2a2a; border-radius: 12px; padding: 12px; margin-bottom: 8px; transition: border-color 0.2s; }
+    .playlist-entry:hover { border-color: #3a3a3a; }
+    .playlist-entry img { width: 64px; height: 36px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: #222; }
+    .playlist-entry-meta { flex: 1; min-width: 0; }
+    .playlist-entry-title { font-size: 0.82rem; font-weight: 600; color: #e8e8e8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .playlist-entry-info { font-size: 0.72rem; color: #777; margin-top: 3px; display: flex; gap: 12px; }
+    .playlist-dl-btn { background: var(--accent); color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; }
+    .playlist-dl-btn:hover:not(:disabled) { background: var(--accent-hover); }
     {% block extra_css %}{% endblock %}
     @media (max-width: 480px) {
       .steps { grid-template-columns: 1fr; }
@@ -181,6 +193,13 @@
         <span id="dlLabel">{% block dl_label %}Download Now{% endblock %}</span>
       </button>
     </div>
+
+    <div id="playlistInfo">
+      <hr class="divider" />
+      <h2 id="playlistTitle"></h2>
+      <p class="playlist-stats" id="playlistStats"></p>
+      <div id="playlistEntries"></div>
+    </div>
   </main>
 
   {% block content %}{% endblock %}
@@ -242,6 +261,7 @@
       document.getElementById("fetchSpinner").style.display = "block";
       document.getElementById("fetchLabel").textContent = S.checking;
       document.getElementById("videoInfo").style.display = "none";
+      document.getElementById("playlistInfo").style.display = "none";
       setStatus(S.preparing, "loading");
 
       try {
@@ -253,30 +273,66 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || S.err_unknown);
 
-        document.getElementById("thumbnail").src = data.thumbnail;
-        document.getElementById("title").textContent = data.title;
+        if (data.is_playlist) {
+          document.getElementById("playlistTitle").textContent = data.title;
+          document.getElementById("playlistStats").textContent = `${data.count} videos` + (data.uploader ? ` by ${data.uploader}` : "");
 
-        const uploader = document.getElementById("uploaderBadge");
-        uploader.textContent = data.uploader || "";
-        uploader.style.display = data.uploader ? "inline-block" : "none";
+          const container = document.getElementById("playlistEntries");
+          container.innerHTML = "";
 
-        const dur = document.getElementById("durationBadge");
-        dur.textContent = data.duration ? `${data.duration}` : "";
-        dur.style.display = data.duration ? "inline-block" : "none";
+          data.entries.forEach(entry => {
+            const div = document.createElement("div");
+            div.className = "playlist-entry";
+            div.innerHTML =
+              `<img src="${entry.thumbnail}" alt="" onerror="this.style.display='none'" loading="lazy" />` +
+              `<div class="playlist-entry-meta">` +
+                `<div class="playlist-entry-title">${entry.title}</div>` +
+                `<div class="playlist-entry-info">` +
+                  (entry.duration ? `<span>${entry.duration}</span>` : '') +
+                  (entry.uploader ? `<span>${entry.uploader}</span>` : '') +
+                `</div>` +
+              `</div>` +
+              `<button class="playlist-dl-btn" data-url="${encodeURI(entry.url)}">Download</button>`;
+            container.appendChild(div);
+          });
 
-        const sel = document.getElementById("formatSelect");
-        sel.innerHTML = "";
+          container.querySelectorAll(".playlist-dl-btn").forEach(btnEl => {
+            btnEl.addEventListener("click", function() {
+              document.getElementById("urlInput").value = decodeURIComponent(this.dataset.url);
+              document.getElementById("playlistInfo").style.display = "none";
+              fetchInfo();
+            });
+          });
 
-        (P.formats || []).forEach(f => {
-          const opt = document.createElement("option");
-          opt.value = f.value;
-          opt.textContent = f.label;
-          sel.appendChild(opt);
-        });
+          document.getElementById("playlistInfo").style.display = "block";
+          setStatus("");
+          trackEvent("playlist_loaded", { count: data.count });
+        } else {
+          document.getElementById("thumbnail").src = data.thumbnail;
+          document.getElementById("title").textContent = data.title;
 
-        document.getElementById("videoInfo").style.display = "block";
-        setStatus("");
-        trackEvent("options_loaded", { format_count: (data.formats || []).length });
+          const uploader = document.getElementById("uploaderBadge");
+          uploader.textContent = data.uploader || "";
+          uploader.style.display = data.uploader ? "inline-block" : "none";
+
+          const dur = document.getElementById("durationBadge");
+          dur.textContent = data.duration ? `${data.duration}` : "";
+          dur.style.display = data.duration ? "inline-block" : "none";
+
+          const sel = document.getElementById("formatSelect");
+          sel.innerHTML = "";
+
+          (P.formats || []).forEach(f => {
+            const opt = document.createElement("option");
+            opt.value = f.value;
+            opt.textContent = f.label;
+            sel.appendChild(opt);
+          });
+
+          document.getElementById("videoInfo").style.display = "block";
+          setStatus("");
+          trackEvent("options_loaded", { format_count: (data.formats || []).length });
+        }
       } catch (err) {
         setStatus(S.err_prefix + err.message, "error");
         trackEvent("download_error", { stage: "prepare_options", message: err.message });

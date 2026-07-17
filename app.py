@@ -82,6 +82,58 @@ INSTAGRAM_HOSTS = {
     "instagram.com", "www.instagram.com", "m.instagram.com",
 }
 
+YOUTUBE_HOSTS = {
+    "youtube.com", "www.youtube.com", "m.youtube.com",
+    "youtu.be", "www.youtu.be",
+}
+
+YOUTUBE_SHORT_PATTERN = re.compile(r"^/([A-Za-z0-9_-]{11})(?:/.*)?$")
+
+
+def normalize_and_validate_youtube_url(raw_url):
+    url = (raw_url or "").strip()
+    if not url:
+        return None, "No URL provided"
+
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return None, "Please enter a valid URL starting with http:// or https://"
+
+    hostname = (parsed.hostname or "").lower()
+    path = parsed.path or ""
+    query = parsed.query or ""
+
+    if hostname in ("youtu.be", "www.youtu.be"):
+        m = YOUTUBE_SHORT_PATTERN.match(path)
+        if not m:
+            return None, "Please enter a valid YouTube link."
+        normalized = f"https://www.youtube.com/watch?v={m.group(1)}"
+        return normalized, None
+
+    if hostname in YOUTUBE_HOSTS:
+        has_v = "v=" in query
+        has_list = "list=" in query
+        path_lower = path.lower()
+        valid = (
+            path_lower.startswith("/watch") or
+            path_lower.startswith("/shorts/") or
+            path_lower.startswith("/playlist") or
+            path_lower.startswith("/embed/") or
+            path_lower.startswith("/live/") or
+            path_lower.startswith("/@") or
+            path_lower.startswith("/channel/") or
+            path_lower.startswith("/c/")
+        )
+        if not valid and not has_v and not has_list:
+            return None, "Please enter a valid YouTube video or playlist URL."
+
+        normalized = f"https://www.youtube.com{path}"
+        if query:
+            normalized = f"{normalized}?{query}"
+        return normalized, None
+
+    return None, "Please enter a valid YouTube URL."
+
 
 @app.before_request
 def log_request_started():
@@ -112,6 +164,7 @@ COOKIE_ENV_BY_PLATFORM = {
     "twitter": "TWITTER_COOKIES_FILE",
     "tiktok": "TIKTOK_COOKIES_FILE",
     "instagram": "INSTAGRAM_COOKIES_FILE",
+    "youtube": "YOUTUBE_COOKIES_FILE",
 }
 
 
@@ -210,6 +263,7 @@ PLATFORM_VALIDATORS = (
     ("twitter", TWITTER_HOSTS, normalize_and_validate_tweet_url),
     ("tiktok", TIKTOK_HOSTS | TIKTOK_SHORT_HOSTS, normalize_and_validate_tiktok_url),
     ("instagram", INSTAGRAM_HOSTS, normalize_and_validate_instagram_url),
+    ("youtube", YOUTUBE_HOSTS, normalize_and_validate_youtube_url),
 )
 
 
@@ -235,7 +289,7 @@ def detect_and_normalize_url(raw_url):
                 return None, None, error
             return normalized, platform, None
 
-    return None, None, "Unsupported link. Please paste a Twitter/X, TikTok, or Instagram video URL."
+    return None, None, "Unsupported link. Please paste a YouTube, Twitter/X, TikTok, or Instagram URL."
 
 
 def map_yt_dlp_error(exc):
@@ -358,6 +412,21 @@ def index_instagram_es():
     return render_template("index_instagram_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
+@app.route("/youtube/")
+def index_youtube():
+    return render_template("index_youtube.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/youtube/pt/")
+def index_youtube_pt():
+    return render_template("index_youtube_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/youtube/es/")
+def index_youtube_es():
+    return render_template("index_youtube_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
 @app.route("/termos")
 def termos():
     return render_template("termos.html", site_url=get_site_base_url(), updated=get_updated_label())
@@ -406,6 +475,28 @@ def get_info():
     try:
         with yt_dlp.YoutubeDL(base_ydl_opts(platform)) as ydl:
             info = ydl.extract_info(url, download=False)
+
+        if info.get("_type") == "playlist":
+            entries = []
+            for entry in info.get("entries", []):
+                if entry is None:
+                    continue
+                entries.append({
+                    "title": entry.get("title", "video"),
+                    "url": entry.get("webpage_url") or entry.get("original_url", ""),
+                    "thumbnail": entry.get("thumbnail", ""),
+                    "duration": entry.get("duration_string", "") or "",
+                    "uploader": entry.get("uploader", "") or "",
+                })
+            data = {
+                "is_playlist": True,
+                "title": info.get("title", "Playlist"),
+                "uploader": info.get("uploader", ""),
+                "entries": entries,
+                "count": len(entries),
+            }
+            set_cached_metadata(url, data)
+            return jsonify(data)
 
         data = {
             "title": sanitize_filename(info.get("title", "video")),
@@ -543,13 +634,31 @@ def sitemap():
         <priority>0.9</priority>
       </url>
       <url>
-        <loc>https://www.savelinkx.com/instagram/es/</loc>
-        <lastmod>2026-07-16</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/faq</loc>
+         <loc>https://www.savelinkx.com/instagram/es/</loc>
+         <lastmod>2026-07-16</lastmod>
+         <changefreq>daily</changefreq>
+         <priority>0.9</priority>
+       </url>
+       <url>
+         <loc>https://www.savelinkx.com/youtube/</loc>
+         <lastmod>2026-07-17</lastmod>
+         <changefreq>daily</changefreq>
+         <priority>0.9</priority>
+       </url>
+       <url>
+         <loc>https://www.savelinkx.com/youtube/pt/</loc>
+         <lastmod>2026-07-17</lastmod>
+         <changefreq>daily</changefreq>
+         <priority>0.9</priority>
+       </url>
+       <url>
+         <loc>https://www.savelinkx.com/youtube/es/</loc>
+         <lastmod>2026-07-17</lastmod>
+         <changefreq>daily</changefreq>
+         <priority>0.9</priority>
+       </url>
+       <url>
+         <loc>https://www.savelinkx.com/faq</loc>
         <lastmod>2026-04-27</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
