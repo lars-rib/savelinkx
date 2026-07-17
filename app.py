@@ -6,7 +6,7 @@ import time
 from datetime import date
 from urllib.parse import urlparse
 
-from flask import Flask, Response, after_this_request, jsonify, render_template, request, send_file
+from flask import Flask, Response, after_this_request, jsonify, redirect, render_template, request, send_file
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import yt_dlp
@@ -369,16 +369,31 @@ def set_cached_metadata(url, data):
 
 @app.route("/")
 def index():
-    return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_youtube.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/pt/")
 def index_pt():
-    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_youtube_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/es/")
 def index_es():
+    return render_template("index_youtube_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/x/")
+def index_twitter():
+    return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/x/pt/")
+def index_twitter_pt():
+    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/x/es/")
+def index_twitter_es():
     return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
@@ -413,18 +428,18 @@ def index_instagram_es():
 
 
 @app.route("/youtube/")
-def index_youtube():
-    return render_template("index_youtube.html", site_url=get_site_base_url(), updated=get_updated_label())
+def youtube_redirect():
+    return redirect("/", 301)
 
 
 @app.route("/youtube/pt/")
-def index_youtube_pt():
-    return render_template("index_youtube_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+def youtube_pt_redirect():
+    return redirect("/pt/", 301)
 
 
 @app.route("/youtube/es/")
-def index_youtube_es():
-    return render_template("index_youtube_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+def youtube_es_redirect():
+    return redirect("/es/", 301)
 
 
 @app.route("/termos")
@@ -587,19 +602,19 @@ def sitemap():
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
         <loc>https://www.savelinkx.com/</loc>
-        <lastmod>2026-04-27</lastmod>
+        <lastmod>2026-07-17</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
       </url>
       <url>
         <loc>https://www.savelinkx.com/pt/</loc>
-        <lastmod>2026-07-14</lastmod>
+        <lastmod>2026-07-17</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
       </url>
       <url>
         <loc>https://www.savelinkx.com/es/</loc>
-        <lastmod>2026-07-14</lastmod>
+        <lastmod>2026-07-17</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
       </url>
@@ -634,31 +649,31 @@ def sitemap():
         <priority>0.9</priority>
       </url>
       <url>
-         <loc>https://www.savelinkx.com/instagram/es/</loc>
-         <lastmod>2026-07-16</lastmod>
-         <changefreq>daily</changefreq>
-         <priority>0.9</priority>
-       </url>
-       <url>
-         <loc>https://www.savelinkx.com/youtube/</loc>
-         <lastmod>2026-07-17</lastmod>
-         <changefreq>daily</changefreq>
-         <priority>0.9</priority>
-       </url>
-       <url>
-         <loc>https://www.savelinkx.com/youtube/pt/</loc>
-         <lastmod>2026-07-17</lastmod>
-         <changefreq>daily</changefreq>
-         <priority>0.9</priority>
-       </url>
-       <url>
-         <loc>https://www.savelinkx.com/youtube/es/</loc>
-         <lastmod>2026-07-17</lastmod>
-         <changefreq>daily</changefreq>
-         <priority>0.9</priority>
-       </url>
-       <url>
-         <loc>https://www.savelinkx.com/faq</loc>
+        <loc>https://www.savelinkx.com/instagram/es/</loc>
+        <lastmod>2026-07-16</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/x/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/x/pt/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/x/es/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/faq</loc>
         <lastmod>2026-04-27</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>

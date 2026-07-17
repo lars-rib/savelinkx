@@ -22,7 +22,13 @@
       "Bash(git branch *)",
       "Bash(git push *)",
       "Bash(git config *)",
-      "Bash(git commit -m 'Add Portuguese and Spanish pages with hreflang and updated sitemap *)"
+      "Bash(git commit -m 'Add Portuguese and Spanish pages with hreflang and updated sitemap *)",
+      "Bash(gh auth *)",
+      "Bash(gh api *)",
+      "Bash(git credential *)",
+      "Bash(curl -s https://savelinkx.com/sitemap.xml)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{url_effective}\\\\n\" -L https://savelinkx.com/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{url_effective}\\\\n\" -L https://www.savelinkx.com/)"
     ]
   }
 }

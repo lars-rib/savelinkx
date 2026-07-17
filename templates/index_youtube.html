@@ -6,14 +6,14 @@
 {% block head %}
   <title>SaveLinkX | YouTube Video Downloader - Download MP4 Free</title>
   <meta name="description" content="Download YouTube videos and playlists for free in MP4. Paste any YouTube link and save it instantly - no signup, no software, works on any device." />
-  <link rel="canonical" href="{{ site_url }}/youtube/" />
+  <link rel="canonical" href="{{ site_url }}/" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="SaveLinkX" />
   <meta name="theme-color" content="#0f0f0f" />
   <meta property="og:title" content="SaveLinkX - YouTube Video Downloader - Free MP4 Downloads" />
   <meta property="og:description" content="Paste any YouTube link and download in the highest available quality in seconds. Free, no account needed." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ site_url }}/youtube/" />
+  <meta property="og:url" content="{{ site_url }}/" />
   <meta property="og:site_name" content="SaveLinkX" />
   <meta property="og:locale" content="en_US" />
   <meta name="keywords" content="youtube video downloader, download youtube videos, youtube to mp4, save youtube video, youtube downloader free, download youtube playlist, youtube mp4 download, youtube video download online" />
@@ -25,17 +25,17 @@
   <meta name="twitter:title" content="SaveLinkX - YouTube Video Downloader" />
   <meta name="twitter:description" content="Download YouTube videos and playlists for free. Fast, easy, no signup required." />
   <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
-  <link rel="alternate" hreflang="en" href="{{ site_url }}/youtube/" />
-  <link rel="alternate" hreflang="pt" href="{{ site_url }}/youtube/pt/" />
-  <link rel="alternate" hreflang="es" href="{{ site_url }}/youtube/es/" />
-  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/youtube/" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "YouTube Video Downloader",
     "description": "Download YouTube videos and playlists online for free in MP4 format. No account required.",
-    "url": "{{ site_url }}/youtube/",
+    "url": "{{ site_url }}/",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "All",
     "inLanguage": "en",
@@ -79,11 +79,11 @@
 {% endblock %}
 
 {% block nav_aria %}Main navigation{% endblock %}
-{% block brand_href %}/youtube/{% endblock %}
+{% block brand_href %}/{% endblock %}
 {% block brand_aria %}SaveLinkX home{% endblock %}
 {% block nav_links %}
-      <li><a href="/youtube/">YouTube</a></li>
-      <li><a href="/">X (Twitter)</a></li>
+      <li><a href="/">YouTube</a></li>
+      <li><a href="/x/">X (Twitter)</a></li>
       <li><a href="/tiktok/">TikTok</a></li>
       <li><a href="/instagram/">Instagram</a></li>
       <li><a href="/faq">FAQ</a></li>
@@ -94,10 +94,10 @@
 
 {% block toolswitch %}
   <div class="tool-switch" aria-label="Choose platform">
-    <a href="/">X (Twitter)</a>
+    <a href="/x/">X (Twitter)</a>
     <a href="/tiktok/">TikTok</a>
     <a href="/instagram/">Instagram</a>
-    <a href="/youtube/" class="active">YouTube</a>
+    <a href="/" class="active">YouTube</a>
   </div>
 {% endblock %}
 
@@ -186,7 +186,7 @@
 
 {% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}
 {% block footer_links %}
-      <a href="/">X (Twitter) Downloader</a>
+      <a href="/x/">X (Twitter) Downloader</a>
       &nbsp;|&nbsp;
       <a href="/tiktok/">TikTok Downloader</a>
       &nbsp;|&nbsp;
