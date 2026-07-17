@@ -76,6 +76,14 @@ systemctl restart savelinkx
 Skip the `pip install` step if the change is template/route-only with no new
 dependency — restart alone picks up the new code.
 
+**Passwordless SSH is already set up** on this Windows machine: `ssh savelinkx`
+connects with no password prompt (alias in `~/.ssh/config`, reusing an
+existing key — `~/.ssh/shira_vps` — that already had access to this same VPS
+from another project on the same box). An agent or script can run deploy
+commands non-interactively, e.g. `ssh savelinkx "cd /opt/savelinkx && git pull origin main && systemctl restart savelinkx"`.
+This alias only exists on this specific Windows machine's `~/.ssh/config` —
+it is not committed to the repo (SSH keys/config must never be committed).
+
 The app runs as systemd service `savelinkx` (gunicorn on 127.0.0.1:5000),
 fronted by nginx with Let's Encrypt SSL. Other services on this VPS run in
 Docker — unrelated, do not touch. `git status` before any destructive
