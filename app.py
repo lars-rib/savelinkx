@@ -171,7 +171,7 @@ def normalize_and_validate_vimeo_url(parsed):
     path = parsed.path or ""
     if not VIMEO_PATTERN.match(path):
         return None, "Please enter a valid Vimeo URL like https://vimeo.com/123456789"
-    normalized = f"https://vimeo.com{VIMEO_PATTERN.match(path).group(1)}"
+    normalized = f"https://vimeo.com/{VIMEO_PATTERN.match(path).group(1)}"
     return normalized, None
 
 
@@ -674,8 +674,9 @@ def get_info():
         set_cached_metadata(url, data)
         return jsonify(data)
     except Exception as exc:
-        try: os.remove(cookie_path)
-        except: pass
+        if cookie_path:
+            try: os.remove(cookie_path)
+            except Exception: pass
         logger.exception("/info failed for url=%s", url)
         err_text = str(exc).lower()
         needs_cookies = "login" in err_text or "private" in err_text or "empty media response" in err_text
