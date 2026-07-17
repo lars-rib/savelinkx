@@ -76,6 +76,7 @@ TIKTOK_SHORT_CODE_PATTERN = re.compile(r"^/([A-Za-z0-9]+)/?$")
 INSTAGRAM_STATUS_PATTERNS = (
     re.compile(r"^/(?:p|reel|reels|tv)/([A-Za-z0-9_-]+)/?$", re.IGNORECASE),
     re.compile(r"^/[A-Za-z0-9._]+/(?:p|reel|reels|tv)/([A-Za-z0-9_-]+)/?$", re.IGNORECASE),
+    re.compile(r"^/stories/[A-Za-z0-9._]+/(\d+)/?$", re.IGNORECASE),
 )
 
 INSTAGRAM_HOSTS = {
@@ -88,6 +89,50 @@ YOUTUBE_HOSTS = {
 }
 
 YOUTUBE_SHORT_PATTERN = re.compile(r"^/([A-Za-z0-9_-]{11})(?:/.*)?$")
+
+FACEBOOK_HOSTS = {
+    "facebook.com", "www.facebook.com", "m.facebook.com",
+    "fb.watch", "www.fb.watch",
+    "fb.com", "www.fb.com",
+}
+
+
+def normalize_and_validate_facebook_url(raw_url):
+    url = (raw_url or "").strip()
+    if not url:
+        return None, "No URL provided"
+
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return None, "Please enter a valid URL starting with http:// or https://"
+
+    hostname = (parsed.hostname or "").lower()
+    if hostname not in FACEBOOK_HOSTS:
+        return None, "Please enter a valid Facebook URL."
+
+    path = parsed.path or ""
+    query = parsed.query or ""
+    path_lower = path.lower()
+
+    valid = (
+        "/videos/" in path_lower or
+        "/video" in path_lower or
+        "/watch" in path_lower or
+        "/reel/" in path_lower or
+        "/stories/" in path_lower or
+        "/share/v/" in path_lower or
+        "/share/r/" in path_lower or
+        "/posts/" in path_lower or
+        "v=" in query
+    )
+
+    if not valid:
+        return None, "Please enter a valid Facebook video or story URL. Paste a link containing /videos/, /reel/, /watch/, or /stories/."
+
+    normalized = f"https://www.facebook.com{path}"
+    if query:
+        normalized = f"{normalized}?{query}"
+    return normalized, None
 
 
 def normalize_and_validate_youtube_url(raw_url):
@@ -165,6 +210,7 @@ COOKIE_ENV_BY_PLATFORM = {
     "tiktok": "TIKTOK_COOKIES_FILE",
     "instagram": "INSTAGRAM_COOKIES_FILE",
     "youtube": "YOUTUBE_COOKIES_FILE",
+    "facebook": "FACEBOOK_COOKIES_FILE",
 }
 
 
@@ -246,11 +292,8 @@ def normalize_and_validate_instagram_url(raw_url):
         return None, "Please enter a valid Instagram post or Reel URL."
 
     path = parsed.path or ""
-    if path.lower().startswith("/stories/"):
-        return None, "Instagram Stories require login and cannot be downloaded. Please use a public post or Reel link."
-
     if not any(pattern.match(path) for pattern in INSTAGRAM_STATUS_PATTERNS):
-        return None, "Please paste a direct Instagram post or Reel link like https://www.instagram.com/reel/Abc123/"
+        return None, "Please paste a direct Instagram post, Reel, or Story link like https://www.instagram.com/reel/Abc123/"
 
     normalized = f"https://www.instagram.com{path}"
     if not normalized.endswith("/"):
@@ -264,6 +307,7 @@ PLATFORM_VALIDATORS = (
     ("tiktok", TIKTOK_HOSTS | TIKTOK_SHORT_HOSTS, normalize_and_validate_tiktok_url),
     ("instagram", INSTAGRAM_HOSTS, normalize_and_validate_instagram_url),
     ("youtube", YOUTUBE_HOSTS, normalize_and_validate_youtube_url),
+    ("facebook", FACEBOOK_HOSTS, normalize_and_validate_facebook_url),
 )
 
 
@@ -289,7 +333,7 @@ def detect_and_normalize_url(raw_url):
                 return None, None, error
             return normalized, platform, None
 
-    return None, None, "Unsupported link. Please paste a YouTube, Twitter/X, TikTok, or Instagram URL."
+    return None, None, "Unsupported link. Please paste a Facebook, YouTube, Twitter/X, TikTok, or Instagram URL."
 
 
 def map_yt_dlp_error(exc):
@@ -425,6 +469,21 @@ def index_instagram_pt():
 @app.route("/instagram/es/")
 def index_instagram_es():
     return render_template("index_instagram_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/facebook/")
+def index_facebook():
+    return render_template("index_facebook.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/facebook/pt/")
+def index_facebook_pt():
+    return render_template("index_facebook_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/facebook/es/")
+def index_facebook_es():
+    return render_template("index_facebook_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/youtube/")
@@ -649,13 +708,31 @@ def sitemap():
         <priority>0.9</priority>
       </url>
       <url>
-        <loc>https://www.savelinkx.com/instagram/es/</loc>
-        <lastmod>2026-07-16</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/x/</loc>
+         <loc>https://www.savelinkx.com/instagram/es/</loc>
+         <lastmod>2026-07-16</lastmod>
+         <changefreq>daily</changefreq>
+         <priority>0.9</priority>
+       </url>
+       <url>
+         <loc>https://www.savelinkx.com/facebook/</loc>
+         <lastmod>2026-07-17</lastmod>
+         <changefreq>daily</changefreq>
+         <priority>0.9</priority>
+       </url>
+       <url>
+         <loc>https://www.savelinkx.com/facebook/pt/</loc>
+         <lastmod>2026-07-17</lastmod>
+         <changefreq>daily</changefreq>
+         <priority>0.9</priority>
+       </url>
+       <url>
+         <loc>https://www.savelinkx.com/facebook/es/</loc>
+         <lastmod>2026-07-17</lastmod>
+         <changefreq>daily</changefreq>
+         <priority>0.9</priority>
+       </url>
+       <url>
+         <loc>https://www.savelinkx.com/x/</loc>
         <lastmod>2026-07-17</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
