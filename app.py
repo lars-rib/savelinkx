@@ -248,6 +248,8 @@ COOKIE_ENV_BY_PLATFORM = {
 
 def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True}
+    if platform == "youtube":
+        opts["js_runtimes"] = {"node": {}}
     if cookie_file_override and os.path.exists(cookie_file_override):
         opts["cookiefile"] = cookie_file_override
     else:
@@ -350,6 +352,8 @@ def detect_and_normalize_url(raw_url):
 
 def map_yt_dlp_error(exc):
     text = str(exc).lower()
+    if "sign in to confirm" in text or "not a bot" in text:
+        return "YouTube is asking for bot verification. Please try another video or try again in a few minutes."
     if "no video could be found" in text or "no video formats found" in text:
         return "This post doesn't contain a video. Please paste a link to a post with a video."
     if "ffmpeg" in text and ("not found" in text or "not installed" in text):
