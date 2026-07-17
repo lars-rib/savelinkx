@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+{% extends "base.html" %}
+{% block lang %}en{% endblock %}
+{% block head %}
   <title>Contact - SaveLinkX</title>
   <meta name="description" content="Get in touch with the SaveLinkX team. Questions, feedback, or support - we respond within 24 hours." />
   <meta name="robots" content="index, follow" />
@@ -26,30 +23,27 @@
     "publisher": { "@type": "Organization", "name": "SaveLinkX", "url": "{{ site_url }}/" }
   }
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --accent: #1d9bf0; --accent-hover: #1a8cd8; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
-    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 40px 36px; width: 100%; max-width: 620px; text-align: center; }
-    h1 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
-    h1 span { color: var(--accent); }
-    p { font-size: 0.92rem; color: #888; line-height: 1.75; margin-bottom: 28px; }
-    .email-box { display: inline-flex; align-items: center; gap: 10px; background: #111; border: 1px solid #2a2a2a; border-radius: 14px; padding: 16px 24px; font-size: 0.95rem; font-weight: 600; }
-    .email-box a { color: var(--accent); text-decoration: none; }
-    .email-box a:hover { text-decoration: underline; }
-    .back { display: inline-flex; align-items: center; gap: 6px; margin-top: 32px; font-size: 0.88rem; color: var(--accent); text-decoration: none; font-weight: 600; }
-    .back:hover { text-decoration: underline; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Contact - <span>SaveLinkX</span></h1>
-    <p>Have a question or suggestion? Reach out to our team.<br/>We respond within 24 hours.</p>
-    <div class="email-box">
-      <span aria-hidden="true">&#128231;</span> <a href="mailto:contact.linkx@proton.me">contact.linkx@proton.me</a>
+{% endblock %}
+{% block nav_links %}
+      <li><a href="/">Home</a></li>
+      <li><a href="/faq">FAQ</a></li>
+{% endblock %}
+{% block card_content %}
+  <main class="card" role="main" style="text-align:center;">
+    <h1 style="font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:12px;">Contact - <span style="color:var(--accent);">SaveLinkX</span></h1>
+    <p style="font-size:0.92rem;color:#888;line-height:1.75;margin-bottom:28px;">Have a question or suggestion? Reach out to our team.<br/>We respond within 24 hours.</p>
+    <div style="display:inline-flex;align-items:center;gap:10px;background:#111;border:1px solid #2a2a2a;border-radius:14px;padding:16px 24px;font-size:0.95rem;font-weight:600;">
+      <span aria-hidden="true">&#128231;</span> <a href="mailto:contact.linkx@proton.me" style="color:var(--accent);text-decoration:none;">contact.linkx@proton.me</a>
     </div>
-    <br/>
-    <a href="/" class="back">&larr; Back to Home</a>
-  </div>
-</body>
-</html>
+  </main>
+{% endblock %}
+{% block footer_links %}
+      <a href="/faq">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos">Terms of Use</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade">Privacy Policy</a>
+{% endblock %}
+{% block page_config %}
+    "platform": "default"
+{% endblock %}

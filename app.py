@@ -97,23 +97,10 @@ FACEBOOK_HOSTS = {
 }
 
 
-def normalize_and_validate_facebook_url(raw_url):
-    url = (raw_url or "").strip()
-    if not url:
-        return None, "No URL provided"
-
-    parsed = urlparse(url)
-    if parsed.scheme not in ("http", "https"):
-        return None, "Please enter a valid URL starting with http:// or https://"
-
-    hostname = (parsed.hostname or "").lower()
-    if hostname not in FACEBOOK_HOSTS:
-        return None, "Please enter a valid Facebook URL."
-
+def normalize_and_validate_facebook_url(parsed):
     path = parsed.path or ""
     query = parsed.query or ""
     path_lower = path.lower()
-
     valid = (
         "/videos/" in path_lower or
         "/video" in path_lower or
@@ -125,36 +112,24 @@ def normalize_and_validate_facebook_url(raw_url):
         "/posts/" in path_lower or
         "v=" in query
     )
-
     if not valid:
         return None, "Please enter a valid Facebook video or story URL. Paste a link containing /videos/, /reel/, /watch/, or /stories/."
-
     normalized = f"https://www.facebook.com{path}"
     if query:
         normalized = f"{normalized}?{query}"
     return normalized, None
 
 
-def normalize_and_validate_youtube_url(raw_url):
-    url = (raw_url or "").strip()
-    if not url:
-        return None, "No URL provided"
-
-    parsed = urlparse(url)
-    if parsed.scheme not in ("http", "https"):
-        return None, "Please enter a valid URL starting with http:// or https://"
-
+def normalize_and_validate_youtube_url(parsed):
     hostname = (parsed.hostname or "").lower()
     path = parsed.path or ""
     query = parsed.query or ""
-
     if hostname in ("youtu.be", "www.youtu.be"):
         m = YOUTUBE_SHORT_PATTERN.match(path)
         if not m:
             return None, "Please enter a valid YouTube link."
         normalized = f"https://www.youtube.com/watch?v={m.group(1)}"
         return normalized, None
-
     if hostname in YOUTUBE_HOSTS:
         has_v = "v=" in query
         has_list = "list=" in query
@@ -171,12 +146,10 @@ def normalize_and_validate_youtube_url(raw_url):
         )
         if not valid and not has_v and not has_list:
             return None, "Please enter a valid YouTube video or playlist URL."
-
         normalized = f"https://www.youtube.com{path}"
         if query:
             normalized = f"{normalized}?{query}"
         return normalized, None
-
     return None, "Please enter a valid YouTube URL."
 
 
@@ -227,74 +200,37 @@ def sanitize_filename(name):
     return re.sub(r'[\/*?:"<>|]', "_", name)
 
 
-def normalize_and_validate_tweet_url(raw_url):
-    url = (raw_url or "").strip()
-    if not url:
-        return None, "No URL provided"
-
-    parsed = urlparse(url)
-    if parsed.scheme not in ("http", "https"):
-        return None, "Please enter a valid URL starting with http:// or https://"
-
+def normalize_and_validate_tweet_url(parsed):
     hostname = (parsed.hostname or "").lower()
-    if hostname not in TWITTER_HOSTS:
-        return None, "Please enter a valid Twitter/X post URL."
-
     path = parsed.path or ""
     if not any(pattern.match(path) for pattern in TWITTER_STATUS_PATTERNS):
         return None, "Please paste a direct post URL like https://x.com/user/status/123456789"
-
     normalized = f"https://{hostname.replace('www.', '')}{parsed.path}"
     if parsed.query:
         normalized = f"{normalized}?{parsed.query}"
     return normalized, None
 
 
-def normalize_and_validate_tiktok_url(raw_url):
-    url = (raw_url or "").strip()
-    if not url:
-        return None, "No URL provided"
-
-    parsed = urlparse(url)
-    if parsed.scheme not in ("http", "https"):
-        return None, "Please enter a valid URL starting with http:// or https://"
-
+def normalize_and_validate_tiktok_url(parsed):
     hostname = (parsed.hostname or "").lower()
     path = parsed.path or ""
-
     if hostname in TIKTOK_SHORT_HOSTS:
         if not TIKTOK_SHORT_CODE_PATTERN.match(path):
             return None, "Please paste a valid TikTok link like https://vm.tiktok.com/XXXXXXX/"
-        # Preserve the short host and code; yt-dlp follows the redirect.
         normalized = f"https://{hostname}{path}"
         return normalized, None
-
     if hostname in TIKTOK_HOSTS:
         if not any(pattern.match(path) for pattern in TIKTOK_STATUS_PATTERNS):
             return None, "Please paste a direct TikTok video link like https://www.tiktok.com/@user/video/1234567890"
         normalized = f"https://www.tiktok.com{path}"
         return normalized, None
-
     return None, "Please enter a valid TikTok video URL."
 
 
-def normalize_and_validate_instagram_url(raw_url):
-    url = (raw_url or "").strip()
-    if not url:
-        return None, "No URL provided"
-
-    parsed = urlparse(url)
-    if parsed.scheme not in ("http", "https"):
-        return None, "Please enter a valid URL starting with http:// or https://"
-
-    hostname = (parsed.hostname or "").lower()
-    if hostname not in INSTAGRAM_HOSTS:
-        return None, "Please enter a valid Instagram post or Reel URL."
-
+def normalize_and_validate_instagram_url(parsed):
     path = parsed.path or ""
     if not any(pattern.match(path) for pattern in INSTAGRAM_STATUS_PATTERNS):
         return None, "Please paste a direct Instagram post, Reel, or Story link like https://www.instagram.com/reel/Abc123/"
-
     normalized = f"https://www.instagram.com{path}"
     if not normalized.endswith("/"):
         normalized += "/"
@@ -328,7 +264,7 @@ def detect_and_normalize_url(raw_url):
     hostname = (parsed.hostname or "").lower()
     for platform, hosts, validator in PLATFORM_VALIDATORS:
         if hostname in hosts:
-            normalized, error = validator(url)
+            normalized, error = validator(parsed)
             if error:
                 return None, None, error
             return normalized, platform, None
@@ -370,6 +306,8 @@ def build_formats(info):
         if ext not in ("mp4", "webm", "mp3", "m4a"):
             continue
 
+        filesize = item.get("filesize") or item.get("filesize_approx") or 0
+
         height = item.get("height")
         if height:
             if height >= 2160:
@@ -392,7 +330,7 @@ def build_formats(info):
         if label in seen:
             continue
         seen.add(label)
-        formats.append({"id": format_id, "label": label})
+        formats.append({"id": format_id, "label": label, "size": filesize})
     return formats
 
 

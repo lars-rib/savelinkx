@@ -205,16 +205,6 @@
 {% block page_config %}
     "platform": "youtube",
     "lang": "es",
-    "formats": [
-      { "value": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best", "label": "MP4 - Mejor Calidad (Auto)" },
-      { "value": "bestvideo[height<=2160][ext=mp4]+bestaudio/bestvideo[height<=2160]+bestaudio/best[height<=2160]", "label": "MP4 - 4K (2160p)" },
-      { "value": "bestvideo[height<=1080][ext=mp4]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]", "label": "MP4 - Full HD (1080p)" },
-      { "value": "bestvideo[height<=720][ext=mp4]+bestaudio/bestvideo[height<=720]+bestaudio/best[height<=720]", "label": "MP4 - HD (720p)" },
-      { "value": "bestvideo[height<=480][ext=mp4]+bestaudio/bestvideo[height<=480]+bestaudio/best[height<=480]", "label": "MP4 - SD (480p)" },
-      { "value": "bestvideo[height<=360][ext=mp4]+bestaudio/bestvideo[height<=360]+bestaudio/best[height<=360]", "label": "MP4 - Medio (360p)" },
-      { "value": "bestaudio[ext=m4a]/bestaudio", "label": "M4A - Solo Audio" },
-      { "value": "bestaudio[ext=mp3]/bestaudio", "label": "MP3 - Solo Audio" }
-    ],
     "strings": {
       "enter_link": "Por favor, introduce un enlace.",
       "preparing": "Preparando opciones de descarga...",

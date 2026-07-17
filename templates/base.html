@@ -85,8 +85,9 @@
     .topnav-links { display: flex; gap: 20px; list-style: none; }
     .topnav-links a { color: #666; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
     .topnav-links a:hover { color: var(--accent); }
-    .tool-switch { width: 100%; max-width: 620px; display: flex; gap: 8px; margin-bottom: 20px; }
-    .tool-switch a { flex: 1; text-align: center; padding: 10px; border-radius: 12px; text-decoration: none; font-size: 0.85rem; font-weight: 700; border: 1px solid #2a2a2a; color: #888; background: #1a1a1a; transition: all 0.2s; }
+    .tool-switch { width: 100%; max-width: 620px; display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .tool-switch::-webkit-scrollbar { display: none; }
+    .tool-switch a { flex: 0 0 auto; text-align: center; padding: 10px 14px; border-radius: 12px; text-decoration: none; font-size: 0.85rem; font-weight: 700; border: 1px solid #2a2a2a; color: #888; background: #1a1a1a; transition: all 0.2s; white-space: nowrap; }
     .tool-switch a:hover { color: var(--accent); border-color: var(--accent); }
     .tool-switch a.active { background: var(--accent); color: #fff; border-color: var(--accent); }
     .card-intro { font-size: 0.85rem; color: #777; line-height: 1.6; margin-top: 16px; text-align: center; }
@@ -144,6 +145,7 @@
     <p>{% block subtitle %}{% endblock %}</p>
   </header>
 
+  {% block card_content %}
   {% block toolswitch %}{% endblock %}
 
   <main class="card" role="main">
@@ -193,6 +195,9 @@
         <div id="dlSpinner"></div>
         <span id="dlLabel">{% block dl_label %}Download Now{% endblock %}</span>
       </button>
+      <div id="dlProgress" style="display:none;margin-top:12px;width:100%;height:6px;background:#222;border-radius:3px;overflow:hidden;">
+        <div id="dlProgressBar" style="width:0;height:100%;background:var(--accent);border-radius:3px;transition:width 0.3s;"></div>
+      </div>
     </div>
 
     <div id="playlistInfo">
@@ -202,6 +207,7 @@
       <div id="playlistEntries"></div>
     </div>
   </main>
+  {% endblock %}
 
   {% block content %}{% endblock %}
 
@@ -217,7 +223,41 @@
   </footer>
 
   <script>
-    window.PAGE = { {% block page_config %}{% endblock %} };
+    window.PAGE = (function() {
+      var defaults = {
+        formats: [
+          { value: "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",          label: "MP4 - Best Quality (Auto)" },
+          { value: "bestvideo[height<=2160][ext=mp4]+bestaudio/bestvideo[height<=2160]+bestaudio/best[height<=2160]", label: "MP4 - 4K (2160p)" },
+          { value: "bestvideo[height<=1080][ext=mp4]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]", label: "MP4 - Full HD (1080p)" },
+          { value: "bestvideo[height<=720][ext=mp4]+bestaudio/bestvideo[height<=720]+bestaudio/best[height<=720]",    label: "MP4 - HD (720p)" },
+          { value: "bestvideo[height<=480][ext=mp4]+bestaudio/bestvideo[height<=480]+bestaudio/best[height<=480]",    label: "MP4 - SD (480p)" },
+          { value: "bestvideo[height<=360][ext=mp4]+bestaudio/bestvideo[height<=360]+bestaudio/best[height<=360]",    label: "MP4 - Medium (360p)" },
+          { value: "bestaudio[ext=m4a]/bestaudio", label: "M4A - Audio Only" },
+          { value: "bestaudio[ext=mp3]/bestaudio", label: "MP3 - Audio Only" }
+        ],
+        strings: {
+          enter_link: "Please enter a link.",
+          preparing: "Preparing download options...",
+          checking: "Checking...",
+          fetch: "Download",
+          err_unknown: "Unknown error",
+          downloading_label: "Downloading...",
+          downloading_msg: "Downloading - please wait.",
+          err_download: "Download failed",
+          ok_audio: "Audio download started! Check your downloads folder.",
+          ok_video: "Download started! Check your downloads folder.",
+          download_now: "Download Now",
+          err_prefix: "Error: "
+        }
+      };
+      var page = { {% block page_config %}{% endblock %} };
+      for (var key in defaults) {
+        if (defaults.hasOwnProperty(key) && !(key in page)) {
+          page[key] = defaults[key];
+        }
+      }
+      return page;
+    })();
   </script>
   <script>
     const P = window.PAGE || {};
@@ -323,10 +363,16 @@
           const sel = document.getElementById("formatSelect");
           sel.innerHTML = "";
 
-          (P.formats || []).forEach(f => {
+          const fmtList = (data.formats && data.formats.length ? data.formats : P.formats) || [];
+          fmtList.forEach(f => {
             const opt = document.createElement("option");
-            opt.value = f.value;
-            opt.textContent = f.label;
+            opt.value = f.id || f.value;
+            let label = f.label;
+            if (f.size > 0) {
+              const mb = (f.size / 1048576).toFixed(1);
+              label += mb > 1 ? ` · ${mb} MB` : ` · ${(f.size / 1024).toFixed(0)} KB`;
+            }
+            opt.textContent = label;
             sel.appendChild(opt);
           });
 
@@ -352,6 +398,8 @@
       btn.disabled = true;
       document.getElementById("dlSpinner").style.display = "block";
       document.getElementById("dlLabel").textContent = S.downloading_label;
+      document.getElementById("dlProgress").style.display = "block";
+      document.getElementById("dlProgressBar").style.width = "0";
       setStatus(S.downloading_msg, "loading");
 
       try {
@@ -363,6 +411,7 @@
         });
 
         if (!res.ok) {
+          document.getElementById("dlProgress").style.display = "none";
           const data = await res.json();
           throw new Error(data.error || S.err_download);
         }
@@ -372,16 +421,33 @@
         const match = disposition.match(/filename\*?=(?:UTF-8'')?["']?([^"';\n]+)/i);
         if (match) filename = decodeURIComponent(match[1]);
 
-        const blob = await res.blob();
+        const total = parseInt(res.headers.get("Content-Length") || "0", 10);
+        const reader = res.body.getReader();
+        const chunks = [];
+        let received = 0;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+          received += value.length;
+          if (total) {
+            document.getElementById("dlProgressBar").style.width = Math.round((received / total) * 100) + "%";
+          }
+        }
+
+        const blob = new Blob(chunks);
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
         a.download = filename;
         a.click();
         URL.revokeObjectURL(a.href);
+        document.getElementById("dlProgressBar").style.width = "100%";
         const isAudio = (filename || "").toLowerCase().endsWith(".mp3") || (filename || "").toLowerCase().endsWith(".m4a");
         setStatus(isAudio ? S.ok_audio : S.ok_video, "ok");
         trackEvent("download_success", { format_id: formatId, format_label: currentFormatLabel });
       } catch (err) {
+        document.getElementById("dlProgress").style.display = "none";
         setStatus(S.err_prefix + err.message, "error");
         trackEvent("download_error", { stage: "download_file", format_id: formatId, message: err.message });
       } finally {
@@ -394,6 +460,20 @@
     document.getElementById("urlInput").addEventListener("keydown", e => {
       if (e.key === "Enter") fetchInfo();
     });
+
+    (function() {
+      try { navigator.clipboard.readText().then(t => { if (t.match(/^https?:\/\//)) document.getElementById("urlInput").value = t; }).catch(() => {}); } catch(_) {}
+      var inp = document.getElementById("urlInput"), card = document.querySelector(".card");
+      if (card) {
+        card.addEventListener("dragover", function(e) { e.preventDefault(); this.style.borderColor = "var(--accent)"; });
+        card.addEventListener("dragleave", function(e) { e.preventDefault(); this.style.borderColor = ""; });
+        card.addEventListener("drop", function(e) {
+          e.preventDefault(); this.style.borderColor = "";
+          var text = e.dataTransfer.getData("text/plain") || e.dataTransfer.getData("text/uri-list") || "";
+          if (text) { var m = text.match(/https?:\/\/\S+/); if (m) { inp.value = m[0]; fetchInfo(); } }
+        });
+      }
+    })();
   </script>
   <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="{% block bmc_message %}If SaveLinkX helped you, consider buying me a coffee! ☕{% endblock %}" data-color="#1DA1F2" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
