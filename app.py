@@ -351,7 +351,11 @@ def map_yt_dlp_error(exc):
     if "geo" in text or "country" in text or "region" in text:
         return "This content is not available in your region."
     if "login" in text or "sign in" in text or "authentication" in text:
-        return "This post requires login and cannot be downloaded publicly."
+        if "login required" in text or "requires login" in text or "sign in to" in text or "you must be logged in" in text or "http error 403" in text:
+            return "This content requires login and cannot be downloaded publicly."
+        if "404" in text or "not found" in text:
+            return "This content could not be found. The link may be broken or the post may have been removed."
+        return "This content is not available right now. It may be restricted, private, or the link may be incorrect. Try a different link."
     if "429" in text or "too many requests" in text:
         return "Too many requests right now. Please try again in a minute."
     return "Could not process this link right now. Please try again."
