@@ -248,7 +248,8 @@ COOKIE_ENV_BY_PLATFORM = {
 
 def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True}
-    if platform == "youtube":
+    if platform in ("youtube", "tiktok"):
+        opts["impersonate"] = "chrome"
         opts["js_runtimes"] = {"node": {}}
     if cookie_file_override and os.path.exists(cookie_file_override):
         opts["cookiefile"] = cookie_file_override
