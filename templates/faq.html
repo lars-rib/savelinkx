@@ -60,20 +60,21 @@ free." />
   </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --accent: #1d9bf0; --accent-hover: #1a8cd8; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh;
 display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
     .breadcrumb { width: 100%; max-width: 680px; font-size: 0.8rem; color: #555; margin-bottom: 28px; }
     .breadcrumb a { color: #555; text-decoration: none; }
-    .breadcrumb a:hover { color: #1d9bf0; }
+    .breadcrumb a:hover { color: var(--accent); }
     .breadcrumb span { margin: 0 6px; }
     header { text-align: center; margin-bottom: 36px; width: 100%; max-width: 680px; }
     .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; text-decoration: none; }
-    .logo svg { width: 28px; height: 28px; fill: #1d9bf0; }
+    .logo svg { width: 28px; height: 28px; fill: var(--accent); }
     .logo-name { font-size: 1.2rem; font-weight: 800; color: #fff; }
     header h1 { font-size: 1.8rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 10px; }
     header p { color: #888; font-size: 0.95rem; }
     .faq-wrap { width: 100%; max-width: 680px; }
-    .faq-category { font-size: 0.75rem; font-weight: 700; color: #1d9bf0; text-transform: uppercase; letter-spacing:
+    .faq-category { font-size: 0.75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing:
 0.08em; margin: 28px 0 10px; }
     details { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; margin-bottom: 8px; overflow:
 hidden; }
@@ -87,9 +88,9 @@ transform 0.2s; }
     .cta { margin-top: 36px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 16px; padding: 28px 24px;
 text-align: center; }
     .cta p { color: #888; font-size: 0.9rem; margin-bottom: 16px; }
-    .cta a.btn { display: inline-block; background: #1d9bf0; color: #fff; text-decoration: none; border-radius: 10px;
+    .cta a.btn { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; border-radius: 10px;
 padding: 12px 28px; font-weight: 700; font-size: 0.92rem; transition: background 0.2s; }
-    .cta a.btn:hover { background: #1a8cd8; }
+    .cta a.btn:hover { background: var(--accent-hover); }
     footer { margin-top: 40px; width: 100%; max-width: 680px; text-align: center; font-size: 0.75rem; color: #444; }
     footer a { color: #444; text-decoration: underline; }
   </style>
@@ -143,7 +144,7 @@ padding: 12px 28px; font-weight: 700; font-size: 0.92rem; transition: background
 
   <footer>
     <p style="display:inline-flex;align-items:center;gap:7px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:20px;padding:5px 14px;font-size:0.78rem;font-weight:600;color:#aaa;margin-bottom:14px;">
-      <span style="width:7px;height:7px;background:#1d9bf0;border-radius:50%;flex-shrink:0;"></span>
+      <span style="width:7px;height:7px;background:var(--accent);border-radius:50%;flex-shrink:0;"></span>
       {{ updated }}
     </p>
     <p>
