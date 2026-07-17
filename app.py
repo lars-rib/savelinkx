@@ -96,6 +96,18 @@ FACEBOOK_HOSTS = {
     "fb.com", "www.fb.com",
 }
 
+VIMEO_HOSTS = {"vimeo.com", "www.vimeo.com", "player.vimeo.com"}
+VIMEO_PATTERN = re.compile(r"^/(\d+)(?:/.*)?$")
+
+DAILYMOTION_HOSTS = {"dailymotion.com", "www.dailymotion.com", "dai.ly", "www.dai.ly"}
+DAILYMOTION_PATTERN = re.compile(r"^/video/([A-Za-z0-9]+)(?:/.*)?$")
+DAILYMOTION_SHORT_PATTERN = re.compile(r"^/([A-Za-z0-9]+)(?:/.*)?$")
+
+REDDIT_HOSTS = {"reddit.com", "www.reddit.com", "old.reddit.com", "v.redd.it", "www.v.redd.it"}
+
+PINTEREST_HOSTS = {"pinterest.com", "www.pinterest.com", "pin.it", "www.pin.it"}
+PINTEREST_PIN_PATTERN = re.compile(r"^/pin/(\d+)(?:/.*)?$")
+
 
 def normalize_and_validate_facebook_url(parsed):
     path = parsed.path or ""
@@ -153,6 +165,48 @@ def normalize_and_validate_youtube_url(parsed):
     return None, "Please enter a valid YouTube URL."
 
 
+def normalize_and_validate_vimeo_url(parsed):
+    path = parsed.path or ""
+    if not VIMEO_PATTERN.match(path):
+        return None, "Please enter a valid Vimeo URL like https://vimeo.com/123456789"
+    normalized = f"https://vimeo.com{VIMEO_PATTERN.match(path).group(1)}"
+    return normalized, None
+
+
+def normalize_and_validate_dailymotion_url(parsed):
+    hostname = (parsed.hostname or "").lower()
+    path = parsed.path or ""
+    if hostname in ("dai.ly", "www.dai.ly"):
+        m = DAILYMOTION_SHORT_PATTERN.match(path)
+        if not m:
+            return None, "Please enter a valid Dailymotion link."
+        return f"https://www.dailymotion.com/video/{m.group(1)}", None
+    if not DAILYMOTION_PATTERN.match(path):
+        return None, "Please enter a valid Dailymotion URL like https://www.dailymotion.com/video/x123abc"
+    return f"https://www.dailymotion.com{path}", None
+
+
+def normalize_and_validate_reddit_url(parsed):
+    hostname = (parsed.hostname or "").lower()
+    path = parsed.path or ""
+    query = parsed.query or ""
+    if hostname in ("v.redd.it", "www.v.redd.it"):
+        return f"https://www.reddit.com{path}?{query}" if query else f"https://www.reddit.com{path}", None
+    if "/comments/" not in path.lower():
+        return None, "Please enter a valid Reddit post URL containing a video."
+    return f"https://www.reddit.com{path}" + (f"?{query}" if query else ""), None
+
+
+def normalize_and_validate_pinterest_url(parsed):
+    hostname = (parsed.hostname or "").lower()
+    path = parsed.path or ""
+    if hostname in ("pin.it", "www.pin.it"):
+        return f"https://www.pinterest.com{path}", None
+    if not PINTEREST_PIN_PATTERN.match(path) and "/pin/" not in path.lower():
+        return None, "Please enter a valid Pinterest Pin URL like https://www.pinterest.com/pin/123456789/"
+    return f"https://www.pinterest.com{path}", None
+
+
 @app.before_request
 def log_request_started():
     request._started_at = time.time()
@@ -184,6 +238,10 @@ COOKIE_ENV_BY_PLATFORM = {
     "instagram": "INSTAGRAM_COOKIES_FILE",
     "youtube": "YOUTUBE_COOKIES_FILE",
     "facebook": "FACEBOOK_COOKIES_FILE",
+    "vimeo": "VIMEO_COOKIES_FILE",
+    "dailymotion": "DAILYMOTION_COOKIES_FILE",
+    "reddit": "REDDIT_COOKIES_FILE",
+    "pinterest": "PINTEREST_COOKIES_FILE",
 }
 
 
@@ -244,6 +302,10 @@ PLATFORM_VALIDATORS = (
     ("instagram", INSTAGRAM_HOSTS, normalize_and_validate_instagram_url),
     ("youtube", YOUTUBE_HOSTS, normalize_and_validate_youtube_url),
     ("facebook", FACEBOOK_HOSTS, normalize_and_validate_facebook_url),
+    ("vimeo", VIMEO_HOSTS, normalize_and_validate_vimeo_url),
+    ("dailymotion", DAILYMOTION_HOSTS, normalize_and_validate_dailymotion_url),
+    ("reddit", REDDIT_HOSTS, normalize_and_validate_reddit_url),
+    ("pinterest", PINTEREST_HOSTS, normalize_and_validate_pinterest_url),
 )
 
 
@@ -269,7 +331,7 @@ def detect_and_normalize_url(raw_url):
                 return None, None, error
             return normalized, platform, None
 
-    return None, None, "Unsupported link. Please paste a Facebook, YouTube, Twitter/X, TikTok, or Instagram URL."
+    return None, None, "Unsupported link. Please paste a Facebook, YouTube, Twitter/X, TikTok, Instagram, Vimeo, Dailymotion, Reddit, or Pinterest URL."
 
 
 def map_yt_dlp_error(exc):
@@ -422,6 +484,66 @@ def index_facebook_pt():
 @app.route("/facebook/es/")
 def index_facebook_es():
     return render_template("index_facebook_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/vimeo/")
+def index_vimeo():
+    return render_template("index_vimeo.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/vimeo/pt/")
+def index_vimeo_pt():
+    return render_template("index_vimeo_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/vimeo/es/")
+def index_vimeo_es():
+    return render_template("index_vimeo_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/dailymotion/")
+def index_dailymotion():
+    return render_template("index_dailymotion.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/dailymotion/pt/")
+def index_dailymotion_pt():
+    return render_template("index_dailymotion_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/dailymotion/es/")
+def index_dailymotion_es():
+    return render_template("index_dailymotion_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/reddit/")
+def index_reddit():
+    return render_template("index_reddit.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/reddit/pt/")
+def index_reddit_pt():
+    return render_template("index_reddit_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/reddit/es/")
+def index_reddit_es():
+    return render_template("index_reddit_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/pinterest/")
+def index_pinterest():
+    return render_template("index_pinterest.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/pinterest/pt/")
+def index_pinterest_pt():
+    return render_template("index_pinterest_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+
+
+@app.route("/pinterest/es/")
+def index_pinterest_es():
+    return render_template("index_pinterest_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/youtube/")
@@ -593,6 +715,50 @@ def download():
     return send_file(path, as_attachment=True, download_name=filename)
 
 
+@app.route("/subtitles", methods=["POST"])
+@limiter.limit("20 per minute")
+def get_subtitles():
+    payload = request.get_json(silent=True) or {}
+    raw_url = payload.get("url", "")
+    lang = payload.get("lang", "en")
+
+    url, platform, error = detect_and_normalize_url(raw_url)
+    if error:
+        return jsonify({"error": error}), 400
+
+    try:
+        opts = base_ydl_opts(platform)
+        opts["writesubtitles"] = True
+        opts["writeautomaticsub"] = True
+        opts["subtitleslangs"] = [lang]
+        opts["skip_download"] = True
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+
+        subs = info.get("subtitles", {}).get(lang) or info.get("automatic_captions", {}).get(lang)
+        if not subs:
+            return jsonify({"error": f"No subtitles found for language: {lang}"}), 404
+
+        sub = subs[-1]
+        sub_url = sub.get("url", "")
+        if not sub_url:
+            return jsonify({"error": "Subtitle URL not available"}), 500
+
+        import requests as req
+        sub_resp = req.get(sub_url, timeout=30)
+        content = sub_resp.text
+
+        title = sanitize_filename(info.get("title", "video"))
+        return Response(
+            content,
+            mimetype="text/plain",
+            headers={"Content-Disposition": f"attachment; filename={title}.{lang}.srt"}
+        )
+    except Exception as exc:
+        logger.exception("/subtitles failed for url=%s", url)
+        return jsonify({"error": map_yt_dlp_error(exc)}), 400
+
+
 @app.route('/sitemap.xml')
 def sitemap():
     xml = """<?xml version="1.0" encoding="UTF-8"?>
@@ -688,6 +854,78 @@ def sitemap():
         <priority>0.9</priority>
       </url>
       <url>
+        <loc>https://www.savelinkx.com/vimeo/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/vimeo/pt/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/vimeo/es/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/dailymotion/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/dailymotion/pt/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/dailymotion/es/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/reddit/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/reddit/pt/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/reddit/es/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/pinterest/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/pinterest/pt/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
+        <loc>https://www.savelinkx.com/pinterest/es/</loc>
+        <lastmod>2026-07-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>
+      <url>
         <loc>https://www.savelinkx.com/faq</loc>
         <lastmod>2026-04-27</lastmod>
         <changefreq>monthly</changefreq>
@@ -705,8 +943,74 @@ def sitemap():
         <changefreq>monthly</changefreq>
         <priority>0.3</priority>
       </url>
-    </urlset>"""
+</urlset>"""
     return xml, 200, {'Content-Type': 'application/xml'}
+
+
+@app.route("/download-playlist", methods=["POST"])
+@limiter.limit("5 per minute")
+def download_playlist():
+    import tempfile
+    import zipfile
+
+    payload = request.get_json(silent=True) or {}
+    raw_url = payload.get("url", "")
+    url, platform, error = detect_and_normalize_url(raw_url)
+    if error:
+        return jsonify({"error": error}), 400
+
+    try:
+        opts = base_ydl_opts(platform)
+        opts["format"] = "best[ext=mp4]/best"
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+
+        if info.get("_type") != "playlist":
+            return jsonify({"error": "This URL is not a playlist."}), 400
+
+        entries = [e for e in info.get("entries", []) if e]
+        if not entries:
+            return jsonify({"error": "No videos found in playlist."}), 400
+
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".zip")
+        tmp.close()
+        written = 0
+        with zipfile.ZipFile(tmp.name, "w", zipfile.ZIP_DEFLATED) as zf:
+            for i, entry in enumerate(entries):
+                try:
+                    video_url = entry.get("webpage_url") or entry.get("original_url", "")
+                    dl_opts = base_ydl_opts(platform)
+                    dl_opts["format"] = "best[ext=mp4]/best"
+                    dl_opts["outtmpl"] = os.path.join(DOWNLOAD_DIR, f"pl_{i:03d}.%(ext)s")
+                    dl_opts["quiet"] = True
+                    with yt_dlp.YoutubeDL(dl_opts) as ydl2:
+                        vinfo = ydl2.extract_info(video_url, download=True)
+                        fpath = ydl2.prepare_filename(vinfo)
+                        base = os.path.splitext(fpath)[0]
+                        for ext in (".mp4", ".mkv", ".webm"):
+                            if os.path.exists(base + ext):
+                                zf.write(base + ext, f"{i+1:02d}_{sanitize_filename(vinfo.get('title','video'))}{ext}")
+                                os.remove(base + ext)
+                                written += 1
+                                break
+                except Exception:
+                    continue
+
+        if written > 0:
+            @after_this_request
+            def cleanup(response):
+                try:
+                    os.remove(tmp.name)
+                except Exception:
+                    pass
+                return response
+
+            return send_file(tmp.name, as_attachment=True, download_name=f"{sanitize_filename(info.get('title','playlist'))}.zip")
+        else:
+            os.remove(tmp.name)
+            return jsonify({"error": "Could not download any videos from the playlist."}), 400
+    except Exception as exc:
+        return jsonify({"error": map_yt_dlp_error(exc)}), 400
 
 
 if __name__ == "__main__":

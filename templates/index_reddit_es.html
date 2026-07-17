@@ -1,41 +1,41 @@
 {% extends "base.html" %}
 
 {% block lang %}es{% endblock %}
-{% block body_attrs %}data-platform="facebook"{% endblock %}
+{% block body_attrs %}data-platform="reddit"{% endblock %}
 
 {% block head %}
-  <title>SaveLinkX | Descargar Videos de Facebook - Descarga MP4 Gratis</title>
-  <meta name="description" content="Descarga videos, Reels y Stories de Facebook gratis en MP4. Pega cualquier enlace público de Facebook y guárdalo al instante - sin registro, sin app, funciona en cualquier dispositivo." />
-  <link rel="canonical" href="{{ site_url }}/facebook/es/" />
+  <title>SaveLinkX | Descargar Videos de Reddit - Descarga MP4 Gratis</title>
+  <meta name="description" content="Descarga videos de Reddit gratis en MP4. Pega cualquier enlace de post con video de Reddit y guárdalo al instante - sin registro, sin app, funciona en cualquier dispositivo." />
+  <link rel="canonical" href="{{ site_url }}/reddit/es/" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="SaveLinkX" />
   <meta name="theme-color" content="#0f0f0f" />
-  <meta property="og:title" content="SaveLinkX - Descargar Videos de Facebook Gratis en MP4" />
-  <meta property="og:description" content="Pega cualquier enlace de video o Reel de Facebook y descarga en la mejor calidad. Gratis, sin cuenta." />
+  <meta property="og:title" content="SaveLinkX - Descargar Videos de Reddit Gratis en MP4" />
+  <meta property="og:description" content="Pega cualquier enlace de post con video de Reddit y descarga en la mejor calidad. Gratis, sin cuenta." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ site_url }}/facebook/es/" />
+  <meta property="og:url" content="{{ site_url }}/reddit/es/" />
   <meta property="og:site_name" content="SaveLinkX" />
   <meta property="og:locale" content="es" />
-  <meta name="keywords" content="descargar video facebook, descargar facebook mp4, bajar reels facebook, descargar stories facebook, facebook to mp4, guardar video facebook, fb video download" />
+  <meta name="keywords" content="descargar video reddit, descargar reddit mp4, bajar reddit, reddit to mp4, v.redd.it descargar" />
   <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="SaveLinkX - Descargar Videos de Facebook Gratis" />
+  <meta property="og:image:alt" content="SaveLinkX - Descargar Videos de Reddit Gratis" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SaveLinkX - Descargar Videos de Facebook" />
-  <meta name="twitter:description" content="Descarga videos, Reels y Stories de Facebook gratis. Rápido, fácil, sin registro." />
+  <meta name="twitter:title" content="SaveLinkX - Descargar Videos de Reddit" />
+  <meta name="twitter:description" content="Descarga videos de Reddit gratis. Rápido, fácil, sin registro." />
   <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
-  <link rel="alternate" hreflang="en" href="{{ site_url }}/facebook/" />
-  <link rel="alternate" hreflang="pt" href="{{ site_url }}/facebook/pt/" />
-  <link rel="alternate" hreflang="es" href="{{ site_url }}/facebook/es/" />
-  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/facebook/" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/reddit/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/reddit/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/reddit/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/reddit/" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Facebook Video Downloader",
-    "description": "Descarga videos, Reels y Stories de Facebook online gratis en MP4. Sin cuenta necesaria.",
-    "url": "{{ site_url }}/facebook/es/",
+    "name": "Reddit Video Downloader",
+    "description": "Descarga videos de Reddit online gratis en MP4. Sin cuenta necesaria.",
+    "url": "{{ site_url }}/reddit/es/",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "All",
     "inLanguage": "es",
@@ -46,23 +46,23 @@
 {% endblock %}
 
 {% block nav_aria %}Navegación principal{% endblock %}
-{% block brand_href %}/facebook/es/{% endblock %}
+{% block brand_href %}/reddit/es/{% endblock %}
 {% block brand_aria %}SaveLinkX inicio{% endblock %}
 {% block nav_links %}
-      <li><a href="/facebook/es/">Facebook</a></li>
+      <li><a href="/reddit/es/">Reddit</a></li>
       <li><a href="/es/">YouTube</a></li>
       <li><a href="/x/es/">X (Twitter)</a></li>
       <li><a href="/tiktok/es/">TikTok</a></li>
       <li><a href="/instagram/es/">Instagram</a></li>
+      <li><a href="/facebook/es/">Facebook</a></li>
       <li><a href="/vimeo/es/">Vimeo</a></li>
       <li><a href="/dailymotion/es/">Dailymotion</a></li>
-      <li><a href="/reddit/es/">Reddit</a></li>
       <li><a href="/pinterest/es/">Pinterest</a></li>
       <li><a href="/faq">FAQ</a></li>
 {% endblock %}
 
-{% block h1 %}<span>Descargar Videos de Facebook</span> - Videos, Reels y Stories{% endblock %}
-{% block subtitle %}Pega cualquier enlace público de video, Reel o Story de Facebook y descarga en la mejor calidad - gratis, sin registro.{% endblock %}
+{% block h1 %}<span>Descargar Videos de Reddit</span>{% endblock %}
+{% block subtitle %}Pega cualquier enlace de post con video de Reddit y descarga en la mejor calidad - gratis, sin registro.{% endblock %}
 
 {% block toolswitch %}
   <div class="tool-switch" aria-label="Elegir plataforma">
@@ -70,27 +70,27 @@
     <a href="/x/es/">X (Twitter)</a>
     <a href="/tiktok/es/">TikTok</a>
     <a href="/instagram/es/">Instagram</a>
-    <a href="/facebook/es/" class="active">Facebook</a>
+    <a href="/facebook/es/">Facebook</a>
     <a href="/vimeo/es/">Vimeo</a>
     <a href="/dailymotion/es/">Dailymotion</a>
-    <a href="/reddit/es/">Reddit</a>
+    <a href="/reddit/es/" class="active">Reddit</a>
     <a href="/pinterest/es/">Pinterest</a>
   </div>
 {% endblock %}
 
-{% block placeholder %}Pega el enlace de Facebook ej: https://www.facebook.com/reel/123456789 o /watch/?v=...{% endblock %}
+{% block placeholder %}Pega el enlace de Reddit ej: https://www.reddit.com/r/videos/comments/abc123/...{% endblock %}
 {% block fetch_label %}Descargar{% endblock %}
 {% block dl_label %}Descargar Ahora{% endblock %}
 
-{% block intro %}SaveLinkX es un <strong style="color:#aaa;">descargador de videos de Facebook</strong> rápido y gratis. Pega cualquier enlace de <strong style="color:#aaa;">facebook.com</strong> o <strong style="color:#aaa;">fb.watch</strong> - un video, <strong style="color:#aaa;">Reel</strong> o <strong style="color:#aaa;">Story</strong> - y guárdalo en MP4. Sin instalación, sin cuenta, funciona en cualquier dispositivo.{% endblock %}
+{% block intro %}SaveLinkX es un <strong style="color:#aaa;">descargador de videos de Reddit</strong> rápido y gratis. Pega cualquier enlace de post con video de <strong style="color:#aaa;">reddit.com</strong> o <strong style="color:#aaa;">v.redd.it</strong> y guarda el video en MP4. Sin instalación, sin cuenta, funciona en cualquier dispositivo.{% endblock %}
 
 {% block content %}
   <section class="how-to" aria-label="Cómo descargar">
-    <h2>Cómo Descargar Videos de Facebook</h2>
+    <h2>Cómo Descargar Videos de Reddit</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <p>Encuentra un video, Reel o Story en Facebook y copia el enlace de la barra de direcciones o del botón <strong>Compartir</strong>.</p>
+        <p>Encuentra un post con video en Reddit y copia el enlace de la barra de direcciones o del botón <strong>Compartir</strong>.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
@@ -107,28 +107,24 @@
     <h2>Preguntas Frecuentes</h2>
 
     <details>
-      <summary>¿Es gratis descargar videos de Facebook?</summary>
+      <summary>¿Es gratis descargar videos de Reddit?</summary>
       <p>Sí, SaveLinkX es completamente gratis. No se necesita cuenta, suscripción ni pago.</p>
     </details>
     <details>
       <summary>¿Qué formatos de video son compatibles?</summary>
-      <p>Los videos se descargan en MP4, compatible con todos los teléfonos, tablets y computadoras. El audio se puede guardar como MP3 o M4A.</p>
+      <p>Los videos se descargan en MP4 con audio, compatible con todos los teléfonos, tablets y computadoras. El audio también se puede guardar por separado como MP3 o M4A.</p>
     </details>
     <details>
       <summary>¿Funciona en iPhone y Android?</summary>
-      <p>Sí. SaveLinkX funciona en cualquier navegador móvil. Pega el enlace de Facebook y el video se guardará directamente en tu dispositivo.</p>
+      <p>Sí. SaveLinkX funciona en cualquier navegador móvil. Pega el enlace de Reddit y el video se guardará directamente en tu dispositivo.</p>
     </details>
     <details>
-      <summary>¿Puedo descargar Reels de Facebook?</summary>
-      <p>Sí. Pega cualquier enlace de Reel de Facebook y guárdalo como MP4. Los Reels de páginas públicas son compatibles.</p>
+      <summary>¿Qué formatos de URL de Reddit son compatibles?</summary>
+      <p>SaveLinkX admite enlaces de posts de reddit.com (que contengan /comments/) y también enlaces directos de v.redd.it.</p>
     </details>
     <details>
-      <summary>¿Puedo descargar Stories de Facebook?</summary>
-      <p>Sí, las Stories de páginas públicas de Facebook se pueden descargar. Los perfiles privados pueden requerir cookies.</p>
-    </details>
-    <details>
-      <summary>¿Puedo descargar videos de Facebook Watch?</summary>
-      <p>Sí. Pega el enlace de Facebook Watch y descarga el video como MP4 en la calidad que elijas.</p>
+      <summary>¿Puedo descargar videos de Reddit con sonido?</summary>
+      <p>Sí. Los videos de Reddit se descargan con el mejor audio y video disponibles combinados en un archivo MP4.</p>
     </details>
     <details>
       <summary>¿Necesito instalar algún programa o extensión?</summary>
@@ -140,11 +136,11 @@
     </details>
   </section>
 
-  <section class="seo-section" aria-label="Descargar videos de Facebook">
+  <section class="seo-section" aria-label="Descargar videos de Reddit">
     <div>
-      <h2>Descargar Videos de Facebook en MP4 - Rápido y Gratis</h2>
-      <p>SaveLinkX facilita descargar cualquier video público de Facebook como MP4. Ya sea un video compartido, un <strong style="color:#aaa;">Reel</strong> o contenido de <strong style="color:#aaa;">Facebook Watch</strong> - solo pega el enlace y descarga al instante.</p>
-      <p>Formatos soportados: <code>facebook.com/.../videos/...</code>, <code>facebook.com/reel/...</code>, <code>facebook.com/watch/?v=...</code>, <code>fb.watch/...</code> y <code>facebook.com/stories/...</code>. Sin extensiones, sin registro.</p>
+      <h2>Descargar Videos de Reddit en MP4 - Rápido y Gratis</h2>
+      <p>SaveLinkX facilita descargar cualquier video de Reddit como MP4. Ya sea de <code>r/videos</code>, <code>r/funny</code> o cualquier subreddit - solo pega el enlace y descarga al instante con sonido.</p>
+      <p>Formatos soportados: <code>reddit.com/r/.../comments/...</code> y <code>v.redd.it/...</code>. Sin extensiones, sin registro.</p>
     </div>
   </section>
 {% endblock %}
@@ -159,6 +155,8 @@
       &nbsp;|&nbsp;
       <a href="/instagram/es/">Descargar Instagram</a>
       &nbsp;|&nbsp;
+      <a href="/facebook/es/">Descargar Facebook</a>
+      &nbsp;|&nbsp;
       <a href="/faq">FAQ</a>
       &nbsp;|&nbsp;
       <a href="/termos">Términos de Uso</a>
@@ -167,12 +165,12 @@
       &nbsp;|&nbsp;
       <a href="/contato">Contacto</a>
 {% endblock %}
-{% block disclaimer %}Este sitio es una herramienta pública de procesamiento de enlaces y no aloja archivos en sus servidores. Respeta los derechos de autor y usa los videos descargados solo para uso personal. No estamos afiliados con Facebook o Meta.{% endblock %}
+{% block disclaimer %}Este sitio es una herramienta pública de procesamiento de enlaces y no aloja archivos en sus servidores. Respeta los derechos de autor y usa los videos descargados solo para uso personal. No estamos afiliados con Reddit.{% endblock %}
 
 {% block bmc_message %}¡Si SaveLinkX te ayudó, considera invitarme un café! ☕{% endblock %}
 
 {% block page_config %}
-    "platform": "facebook",
+    "platform": "reddit",
     "lang": "es",
     "strings": {
       "enter_link": "Por favor, introduce un enlace.",

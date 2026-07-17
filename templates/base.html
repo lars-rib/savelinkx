@@ -13,6 +13,10 @@
     [data-platform="instagram"]  { --accent: #E1306C; --accent-hover: #c7255a; }
     [data-platform="youtube"]    { --accent: #FF0000; --accent-hover: #cc0000; }
     [data-platform="facebook"]   { --accent: #1877F2; --accent-hover: #1464cc; }
+    [data-platform="vimeo"]      { --accent: #1ab7ea; --accent-hover: #1496c4; }
+    [data-platform="dailymotion"] { --accent: #0066DC; --accent-hover: #0052b0; }
+    [data-platform="reddit"]     { --accent: #FF4500; --accent-hover: #cc3700; }
+    [data-platform="pinterest"]  { --accent: #E60023; --accent-hover: #bd001c; }
 
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
     header { text-align: center; margin-bottom: 36px; }
@@ -166,13 +170,14 @@
 
     <p class="card-intro">{% block intro %}{% endblock %}</p>
 
-    <div id="status"><div id="statusSpinner"></div><span id="statusText"></span></div>
+    <div id="status"><div id="statusSpinner"></div><span id="statusText"></span><button id="retryBtn" onclick="fetchInfo()" style="display:none;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 16px;font-size:0.8rem;font-weight:700;cursor:pointer;">Try Again</button></div>
 
     <div id="videoInfo">
       <hr class="divider" />
       <div class="thumb-row">
         <div class="thumb-wrap">
           <img id="thumbnail" src="" alt="{% block thumb_alt %}Video thumbnail{% endblock %}" />
+          <button id="thumbDl" style="display:none;position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.5);border:none;border-radius:6px;padding:4px 7px;cursor:pointer;color:#fff;font-size:0;transition:opacity 0.2s;" title="Download thumbnail">&#128247;</button>
           <div class="play-icon">
             <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.45)"/><polygon points="10,8 16,12 10,16" fill="white"/></svg>
           </div>
@@ -182,6 +187,12 @@
           <div class="meta-badges">
             <span class="badge" id="uploaderBadge"></span>
             <span class="badge" id="durationBadge"></span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:10px;">
+            <select id="subLang" style="width:auto;padding:4px 8px;font-size:0.72rem;border-radius:6px;background:#111;border:1px solid #333;color:#aaa;">
+              <option value="en">EN</option><option value="pt">PT</option><option value="es">ES</option><option value="fr">FR</option><option value="de">DE</option><option value="ja">JA</option><option value="ko">KO</option><option value="auto">Auto</option>
+            </select>
+            <button onclick="downloadSubtitles()" style="padding:4px 10px;font-size:0.72rem;border-radius:6px;background:transparent;border:1px solid #333;color:#aaa;font-weight:600;" title="Download Subtitles">CC</button>
           </div>
         </div>
       </div>
@@ -204,6 +215,7 @@
       <hr class="divider" />
       <h2 id="playlistTitle"></h2>
       <p class="playlist-stats" id="playlistStats"></p>
+      <button id="playlistZipBtn" onclick="downloadZip()" style="display:none;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:0.85rem;font-weight:700;margin-bottom:14px;cursor:pointer;">Download All as ZIP</button>
       <div id="playlistEntries"></div>
     </div>
   </main>
@@ -278,6 +290,7 @@
       document.getElementById("statusText").textContent = msg;
       document.getElementById("status").className = type ? `status-${type}` : "";
       document.getElementById("statusSpinner").style.display = type === "loading" ? "block" : "none";
+      document.getElementById("retryBtn").style.display = type === "error" ? "inline-block" : "none";
     }
 
     async function pasteUrl() {
@@ -325,7 +338,7 @@
             const div = document.createElement("div");
             div.className = "playlist-entry";
             div.innerHTML =
-              `<img src="${entry.thumbnail}" alt="" onerror="this.style.display='none'" loading="lazy" />` +
+              `<img data-src="${entry.thumbnail}" src="" alt="" style="background:#222;" />` +
               `<div class="playlist-entry-meta">` +
                 `<div class="playlist-entry-title">${entry.title}</div>` +
                 `<div class="playlist-entry-info">` +
@@ -335,6 +348,7 @@
               `</div>` +
               `<button class="playlist-dl-btn" data-url="${encodeURI(entry.url)}">Download</button>`;
             container.appendChild(div);
+            playlistObserver.observe(div);
           });
 
           container.querySelectorAll(".playlist-dl-btn").forEach(btnEl => {
@@ -346,10 +360,12 @@
           });
 
           document.getElementById("playlistInfo").style.display = "block";
+          document.getElementById("playlistZipBtn").style.display = "inline-block";
           setStatus("");
           trackEvent("playlist_loaded", { count: data.count });
         } else {
           document.getElementById("thumbnail").src = data.thumbnail;
+          document.getElementById("thumbDl").style.display = "inline-block";
           document.getElementById("title").textContent = data.title;
 
           const uploader = document.getElementById("uploaderBadge");
@@ -457,9 +473,73 @@
       }
     }
 
+    async function downloadZip() {
+      var btn = document.getElementById("playlistZipBtn");
+      btn.disabled = true;
+      btn.textContent = "Creating ZIP...";
+      setStatus("Downloading playlist as ZIP - this may take a while.", "loading");
+      try {
+        var res = await fetch("/download-playlist", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: currentUrl })
+        });
+        if (!res.ok) { var d = await res.json(); throw new Error(d.error || "ZIP download failed"); }
+        var blob = await res.blob();
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "playlist.zip";
+        a.click();
+        URL.revokeObjectURL(a.href);
+        setStatus("Playlist ZIP downloaded!", "ok");
+      } catch(err) {
+        setStatus(S.err_prefix + err.message, "error");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Download All as ZIP";
+      }
+    }
+
+    async function downloadSubtitles() {
+      var lang = document.getElementById("subLang").value || "en";
+      try {
+        var res = await fetch("/subtitles", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: currentUrl, lang: lang })
+        });
+        if (!res.ok) { var d = await res.json(); throw new Error(d.error || "Subtitle download failed"); }
+        var blob = await res.blob();
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "subtitles_" + lang + ".srt";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      } catch(err) {
+        setStatus(S.err_prefix + err.message, "error");
+      }
+    }
+
     document.getElementById("urlInput").addEventListener("keydown", e => {
       if (e.key === "Enter") fetchInfo();
     });
+
+    document.getElementById("thumbDl").addEventListener("click", function() {
+      var t = document.getElementById("thumbnail");
+      if (!t.src) return;
+      var a = document.createElement("a");
+      a.href = t.src; a.download = "thumbnail.jpg"; a.click();
+    });
+
+    var playlistObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var img = e.target.querySelector("img[data-src]");
+          if (img) { img.src = img.dataset.src; img.removeAttribute("data-src"); }
+          playlistObserver.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: "200px" });
 
     (function() {
       try { navigator.clipboard.readText().then(t => { if (t.match(/^https?:\/\//)) document.getElementById("urlInput").value = t; }).catch(() => {}); } catch(_) {}
@@ -476,5 +556,10 @@
     })();
   </script>
   <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="{% block bmc_message %}If SaveLinkX helped you, consider buying me a coffee! ☕{% endblock %}" data-color="#1DA1F2" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/static/sw.js").catch(function() {});
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block lang %}en{% endblock %}
+{% block body_attrs %}data-platform="vimeo"{% endblock %}
+
+{% block head %}
+  <title>SaveLinkX | Vimeo Video Downloader - Download Vimeo Videos Free</title>
+  <meta name="description" content="Download Vimeo videos for free in MP4. Paste any Vimeo link and save it instantly - no signup, no app, works on any device." />
+  <link rel="canonical" href="{{ site_url }}/vimeo/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="SaveLinkX - Vimeo Video Downloader - Free MP4 Downloads" />
+  <meta property="og:description" content="Paste any Vimeo video link and download it in the highest quality. Free, no account needed." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/vimeo/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="keywords" content="vimeo video downloader, download vimeo videos, vimeo to mp4, save vimeo video, free vimeo downloader" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SaveLinkX - Download Vimeo Videos for Free" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaveLinkX - Vimeo Video Downloader" />
+  <meta name="twitter:description" content="Download Vimeo videos for free. Fast, easy, no signup required." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/vimeo/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/vimeo/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/vimeo/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/vimeo/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Vimeo Video Downloader",
+    "description": "Download Vimeo videos online for free in MP4. No account required.",
+    "url": "{{ site_url }}/vimeo/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "en",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "SaveLinkX", "url": "{{ site_url }}/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Download Vimeo Videos",
+    "description": "Download Vimeo videos for free in 3 simple steps - no software needed.",
+    "inLanguage": "en",
+    "totalTime": "PT1M",
+    "tool": [{ "@type": "HowToTool", "name": "Web browser" }],
+    "supply": [{ "@type": "HowToSupply", "name": "Vimeo video link" }],
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Copy the Vimeo link", "text": "Find a video on Vimeo and copy the link from the address bar or Share button." },
+      { "@type": "HowToStep", "position": 2, "name": "Paste the link and click Download", "text": "Paste the link into the input field on SaveLinkX and click Download to load available quality options." },
+      { "@type": "HowToStep", "position": 3, "name": "Choose quality and download", "text": "Select your preferred quality and click Download Now - the MP4 file saves to your device." }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is it free to download Vimeo videos?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, SaveLinkX is completely free. No account, subscription, or payment is required." } },
+      { "@type": "Question", "name": "What video formats are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Videos are downloaded in MP4, compatible with all phones, tablets, and computers. Audio can be downloaded as MP3 or M4A." } },
+      { "@type": "Question", "name": "Does it work on iPhone and Android?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. SaveLinkX works in any mobile browser. Paste the Vimeo link and the video will be saved directly to your device." } },
+      { "@type": "Question", "name": "Can I download Vimeo videos with a password?", "acceptedAnswer": { "@type": "Answer", "text": "Videos that require a password to view on Vimeo are not supported. Only public Vimeo videos can be downloaded." } },
+      { "@type": "Question", "name": "Do I need to install any software or extension?", "acceptedAnswer": { "@type": "Answer", "text": "No. SaveLinkX works 100% in your browser - no apps, extensions, or plugins needed. Just paste the link and go." } },
+      { "@type": "Question", "name": "Does SaveLinkX store my videos?", "acceptedAnswer": { "@type": "Answer", "text": "No. Videos are processed and sent directly to your device. We do not store any files on our servers after the download completes." } }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Main navigation{% endblock %}
+{% block brand_href %}/vimeo/{% endblock %}
+{% block brand_aria %}SaveLinkX home{% endblock %}
+{% block nav_links %}
+      <li><a href="/vimeo/">Vimeo</a></li>
+      <li><a href="/">YouTube</a></li>
+      <li><a href="/x/">X (Twitter)</a></li>
+      <li><a href="/tiktok/">TikTok</a></li>
+      <li><a href="/instagram/">Instagram</a></li>
+      <li><a href="/facebook/">Facebook</a></li>
+      <li><a href="/dailymotion/">Dailymotion</a></li>
+      <li><a href="/reddit/">Reddit</a></li>
+      <li><a href="/pinterest/">Pinterest</a></li>
+      <li><a href="/faq">FAQ</a></li>
+{% endblock %}
+
+{% block h1 %}<span>Vimeo Video Downloader</span>{% endblock %}
+{% block subtitle %}Paste any Vimeo video link and download it in the highest quality - free, no signup required.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Choose platform">
+    <a href="/">YouTube</a>
+    <a href="/x/">X (Twitter)</a>
+    <a href="/tiktok/">TikTok</a>
+    <a href="/instagram/">Instagram</a>
+    <a href="/facebook/">Facebook</a>
+    <a href="/vimeo/" class="active">Vimeo</a>
+    <a href="/dailymotion/">Dailymotion</a>
+    <a href="/reddit/">Reddit</a>
+    <a href="/pinterest/">Pinterest</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Paste Vimeo URL e.g. https://vimeo.com/123456789{% endblock %}
+{% block fetch_label %}Download{% endblock %}
+{% block dl_label %}Download Now{% endblock %}
+
+{% block intro %}SaveLinkX is a fast, free <strong style="color:#aaa;">Vimeo video downloader</strong>. Paste any link from <strong style="color:#aaa;">vimeo.com</strong> and save the video as MP4. No installation, no account, works on any device.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="How to download">
+    <h2>How to Download Vimeo Videos</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Find a video on Vimeo and copy the link from the address bar or <strong>Share</strong> button.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Paste the link into the field above and click <strong>Download</strong> to load quality options.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Choose your quality and click <strong>Download Now</strong> - the MP4 saves to your device.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>Is it free to download Vimeo videos?</summary>
+      <p>Yes, SaveLinkX is completely free. No account, subscription, or payment of any kind is required.</p>
+    </details>
+    <details>
+      <summary>What video formats are supported?</summary>
+      <p>Videos are downloaded in MP4, compatible with all phones, tablets, and computers. Audio can be saved as MP3 or M4A.</p>
+    </details>
+    <details>
+      <summary>Does it work on iPhone and Android?</summary>
+      <p>Yes. SaveLinkX works in any mobile browser. Paste the Vimeo link and the video will be saved directly to your device.</p>
+    </details>
+    <details>
+      <summary>Can I download password-protected Vimeo videos?</summary>
+      <p>No. Videos that require a password to view on Vimeo cannot be downloaded. Only publicly accessible Vimeo videos are supported.</p>
+    </details>
+    <details>
+      <summary>Do I need to install any software or extension?</summary>
+      <p>No. SaveLinkX works 100% in your browser - no apps, extensions, or plugins needed. Just paste the link and go.</p>
+    </details>
+    <details>
+      <summary>Does SaveLinkX store my videos?</summary>
+      <p>No. Videos are processed and sent directly to your device. We do not store any files on our servers after the download completes.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Download Vimeo videos">
+    <div>
+      <h2>Download Vimeo Videos in MP4 - Fast and Free</h2>
+      <p>SaveLinkX makes it easy to download any public Vimeo video as MP4. Whether it's a short film, a tutorial, or an event recording - just paste the link and download instantly.</p>
+      <p>Supported formats include <code>vimeo.com/123456789</code> and <code>player.vimeo.com/video/123456789</code>. No extensions, no signup needed.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}
+{% block footer_links %}
+      <a href="/">YouTube Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/x/">X (Twitter) Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/tiktok/">TikTok Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/instagram/">Instagram Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/facebook/">Facebook Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos">Terms of Use</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade">Privacy Policy</a>
+      &nbsp;|&nbsp;
+      <a href="/contato">Contact</a>
+{% endblock %}
+{% block disclaimer %}This site is a public link processing tool and does not host any files on its servers. Please respect copyright law and use downloaded videos for personal use only. We are not affiliated with Vimeo.{% endblock %}
+
+{% block bmc_message %}If SaveLinkX helped you, consider buying me a coffee! ☕{% endblock %}
+
+{% block page_config %}
+    "platform": "vimeo",
+    "lang": "en"
+{% endblock %}
