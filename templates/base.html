@@ -308,7 +308,16 @@
       fetchInfo();
     });
 
-    function showCookieUpload() {
+    function showBookmarkPrompt() {
+      if (localStorage.getItem("bookmark_seen")) return;
+      var messages = [
+        "Bookmark SaveLinkX to download anytime!",
+        "Press Ctrl+D to save this tool for later.",
+        "Add to bookmarks — it's free and always will be."
+      ];
+      document.getElementById("bookmarkMsg").textContent = messages[Math.floor(Math.random() * messages.length)];
+      document.getElementById("bookmarkToast").style.display = "block";
+    }
       document.getElementById("cookieLabel").style.display = "inline-block";
     }
 
@@ -500,6 +509,7 @@
         document.getElementById("dlProgressBar").style.width = "100%";
         const isAudio = (filename || "").toLowerCase().endsWith(".mp3") || (filename || "").toLowerCase().endsWith(".m4a");
         setStatus(isAudio ? S.ok_audio : S.ok_video, "ok");
+        showBookmarkPrompt();
         trackEvent("download_success", { format_id: formatId, format_label: currentFormatLabel });
       } catch (err) {
         document.getElementById("dlProgress").style.display = "none";
@@ -532,6 +542,7 @@
         a.click();
         URL.revokeObjectURL(a.href);
         setStatus("Playlist ZIP downloaded!", "ok");
+        showBookmarkPrompt();
       } catch(err) {
         setStatus(S.err_prefix + err.message, "error");
       } finally {
@@ -625,5 +636,9 @@
       navigator.serviceWorker.register("/static/sw.js").catch(function() {});
     }
   </script>
-</body>
+    <div id="bookmarkToast" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid var(--accent);border-radius:14px;padding:14px 20px;font-size:0.85rem;color:#e8e8e8;z-index:200;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:fadeIn 0.3s ease;max-width:360px;">
+      <span id="bookmarkMsg"></span>
+      <button onclick="document.getElementById('bookmarkToast').style.display='none';localStorage.setItem('bookmark_seen','1')" style="display:block;margin:8px auto 0;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 18px;font-size:0.8rem;font-weight:700;cursor:pointer;">Got it!</button>
+    </div>
+  </body>
 </html>
