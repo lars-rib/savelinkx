@@ -1,6 +1,7 @@
 import logging
 import os
 import re
+import tempfile
 import threading
 import time
 from datetime import date
@@ -245,13 +246,26 @@ COOKIE_ENV_BY_PLATFORM = {
 }
 
 
-def base_ydl_opts(platform=None):
+def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True}
-    cookie_env = COOKIE_ENV_BY_PLATFORM.get(platform, "TWITTER_COOKIES_FILE")
-    cookie_file = os.getenv(cookie_env, "").strip()
-    if cookie_file and os.path.exists(cookie_file):
-        opts["cookiefile"] = cookie_file
+    if cookie_file_override and os.path.exists(cookie_file_override):
+        opts["cookiefile"] = cookie_file_override
+    else:
+        cookie_env = COOKIE_ENV_BY_PLATFORM.get(platform, "TWITTER_COOKIES_FILE")
+        cookie_file = os.getenv(cookie_env, "").strip()
+        if cookie_file and os.path.exists(cookie_file):
+            opts["cookiefile"] = cookie_file
     return opts
+
+
+def get_uploaded_cookie_path():
+    f = request.files.get("cookie_file")
+    if not f or not f.filename:
+        return None
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".txt")
+    f.save(tmp.name)
+    tmp.close()
+    return tmp.name
 
 
 def sanitize_filename(name):
@@ -600,19 +614,27 @@ def robots():
 @limiter.limit("60 per minute")
 def get_info():
     payload = request.get_json(silent=True) or {}
-    raw_url = payload.get("url", "")
+    raw_url = payload.get("url", "") or request.form.get("url", "")
 
     url, platform, error = detect_and_normalize_url(raw_url)
     if error:
         return jsonify({"error": error}), 400
 
+    cookie_path = get_uploaded_cookie_path()
+
     cached = get_cached_metadata(url)
     if cached:
+        if cookie_path:
+            try: os.remove(cookie_path)
+            except Exception: pass
         return jsonify(cached)
 
     try:
-        with yt_dlp.YoutubeDL(base_ydl_opts(platform)) as ydl:
+        with yt_dlp.YoutubeDL(base_ydl_opts(platform, cookie_path)) as ydl:
             info = ydl.extract_info(url, download=False)
+        if cookie_path:
+            try: os.remove(cookie_path)
+            except Exception: pass
 
         if info.get("_type") == "playlist":
             entries = []
@@ -646,23 +668,34 @@ def get_info():
         set_cached_metadata(url, data)
         return jsonify(data)
     except Exception as exc:
+        try: os.remove(cookie_path)
+        except: pass
         logger.exception("/info failed for url=%s", url)
-        return jsonify({"error": map_yt_dlp_error(exc)}), 400
+        err_text = str(exc).lower()
+        needs_cookies = "login" in err_text or "private" in err_text or "empty media response" in err_text
+        resp = jsonify({"error": map_yt_dlp_error(exc)})
+        resp.status_code = 400
+        if needs_cookies and not cookie_path:
+            resp = jsonify({"error": map_yt_dlp_error(exc), "requires_cookies": True})
+            resp.status_code = 400
+        return resp
 
 
 @app.route("/download", methods=["POST"])
 @limiter.limit("20 per minute")
 def download():
     payload = request.get_json(silent=True) or {}
-    raw_url = payload.get("url", "")
+    raw_url = payload.get("url", "") or request.form.get("url", "")
     fmt = payload.get("format_id", "best[ext=mp4]/best")
 
     url, platform, error = detect_and_normalize_url(raw_url)
     if error:
         return jsonify({"error": error}), 400
 
+    cookie_path = get_uploaded_cookie_path()
+
     def run_download(selected_format):
-        opts = base_ydl_opts(platform)
+        opts = base_ydl_opts(platform, cookie_path)
         opts.update({
             "format": selected_format,
             "outtmpl": os.path.join(DOWNLOAD_DIR, "%(title).120s.%(ext)s"),
@@ -692,10 +725,22 @@ def download():
                 path = run_download("best[ext=mp4]/best")
             except Exception as fallback_exc:
                 logger.exception("/download fallback failed for url=%s format=%s", url, fmt)
+                try: os.remove(cookie_path)
+                except: pass
                 return jsonify({"error": map_yt_dlp_error(fallback_exc)}), 400
         else:
             logger.exception("/download failed for url=%s format=%s", url, fmt)
+            try: os.remove(cookie_path)
+            except: pass
+            err_text = str(primary_exc).lower()
+            needs_cookies = "login" in err_text or "private" in err_text or "empty media response" in err_text
+            if needs_cookies and not cookie_path:
+                return jsonify({"error": map_yt_dlp_error(primary_exc), "requires_cookies": True}), 400
             return jsonify({"error": map_yt_dlp_error(primary_exc)}), 400
+
+    if cookie_path:
+        try: os.remove(cookie_path)
+        except Exception: pass
 
     if not os.path.exists(path):
         return jsonify({"error": "File not found after processing. Please try again."}), 500
