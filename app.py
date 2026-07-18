@@ -249,7 +249,11 @@ COOKIE_ENV_BY_PLATFORM = {
 def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True}
     if platform == "youtube":
-        opts["extractor_args"] = {"youtube": {"player_client": ["web", "ios"]}}
+        from yt_dlp.utils import ExtractorError
+        try:
+            opts["extractor_args"] = {"youtube": {"player_client": ["android"]}}
+        except Exception:
+            pass
     if cookie_file_override and os.path.exists(cookie_file_override):
         opts["cookiefile"] = cookie_file_override
     else:
