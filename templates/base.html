@@ -619,7 +619,6 @@
     })();
 
     (function() {
-      try { navigator.clipboard.readText().then(t => { if (t.match(/^https?:\/\//)) document.getElementById("urlInput").value = t; }).catch(() => {}); } catch(_) {}
       var inp = document.getElementById("urlInput"), card = document.querySelector(".card");
       if (card) {
         card.addEventListener("dragover", function(e) { e.preventDefault(); this.style.borderColor = "var(--accent)"; });
