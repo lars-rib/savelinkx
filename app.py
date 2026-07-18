@@ -250,6 +250,7 @@ def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True, "age_limit": 99}
     if platform == "youtube":
         opts["remote_components"] = "ejs:github"
+        opts["playlistend"] = 200
     if cookie_file_override and os.path.exists(cookie_file_override):
         opts["cookiefile"] = cookie_file_override
     else:
@@ -701,11 +702,13 @@ def download():
 
     def run_download(selected_format):
         opts = base_ydl_opts(platform, cookie_path)
+        is_audio = "bestaudio" in selected_format or selected_format.endswith("bestaudio")
         opts.update({
             "format": selected_format,
             "outtmpl": os.path.join(DOWNLOAD_DIR, "%(title).120s.%(ext)s"),
-            "merge_output_format": "mp4",
         })
+        if not is_audio:
+            opts["merge_output_format"] = "mp4"
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=True)
             resolved_path = ydl.prepare_filename(info)
@@ -722,12 +725,14 @@ def download():
     except Exception as primary_exc:
         if fmt != "best[ext=mp4]/best":
             try:
+                is_audio = "bestaudio" in fmt or fmt.endswith("bestaudio")
+                fallback = "bestaudio[ext=m4a]/bestaudio" if is_audio else "best[ext=mp4]/best"
                 logger.warning(
-                    "Primary download failed for format=%s, falling back to best MP4. Error=%s",
+                    "Primary download failed for format=%s, falling back. Error=%s",
                     fmt,
                     primary_exc,
                 )
-                path = run_download("best[ext=mp4]/best")
+                path = run_download(fallback)
             except Exception as fallback_exc:
                 logger.exception("/download fallback failed for url=%s format=%s", url, fmt)
                 try: os.remove(cookie_path)
