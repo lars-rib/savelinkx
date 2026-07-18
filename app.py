@@ -249,11 +249,7 @@ COOKIE_ENV_BY_PLATFORM = {
 def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True}
     if platform == "youtube":
-        from yt_dlp.utils import ExtractorError
-        try:
-            opts["extractor_args"] = {"youtube": {"player_client": ["android"]}}
-        except Exception:
-            pass
+        opts["extractor_args"] = {"youtube": {"player_client": ["android"]}}
     if cookie_file_override and os.path.exists(cookie_file_override):
         opts["cookiefile"] = cookie_file_override
     else:
@@ -357,7 +353,7 @@ def detect_and_normalize_url(raw_url):
 def map_yt_dlp_error(exc):
     text = str(exc).lower()
     if "sign in to confirm" in text or "not a bot" in text:
-        return "YouTube is asking for bot verification. Please try another video or try again in a few minutes."
+        return "YouTube blocked this request from our server. Most videos still work — try another link or try again later."
     if "no video could be found" in text or "no video formats found" in text:
         return "This post doesn't contain a video. Please paste a link to a post with a video."
     if "ffmpeg" in text and ("not found" in text or "not installed" in text):
