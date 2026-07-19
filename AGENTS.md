@@ -153,6 +153,41 @@ versa) — `cd /opt/savelinkx` fails immediately on Windows with a clear error,
 so if that happens, the fix is reconnecting via `ssh root@207.180.212.246`
 first, not troubleshooting the path.
 
+## Server operations (installed 2026-07-19)
+
+The VPS is **shared with ~12 other Docker containers** (NocoDB, Paperclip,
+Syncthing, netdata, etc.) on a single 72G disk. A runaway download here takes
+down unrelated services, so treat disk as a shared resource.
+
+**Cron jobs** (`crontab -l` as root):
+- `*/15 * * * * /usr/local/bin/savelinkx-maint.sh` — purges
+  `downloads/` files older than 15 min and logs a syslog warning if `/` goes
+  past 85%. Needed because the app deletes served files with
+  `threading.Timer(5, os.remove)`, and that timer dies if gunicorn restarts
+  mid-download — a real leak was found (36MB orphan sitting for 5 days).
+- `17 4 * * 1 /usr/local/bin/savelinkx-update-ytdlp.sh` — weekly yt-dlp
+  upgrade + restart only if the version actually changed. **This is the main
+  thing keeping extraction alive**: `requirements.txt` leaves yt-dlp unpinned,
+  and `pip install -r` will NOT upgrade an already-installed package.
+
+**Gunicorn**: `--workers 6 --timeout 300 --graceful-timeout 30
+--max-requests 200 --max-requests-jitter 40`. Downloads are *blocking*, so
+worker count is the concurrency ceiling — at the previous 2 workers, two
+simultaneous 4K downloads hung the whole site. Each worker is ~48MB.
+`--max-requests` recycles workers to contain memory creep from yt-dlp.
+
+**Capacity (measured 2026-07-19)**: 4 cores, 7.8G RAM (~2.7G available),
+disk 74% after reclaiming 12G of dangling Docker images. No upgrade needed.
+Upgrade triggers: RAM available under ~1G sustained, disk past 85% *after*
+the cleanup cron, or steady-state load above ~4 with no test traffic running.
+Note that a high `load average` is often just someone running extraction
+tests — check per-container CPU (`docker stats`) before concluding the box
+is undersized.
+
+**Reclaiming disk**: `docker image prune -f` and `docker builder prune -f` are
+safe (dangling layers only). Avoid `docker system prune -a`, which would drop
+images the 12 running containers may need to recreate.
+
 ## Git workflow
 
 Feature branches + PRs, not direct pushes to `main` (early commits in this
