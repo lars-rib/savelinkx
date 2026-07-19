@@ -249,8 +249,8 @@ COOKIE_ENV_BY_PLATFORM = {
 def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True, "age_limit": 99}
     if platform == "youtube":
-        opts["remote_components"] = "ejs:github"
-        opts["extractor_args"] = {"youtube": {"player_client": ["web", "android"]}}
+        opts["remote_components"] = ["ejs:github"]
+        opts["extractor_args"] = {"youtube": {"player_client": ["ios", "android", "web"]}}
         opts["playlistend"] = 200
     if cookie_file_override and os.path.exists(cookie_file_override):
         opts["cookiefile"] = cookie_file_override
@@ -371,7 +371,7 @@ def map_yt_dlp_error(exc):
     if "geo" in text or "country" in text or "region" in text:
         return "This content is not available in your region."
     if "login" in text or "sign in" in text or "authentication" in text:
-        if "login required" in text or "requires login" in text or "sign in to" in text or "you must be logged in" in text or "http error 403" in text:
+        if "login required" in text or "requires login" in text or "sign in to" in text or "you must be logged in" in text or "http error 403" in text or "unreachable" in text:
             return "This content requires login and cannot be downloaded publicly."
         if "404" in text or "not found" in text:
             return "This content could not be found. The link may be broken or the post may have been removed."

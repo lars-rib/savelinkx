@@ -5,3 +5,8 @@ __pycache__/
 venv/
 downloads/
 *.log
+
+# Never commit session cookies - these are live account credentials
+cookies/
+cookies.txt
+*.cookies
