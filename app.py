@@ -250,6 +250,13 @@ def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True, "age_limit": 99}
     if platform == "youtube":
         opts["remote_components"] = ["ejs:github"]
+        # YouTube blocks the Contabo datacenter prefix (bot detection on ~5 of 6
+        # videos, IPv4 and IPv6 alike). Egress via the local Cloudflare WARP
+        # SOCKS proxy instead; measured 10/10 success vs 1/6 direct. Free.
+        # Configurable so the proxy can be swapped/disabled without a code change.
+        youtube_proxy = os.getenv("YOUTUBE_PROXY", "socks5://127.0.0.1:40000").strip()
+        if youtube_proxy:
+            opts["proxy"] = youtube_proxy
         # Deliberately NOT pinning player_client. The ios/android/web set was a
         # pre-PO-token workaround and now caps quality at 360p; yt-dlp's default
         # client set combined with the bgutil PO token provider (HTTP server on
