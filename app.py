@@ -250,7 +250,11 @@ def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True, "age_limit": 99}
     if platform == "youtube":
         opts["remote_components"] = ["ejs:github"]
-        opts["extractor_args"] = {"youtube": {"player_client": ["ios", "android", "web"]}}
+        # Deliberately NOT pinning player_client. The ios/android/web set was a
+        # pre-PO-token workaround and now caps quality at 360p; yt-dlp's default
+        # client set combined with the bgutil PO token provider (HTTP server on
+        # 127.0.0.1:4416) yields the full ladder up to 2160p. Re-pinning clients
+        # here will silently degrade quality — measure before changing.
         opts["playlistend"] = 200
     if cookie_file_override and os.path.exists(cookie_file_override):
         opts["cookiefile"] = cookie_file_override
