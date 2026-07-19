@@ -35,8 +35,49 @@ database). Single-file backend (`app.py`), Jinja2 templates in `templates/`.
   posts/Reels/IGTV only; Stories are rejected up front (`/stories/` path)
   since they require login. **Verified working from the production VPS
   (datacenter IP) on 2026-07-16** — no cookies needed so far.
-- **Deliberately excluded: YouTube** — downloader sites for YouTube risk a
-  Google-wide ranking penalty for the whole domain.
+- **Also live** (added later via OpenCode): Facebook, Vimeo, Dailymotion,
+  Reddit, Pinterest — 9 platforms total, each in EN/PT/ES.
+- **YouTube** — was originally excluded (downloader sites for YouTube risk a
+  Google-wide ranking penalty for the whole domain). Now implemented but
+  **partially blocked**; see the YouTube section below before touching it.
+
+## YouTube: PO tokens + IP blocking (read this before debugging)
+
+Two *independent* problems. Measured on the production VPS, 2026-07-19:
+
+**1. Quality cap — SOLVED.** YouTube requires a GVS PO Token for anything above
+360p. A `bgutil-ytdlp-pot-provider` Docker container supplies them:
+
+```bash
+docker run -d --name bgutil-pot --restart unless-stopped \
+  -p 127.0.0.1:4416:4416 brainicism/bgutil-ytdlp-pot-provider:latest
+# plugin side, inside the app venv:
+venv/bin/pip install -U bgutil-ytdlp-pot-provider
+```
+The container is **localhost-bound only** (never expose 4416 publicly). yt-dlp
+auto-discovers it at `http://127.0.0.1:4416`; confirm with
+`venv/bin/yt-dlp -v <url> 2>&1 | grep pot` — you should see
+`bgutil:http-... (external)` and "Generating a gvs PO Token".
+
+**Do NOT pin `player_client`.** The old `["ios","android","web"]` set was a
+pre-PO-token workaround and now *caps quality at 360p*. Measured, same video,
+same provider: pinned → 360p / 4 formats; **default clients → 2160p / 36
+formats**. `base_ydl_opts()` deliberately leaves it unset.
+
+**YouTube cookies are NOT needed** — results are identical with and without
+them. `/opt/savelinkx/cookies/youtube.txt` and the `YOUTUBE_COOKIES_FILE` env
+var can be removed; a live Google session on a VPS is a ban risk for that
+account and an unnecessary credential to hold. `cookies/` is gitignored.
+
+**2. Bot detection — NOT solved.** The Contabo IP is flagged: roughly **1 in 6
+videos** extracts, the rest fail with "Sign in to confirm you're not a bot".
+Verified this is IP-level, not fixable by config: every player client fails on
+a blocked video, cookies make no difference, and the same videos extract fine
+from a residential IP. The only real fix is egress from a residential/rotating
+proxy. With the PO provider already in place, a clean IP yields full 4K.
+
+Do not re-litigate this with more client/cookie/impersonation permutations —
+that path was explored across 15+ commits and the remaining variable is the IP.
 
 ## Known tech debt (read before adding platform #4)
 
