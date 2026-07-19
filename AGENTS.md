@@ -69,15 +69,32 @@ them. `/opt/savelinkx/cookies/youtube.txt` and the `YOUTUBE_COOKIES_FILE` env
 var can be removed; a live Google session on a VPS is a ban risk for that
 account and an unnecessary credential to hold. `cookies/` is gitignored.
 
-**2. Bot detection — NOT solved.** The Contabo IP is flagged: roughly **1 in 6
-videos** extracts, the rest fail with "Sign in to confirm you're not a bot".
-Verified this is IP-level, not fixable by config: every player client fails on
-a blocked video, cookies make no difference, and the same videos extract fine
-from a residential IP. The only real fix is egress from a residential/rotating
-proxy. With the PO provider already in place, a clean IP yields full 4K.
+**2. Bot detection — SOLVED with Cloudflare WARP (free).** YouTube blocks the
+Contabo prefix by ASN: direct egress fails on ~5 of 6 videos with "Sign in to
+confirm you're not a bot". Verified IP-level, not config: every player client
+fails on a blocked video, cookies make no difference, and **IPv6 fails
+identically** — the whole `/64` is flagged, so rotating within it is pointless.
 
-Do not re-litigate this with more client/cookie/impersonation permutations —
-that path was explored across 15+ commits and the remaining variable is the IP.
+Fix is `cloudflare-warp` in **proxy mode** (no system routing changes, so the
+other Docker services are unaffected):
+```bash
+warp-cli --accept-tos registration new
+warp-cli --accept-tos mode proxy
+warp-cli --accept-tos proxy port 40000
+warp-cli --accept-tos connect
+```
+`warp-svc` is enabled at boot and the mode persists. `base_ydl_opts()` sends
+YouTube traffic through it via `YOUTUBE_PROXY` (default
+`socks5://127.0.0.1:40000`); set that env var to swap or empty it to disable.
+
+Measured on the VPS: **direct → 1/6 videos, capped 360p. WARP → 10/10 videos,
+up to 2160p.** Only YouTube is proxied; all other platforms egress directly.
+
+**If YouTube breaks again, check WARP first**: `warp-cli status` should say
+Connected, and `curl -s --socks5 127.0.0.1:40000 https://www.cloudflare.com/cdn-cgi/trace | grep warp`
+should print `warp=on`. Do not re-litigate with client/cookie/impersonation
+permutations — that path burned 15+ commits; the variables that actually
+matter are the PO provider and the proxy.
 
 ## Known tech debt (read before adding platform #4)
 
