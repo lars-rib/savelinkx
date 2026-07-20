@@ -448,32 +448,35 @@ def set_cached_metadata(url, data):
 
 @app.route("/")
 def index():
-    return render_template("index_youtube.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/pt/")
 def index_pt():
-    return render_template("index_youtube_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/es/")
 def index_es():
-    return render_template("index_youtube_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
+# X/Twitter was the historic homepage; it now lives at "/" again. The old /x/
+# URLs (a temporary OpenCode arrangement) 301 back to "/" so any external links
+# and Google's index consolidate on the homepage.
 @app.route("/x/")
 def index_twitter():
-    return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return redirect("/", 301)
 
 
 @app.route("/x/pt/")
 def index_twitter_pt():
-    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return redirect("/pt/", 301)
 
 
 @app.route("/x/es/")
 def index_twitter_es():
-    return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return redirect("/es/", 301)
 
 
 @app.route("/tiktok/")
@@ -581,19 +584,23 @@ def index_pinterest_es():
     return render_template("index_pinterest_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
+# YouTube lives at /youtube/ (not "/"). The templates carry
+# <meta name="robots" content="noindex, follow"> so Google does not index the
+# YouTube downloader pages, keeping that liability off the homepage and out of
+# search — while the pages stay reachable for direct/linked visitors.
 @app.route("/youtube/")
-def youtube_redirect():
-    return redirect("/", 301)
+def index_youtube():
+    return render_template("index_youtube.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/youtube/pt/")
-def youtube_pt_redirect():
-    return redirect("/pt/", 301)
+def index_youtube_pt():
+    return render_template("index_youtube_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/youtube/es/")
-def youtube_es_redirect():
-    return redirect("/es/", 301)
+def index_youtube_es():
+    return render_template("index_youtube_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
 @app.route("/termos")
