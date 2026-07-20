@@ -203,6 +203,30 @@ URL** `https://www.savelinkx.com/sitemap.xml` — a Domain property rejects a
 bare path like `sitemap.xml`. After adding pages, use **URL Inspection →
 Request Indexing** per new URL to speed up crawling.
 
+**URL structure / homepage (deliberate, do not "fix"):**
+- `/`, `/pt/`, `/es/` = **X/Twitter** — the historic, authoritative homepage.
+- Each other platform lives under its own path (`/tiktok/`, `/instagram/`,
+  `/youtube/`, `/facebook/`, `/vimeo/`, `/dailymotion/`, `/reddit/`,
+  `/pinterest/`), EN at the root of that path and PT/ES nested (`/tiktok/pt/`).
+- **YouTube pages carry `<meta name="robots" content="noindex, follow">`** and
+  are **kept out of the sitemap** on purpose: downloader pages for YouTube risk
+  a domain-wide Google penalty, so they exist and function but are hidden from
+  search. Do NOT add them to the sitemap, do NOT flip them to `index`, and do
+  NOT let YouTube back onto `/`. (It was briefly the homepage — reverted
+  2026-07-20.) Keep `/youtube/*` crawlable in robots.txt so Google can see the
+  noindex; blocking it in robots.txt would strand already-indexed pages.
+- `/x/*` 301-redirects to `/*` (legacy path from when X was demoted).
+- The platform switcher and footer cross-links are per-template (in each
+  child's `toolswitch`/footer blocks, not centralized), so a URL-structure
+  change means editing all 27 index templates — script it and verify by
+  rendering every route and asserting the links, don't hand-edit.
+
+**Manual follow-up after a noindex/URL change (human, in Search Console):**
+Google honors `noindex` only on its next crawl. To speed removal of the old
+YouTube-at-`/` URLs, use **Removals → Temporarily remove** for them, and
+**URL Inspection → Request Indexing** on `/` (now X) so the homepage's new
+content is re-read promptly.
+
 ## Testing without a live venv
 
 The dev machine doesn't keep yt-dlp/Flask installed permanently. To verify
