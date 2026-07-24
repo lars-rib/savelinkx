@@ -254,17 +254,21 @@ COOKIE_ENV_BY_PLATFORM = {
 }
 
 
+# Platforms that block the Contabo datacenter IP and must egress through the
+# local Cloudflare WARP SOCKS proxy instead. YouTube: bot detection (1/6 direct
+# -> 10/10 via WARP). Reddit: "account authentication required" direct -> works
+# via WARP. Both verified on the VPS. WARP egresses IPv6, so a platform whose
+# API is IPv4-only or blocks WARP won't be helped here (e.g. Dailymotion).
+WARP_PLATFORMS = {"youtube", "reddit"}
+WARP_PROXY = os.getenv("WARP_PROXY", "socks5://127.0.0.1:40000").strip()
+
+
 def base_ydl_opts(platform=None, cookie_file_override=None):
     opts = {"quiet": True, "age_limit": 99}
+    if platform in WARP_PLATFORMS and WARP_PROXY:
+        opts["proxy"] = WARP_PROXY
     if platform == "youtube":
         opts["remote_components"] = ["ejs:github"]
-        # YouTube blocks the Contabo datacenter prefix (bot detection on ~5 of 6
-        # videos, IPv4 and IPv6 alike). Egress via the local Cloudflare WARP
-        # SOCKS proxy instead; measured 10/10 success vs 1/6 direct. Free.
-        # Configurable so the proxy can be swapped/disabled without a code change.
-        youtube_proxy = os.getenv("YOUTUBE_PROXY", "socks5://127.0.0.1:40000").strip()
-        if youtube_proxy:
-            opts["proxy"] = youtube_proxy
         # Deliberately NOT pinning player_client. The ios/android/web set was a
         # pre-PO-token workaround and now caps quality at 360p; yt-dlp's default
         # client set combined with the bgutil PO token provider (HTTP server on
