@@ -592,6 +592,32 @@ def index_pinterest_es():
     return render_template("index_pinterest_es.html", site_url=get_site_base_url(), updated=get_updated_label())
 
 
+# --- Long-tail landing pages (WS2) ---------------------------------------
+# Intent-specific SEO entry points that reuse an existing platform's /info
+# validator (platform detection is by pasted URL, not by page), so no backend
+# validator changes are needed. Each is a thin child of base.html.
+_LANDING_PAGES = {
+    "tiktok-mp3": "index_tiktok_mp3",
+    "twitter-gif": "index_twitter_gif",
+    "reddit-video-with-sound": "index_reddit_video_with_sound",
+}
+
+
+def _make_landing(template):
+    def view():
+        return render_template(f"{template}.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return view
+
+
+for _slug, _tmpl in _LANDING_PAGES.items():
+    for _suffix, _lang in (("", ""), ("pt/", "_pt"), ("es/", "_es")):
+        app.add_url_rule(
+            f"/{_slug}/{_suffix}",
+            endpoint=f"{_tmpl}{_lang}",
+            view_func=_make_landing(f"{_tmpl}{_lang}"),
+        )
+
+
 # YouTube lives at /youtube/ (not "/"). The templates carry
 # <meta name="robots" content="noindex, follow"> so Google does not index the
 # YouTube downloader pages, keeping that liability off the homepage and out of
@@ -1011,6 +1037,15 @@ def sitemap():
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
       </url>
+      <url><loc>https://www.savelinkx.com/tiktok-mp3/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+      <url><loc>https://www.savelinkx.com/tiktok-mp3/pt/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+      <url><loc>https://www.savelinkx.com/tiktok-mp3/es/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+      <url><loc>https://www.savelinkx.com/twitter-gif/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+      <url><loc>https://www.savelinkx.com/twitter-gif/pt/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+      <url><loc>https://www.savelinkx.com/twitter-gif/es/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+      <url><loc>https://www.savelinkx.com/reddit-video-with-sound/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+      <url><loc>https://www.savelinkx.com/reddit-video-with-sound/pt/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+      <url><loc>https://www.savelinkx.com/reddit-video-with-sound/es/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
       <url>
         <loc>https://www.savelinkx.com/faq</loc>
         <lastmod>2026-04-27</lastmod>

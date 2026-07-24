@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block lang %}en{% endblock %}
+{% block body_attrs %}data-platform="twitter"{% endblock %}
+
+{% block head %}
+  <title>Twitter GIF Downloader - Save X (Twitter) GIFs as MP4 Free | SaveLinkX</title>
+  <meta name="description" content="Download GIFs from X (Twitter) for free. Paste a tweet link with a GIF and save it as MP4 - playable everywhere, no signup, works on any device." />
+  <link rel="canonical" href="{{ site_url }}/twitter-gif/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="Twitter GIF Downloader - Save X (Twitter) GIFs as MP4 Free" />
+  <meta property="og:description" content="Download GIFs from X (Twitter) for free. Paste a tweet link with a GIF and save it as MP4 - playable everywhere, no signup, works on any device." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/twitter-gif/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="keywords" content="twitter gif downloader, download twitter gif, x gif downloader, save twitter gif, twitter gif to mp4, download gif from tweet" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Twitter GIF Downloader - Save X (Twitter) GIFs as MP4 Free" />
+  <meta name="twitter:description" content="Download GIFs from X (Twitter) for free. Paste a tweet link with a GIF and save it as MP4 - playable everywhere, no signup, works on any device." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/twitter-gif/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/twitter-gif/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/twitter-gif/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/twitter-gif/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Twitter GIF Downloader - Save X (Twitter) GIFs as MP4 Free",
+    "description": "Download GIFs from X (Twitter) for free. Paste a tweet link with a GIF and save it as MP4 - playable everywhere, no signup, works on any device.",
+    "url": "{{ site_url }}/twitter-gif/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "en",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SaveLinkX",
+      "url": "{{ site_url }}/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Download a Twitter GIF",
+    "description": "Download GIFs from X (Twitter) for free. Paste a tweet link with a GIF and save it as MP4 - playable everywhere, no signup, works on any device.",
+    "inLanguage": "en",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Step 1",
+        "text": "On X, open the tweet with the GIF and copy its link from the Share button."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Step 2",
+        "text": "Paste the link above and click Download."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Step 3",
+        "text": "Save the MP4 - it plays like a GIF on any device."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I download a GIF from Twitter/X?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste the tweet link into SaveLinkX and click Download. The GIF is saved as an MP4 file that plays everywhere."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is the GIF saved as MP4?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "X stores GIFs as short silent MP4 videos, not .gif files. The MP4 is smaller, higher quality, and plays on every device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, completely free. No account or payment required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work on iPhone and Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Paste the tweet link in any mobile browser and the file saves to your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download GIFs from x.com and twitter.com?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Both twitter.com and x.com links are supported."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need an app or extension?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It works 100% in your browser."
+        }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Main navigation{% endblock %}
+{% block brand_href %}/{% endblock %}
+{% block h1 %}<span>Twitter GIF Downloader</span> - Save X GIFs Free{% endblock %}
+{% block subtitle %}Paste a tweet that has a GIF and save it as an MP4 you can play, share, or re-post anywhere.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Choose platform">
+    <a href="/" class="active">X (Twitter)</a>
+    <a href="/tiktok/">TikTok</a>
+    <a href="/instagram/">Instagram</a>
+    <a href="/facebook/">Facebook</a>
+    <a href="/youtube/">YouTube</a>
+    <a href="/vimeo/">Vimeo</a>
+    <a href="/dailymotion/">Dailymotion</a>
+    <a href="/reddit/">Reddit</a>
+    <a href="/pinterest/">Pinterest</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Paste tweet URL e.g. https://x.com/user/status/123456789{% endblock %}
+
+{% block intro %}Save any GIF from <strong style="color:#aaa;">X (Twitter)</strong>. On X, GIFs are actually served as short MP4 videos - SaveLinkX grabs that original file so your GIF plays smoothly on any phone, app, or browser. Free, no signup.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="How to Download a Twitter GIF">
+    <h2>How to Download a Twitter GIF</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>On X, open the tweet with the GIF and copy its link from the <strong>Share</strong> button.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Paste the link above and click <strong>Download</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Save the MP4 - it plays like a GIF on any device.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Frequently Asked Questions">
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>How do I download a GIF from Twitter/X?</summary>
+      <p>Paste the tweet link into SaveLinkX and click Download. The GIF is saved as an MP4 file that plays everywhere.</p>
+    </details>
+    <details>
+      <summary>Why is the GIF saved as MP4?</summary>
+      <p>X stores GIFs as short silent MP4 videos, not .gif files. The MP4 is smaller, higher quality, and plays on every device.</p>
+    </details>
+    <details>
+      <summary>Is it free?</summary>
+      <p>Yes, completely free. No account or payment required.</p>
+    </details>
+    <details>
+      <summary>Does it work on iPhone and Android?</summary>
+      <p>Yes. Paste the tweet link in any mobile browser and the file saves to your device.</p>
+    </details>
+    <details>
+      <summary>Can I download GIFs from x.com and twitter.com?</summary>
+      <p>Yes. Both twitter.com and x.com links are supported.</p>
+    </details>
+    <details>
+      <summary>Do I need an app or extension?</summary>
+      <p>No. It works 100% in your browser.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Save X (Twitter) GIFs the Easy Way">
+    <div>
+      <h2>Save X (Twitter) GIFs the Easy Way</h2>
+      <p>Twitter GIFs aren't real .gif files - the platform converts them to silent MP4 clips. That's good news: the MP4 SaveLinkX gives you is sharper and plays natively in <strong style="color:#aaa;">WhatsApp</strong>, messaging apps, and every browser.</p>
+      <p>Copy the tweet link - <code>twitter.com/...</code> or <code>x.com/...</code> - paste it above, and click Download to save the GIF as MP4.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}
+{% block footer_links %}
+      <a href="/">X (Twitter) Video Downloader</a>
+      &nbsp;|&nbsp;
+      <a href="/">Home</a>
+      &nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos">Terms of Use</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade">Privacy Policy</a>
+      &nbsp;|&nbsp;
+      <a href="/contato">Contact</a>
+{% endblock %}
+{% block disclaimer %}This site is a public link processing tool and does not host any files on its servers. Please respect copyright law and use downloaded content for personal use only.{% endblock %}
+
+{% block page_config %}
+    "platform": "twitter",
+    "lang": "en"
+{% endblock %}
