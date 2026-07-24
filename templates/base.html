@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/static/manifest.json" />
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="SaveLinkX" />
   {% block head %}{% endblock %}
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -91,6 +95,8 @@
     .topnav-links a:hover { color: var(--accent); }
     .tool-switch { width: 100%; max-width: 620px; margin-bottom: 20px; position: relative; }
     .tool-switch a { display: none; }
+    .share-btn { display: block; width: 100%; padding: 11px 16px; background: #222; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: background 0.15s, border-color 0.15s; }
+    .share-btn:hover { background: #2a2a2a; border-color: var(--accent); }
     .tool-switch-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 16px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; color: #fff; font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: border-color 0.2s; }
     .tool-switch-btn:hover { border-color: var(--accent); }
     .tool-switch-btn::after { content: '▾'; margin-left: auto; font-size: 0.7rem; color: #666; transition: transform 0.2s; }
@@ -308,15 +314,64 @@
       fetchInfo();
     });
 
+    // Share prompt on download success — turns each happy user into a
+    // distribution node. Localized by P.lang (no per-template strings needed).
+    var SHARE_I18N = {
+      en: { title: "Done! Share SaveLinkX so friends can download too 🎬",
+            text: "I just downloaded this video for free with SaveLinkX 🎬 Download yours:",
+            wa: "Share on WhatsApp", copy: "Copy link", copied: "Link copied!", share: "Share" },
+      pt: { title: "Pronto! Compartilhe o SaveLinkX com quem precisa 🎬",
+            text: "Baixei esse vídeo de graça no SaveLinkX 🎬 Baixe o seu:",
+            wa: "Compartilhar no WhatsApp", copy: "Copiar link", copied: "Link copiado!", share: "Compartilhar" },
+      es: { title: "¡Listo! Comparte SaveLinkX con quien lo necesite 🎬",
+            text: "Descargué este video gratis con SaveLinkX 🎬 Consigue el tuyo:",
+            wa: "Compartir en WhatsApp", copy: "Copiar enlace", copied: "¡Enlace copiado!", share: "Compartir" }
+    };
+    function shareLang() { return SHARE_I18N[(window.PAGE && PAGE.lang) || "en"] || SHARE_I18N.en; }
+
     function showBookmarkPrompt() {
-      if (localStorage.getItem("bookmark_seen")) return;
-      var messages = [
-        "Bookmark SaveLinkX to download anytime!",
-        "Press Ctrl+D to save this tool for later.",
-        "Add to bookmarks — it's free and always will be."
-      ];
-      document.getElementById("bookmarkMsg").textContent = messages[Math.floor(Math.random() * messages.length)];
-      document.getElementById("bookmarkToast").style.display = "block";
+      var t = shareLang();
+      var url = location.origin + "/";
+      var box = document.getElementById("bookmarkToast");
+      var msg = document.getElementById("bookmarkMsg");
+      msg.textContent = t.title;
+      var actions = document.getElementById("shareActions");
+      actions.innerHTML = "";
+
+      // WhatsApp first (priority channel, esp. BR)
+      var wa = document.createElement("a");
+      wa.href = "https://wa.me/?text=" + encodeURIComponent(t.text + " " + url);
+      wa.target = "_blank"; wa.rel = "noopener";
+      wa.textContent = "🟢 " + t.wa;
+      wa.className = "share-btn";
+      wa.onclick = function () { trackEvent("share_click", { channel: "whatsapp" }); };
+      actions.appendChild(wa);
+
+      // Native share sheet on mobile (covers Instagram/Telegram/etc.)
+      if (navigator.share) {
+        var ns = document.createElement("button");
+        ns.textContent = "↗ " + t.share;
+        ns.className = "share-btn";
+        ns.onclick = function () {
+          navigator.share({ title: "SaveLinkX", text: t.text, url: url }).catch(function () {});
+          trackEvent("share_click", { channel: "native" });
+        };
+        actions.appendChild(ns);
+      }
+
+      // Copy link fallback (desktop)
+      var cp = document.createElement("button");
+      cp.textContent = "🔗 " + t.copy;
+      cp.className = "share-btn";
+      cp.onclick = function () {
+        navigator.clipboard.writeText(url).then(function () { cp.textContent = "✓ " + t.copied; });
+        trackEvent("share_click", { channel: "copy" });
+      };
+      actions.appendChild(cp);
+
+      box.style.display = "block";
+      clearTimeout(window._shareHide);
+      window._shareHide = setTimeout(function () { box.style.display = "none"; }, 12000);
     }
 
     function showCookieUpload() {
@@ -638,9 +693,10 @@
       navigator.serviceWorker.register("/static/sw.js").catch(function() {});
     }
   </script>
-    <div id="bookmarkToast" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid var(--accent);border-radius:14px;padding:14px 20px;font-size:0.85rem;color:#e8e8e8;z-index:200;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:fadeIn 0.3s ease;max-width:360px;">
-      <span id="bookmarkMsg"></span>
-      <button onclick="document.getElementById('bookmarkToast').style.display='none';localStorage.setItem('bookmark_seen','1')" style="display:block;margin:8px auto 0;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 18px;font-size:0.8rem;font-weight:700;cursor:pointer;">Got it!</button>
+    <div id="bookmarkToast" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid var(--accent);border-radius:14px;padding:16px 20px;font-size:0.85rem;color:#e8e8e8;z-index:200;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:fadeIn 0.3s ease;max-width:360px;width:calc(100% - 32px);">
+      <span id="bookmarkMsg" style="display:block;margin-bottom:12px;line-height:1.4;"></span>
+      <div id="shareActions" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <button aria-label="Close" onclick="document.getElementById('bookmarkToast').style.display='none'" style="position:absolute;top:8px;right:12px;background:none;border:none;color:#666;font-size:1.1rem;cursor:pointer;line-height:1;">×</button>
     </div>
   </body>
 </html>
