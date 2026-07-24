@@ -90,9 +90,13 @@
     .topnav { width: 100%; max-width: 620px; display: flex; justify-content: space-between; align-items: center; padding: 0 0 24px; }
     .topnav-brand { font-size: 1rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 7px; line-height: 1; }
     .topnav-brand svg { width: 20px; height: 20px; fill: var(--accent); flex-shrink: 0; }
-    .topnav-links { display: flex; gap: 18px; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
-    .topnav-links a { color: #8a8a8a; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; white-space: nowrap; }
-    .topnav-links a:hover { color: var(--accent); }
+    .topnav-right { display: flex; align-items: center; gap: 16px; }
+    .topnav-right > a { color: #8a8a8a; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; white-space: nowrap; }
+    .topnav-right > a:hover { color: var(--accent); }
+    .lang-switch { display: inline-flex; border: 1px solid #2a2a2a; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+    .lang-switch a { padding: 4px 9px; font-size: 0.72rem; font-weight: 700; color: #888; text-decoration: none; transition: background 0.15s, color 0.15s; }
+    .lang-switch a:hover { color: #fff; background: #222; }
+    .lang-switch a.active { background: var(--accent); color: #fff; }
     .tool-switch { width: 100%; max-width: 620px; margin-bottom: 20px; position: relative; }
     .tool-switch a { display: none; }
     .share-btn { display: block; width: 100%; padding: 11px 16px; background: #222; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: background 0.15s, border-color 0.15s; }
@@ -144,7 +148,8 @@
       .steps { grid-template-columns: 1fr; }
       header h1 { font-size: 1.4rem; }
       .thumb-wrap img { width: 90px; }
-      .topnav-links { gap: 12px; }
+      .topnav-right { gap: 10px; }
+      .topnav-right > a { font-size: 0.78rem; }
       .card { padding: 20px; }
     }
   </style>
@@ -156,9 +161,16 @@
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       SaveLinkX
     </a>
-    <ul class="topnav-links">
-      {% block nav_links %}{% endblock %}
-    </ul>
+    <div class="topnav-right">
+      {% set _nl = self.lang()[:2] %}
+      <a href="/faq">FAQ</a>
+      <a href="/contato">{{ {'en': 'Contact', 'pt': 'Contato', 'es': 'Contacto'}.get(_nl, 'Contact') }}</a>
+      <span class="lang-switch" aria-label="Language">
+        <a href="/" class="lang{{ ' active' if _nl == 'en' else '' }}">EN</a>
+        <a href="/pt/" class="lang{{ ' active' if _nl == 'pt' else '' }}">PT</a>
+        <a href="/es/" class="lang{{ ' active' if _nl == 'es' else '' }}">ES</a>
+      </span>
+    </div>
   </nav>
 
   <header>
