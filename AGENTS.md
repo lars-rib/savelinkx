@@ -190,7 +190,19 @@ down unrelated services, so treat disk as a shared resource.
   `threading.Timer(5, os.remove)`, which dies if gunicorn restarts mid-download
   — a real 36MB orphan was found); (2) syslog warning if `/` goes past 85%;
   (3) **WARP health check** — canaries a neutral host through the SOCKS proxy
-  and reconnects WARP if unreachable, so YouTube+Reddit self-heal within 15 min.
+  and reconnects WARP if unreachable, so YouTube+Reddit self-heal within 15 min;
+  (4) **bgutil health check** — restarts the `bgutil-pot` container if its
+  `/ping` is down (YouTube hangs on PO-token retries when it crashes).
+
+**YouTube URL variants all work through the same pipeline** (verified 2026-07-24):
+plain video, `youtu.be/…`, `/shorts/…`, `/playlist?list=…`, and `/@channel`.
+But that pipeline is **fragile** — it depends on TWO flaky free dependencies:
+WARP (proxy) and bgutil (PO-token solver, which itself routes through WARP and
+intermittently 500s on BotGuard challenges). When either degrades, YouTube
+hangs/errors. The crons above mitigate crashes but not the intermittent bgutil
+500s (inherent to the free PO-token arms race). Combined with YouTube being
+noindexed for SEO safety, this is the highest-maintenance, lowest-payoff
+platform — worth reconsidering whether to keep it.
 - `17 4 * * 1 /usr/local/bin/savelinkx-update-ytdlp.sh` — weekly yt-dlp
   upgrade + restart only if the version actually changed. **This is the main
   thing keeping extraction alive**: `requirements.txt` leaves yt-dlp unpinned,
