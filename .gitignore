@@ -10,3 +10,6 @@ downloads/
 cookies/
 cookies.txt
 *.cookies
+
+# Internal marketing/growth strategy - keep off the public repo
+marketing/
