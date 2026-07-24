@@ -41,6 +41,31 @@ database). Single-file backend (`app.py`), Jinja2 templates in `templates/`.
   Google-wide ranking penalty for the whole domain). Now implemented but
   **partially blocked**; see the YouTube section below before touching it.
 
+### Platform health (last verified 2026-07-24)
+
+| Platform | Status | Notes |
+|---|---|---|
+| TikTok | ✅ works | direct + `curl_cffi` |
+| Instagram | ✅ works | direct; public posts/Reels only |
+| Facebook | ✅ works | direct |
+| X/Twitter | ✅ works | direct (a "no video in this post" error means the extractor is fine — just a text tweet) |
+| YouTube | ✅ works | **via WARP proxy** + bgutil PO token |
+| Reddit | ✅ works | **via WARP proxy** — datacenter IP gets "account authentication required" direct |
+| Vimeo | ❌ broken | upstream yt-dlp bug: "Failed to fetch macos OAuth token: HTTP 401". WARP does not help. Affects all yt-dlp users; wait for a yt-dlp fix or add cookies |
+| Dailymotion | ❌ broken | datacenter IP "Access forbidden"; WARP (IPv6 egress) can't reach its API ("host unreachable") |
+| Pinterest | ❓ unverified | test URL was an invalid pin (404); needs a real public **video** pin to judge |
+
+The 6 working platforms are exactly the traffic priorities. Vimeo/Dailymotion/
+Pinterest are the lowest-traffic and are broken/unproven — decide per-platform
+whether to fix (cookies/proxy) or quietly deprioritize before driving traffic
+to their pages.
+
+**WARP is a shared free tunnel and degrades over time** — when it does,
+**both YouTube and Reddit break silently**. The maintenance cron now
+health-checks it every 15 min (canary to a neutral host — a Cloudflare-trace
+check gives a false "healthy") and reconnects automatically. If YT/Reddit
+break, first check `warp-cli status` and run `warp-cli disconnect && warp-cli connect`.
+
 ## YouTube: PO tokens + IP blocking (read this before debugging)
 
 Two *independent* problems. Measured on the production VPS, 2026-07-19:
@@ -160,11 +185,12 @@ Syncthing, netdata, etc.) on a single 72G disk. A runaway download here takes
 down unrelated services, so treat disk as a shared resource.
 
 **Cron jobs** (`crontab -l` as root):
-- `*/15 * * * * /usr/local/bin/savelinkx-maint.sh` — purges
-  `downloads/` files older than 15 min and logs a syslog warning if `/` goes
-  past 85%. Needed because the app deletes served files with
-  `threading.Timer(5, os.remove)`, and that timer dies if gunicorn restarts
-  mid-download — a real leak was found (36MB orphan sitting for 5 days).
+- `*/15 * * * * /usr/local/bin/savelinkx-maint.sh` — three guards: (1) purges
+  `downloads/` files older than 15 min (the app deletes served files with
+  `threading.Timer(5, os.remove)`, which dies if gunicorn restarts mid-download
+  — a real 36MB orphan was found); (2) syslog warning if `/` goes past 85%;
+  (3) **WARP health check** — canaries a neutral host through the SOCKS proxy
+  and reconnects WARP if unreachable, so YouTube+Reddit self-heal within 15 min.
 - `17 4 * * 1 /usr/local/bin/savelinkx-update-ytdlp.sh` — weekly yt-dlp
   upgrade + restart only if the version actually changed. **This is the main
   thing keeping extraction alive**: `requirements.txt` leaves yt-dlp unpinned,
