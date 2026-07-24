@@ -233,6 +233,14 @@ def get_site_base_url():
     return "https://www.savelinkx.com"
 
 
+@app.context_processor
+def inject_analytics():
+    # Cloudflare Web Analytics beacon token. Empty (default) renders nothing;
+    # set CF_BEACON_TOKEN in the systemd unit to activate — no code change
+    # needed. Token comes from CF dashboard -> Analytics -> Web Analytics.
+    return {"cf_beacon_token": os.getenv("CF_BEACON_TOKEN", "").strip()}
+
+
 COOKIE_ENV_BY_PLATFORM = {
     "twitter": "TWITTER_COOKIES_FILE",
     "tiktok": "TIKTOK_COOKIES_FILE",
