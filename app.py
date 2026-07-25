@@ -241,6 +241,52 @@ def inject_analytics():
     return {"cf_beacon_token": os.getenv("CF_BEACON_TOKEN", "").strip()}
 
 
+# Fixed platform order for the selector, rendered identically on every page so
+# the pills never reorder when navigating. (name, url-slug); "" = the X/Twitter
+# homepage at "/". Active platform + language are derived from the request path
+# so the same list works everywhere without per-template blocks.
+_NAV_PLATFORMS = [
+    ("X (Twitter)", ""),
+    ("TikTok", "tiktok"),
+    ("Instagram", "instagram"),
+    ("YouTube", "youtube"),
+    ("Facebook", "facebook"),
+    ("Reddit", "reddit"),
+    ("Vimeo", "vimeo"),
+    ("Dailymotion", "dailymotion"),
+    ("Pinterest", "pinterest"),
+]
+# base EN path -> active platform slug (landing pages map to their parent)
+_PATH_TO_SLUG = {
+    "/": "", "/tiktok/": "tiktok", "/instagram/": "instagram",
+    "/youtube/": "youtube", "/facebook/": "facebook", "/reddit/": "reddit",
+    "/vimeo/": "vimeo", "/dailymotion/": "dailymotion", "/pinterest/": "pinterest",
+    "/tiktok-mp3/": "tiktok", "/twitter-gif/": "", "/reddit-video-with-sound/": "reddit",
+}
+
+
+@app.context_processor
+def inject_nav():
+    path = request.path if request.path.endswith("/") else request.path + "/"
+    lang, base = "en", path
+    for lg in ("pt", "es"):
+        if path.endswith("/%s/" % lg):
+            lang, base = lg, path[: -(len(lg) + 1)]
+            break
+    active = _PATH_TO_SLUG.get(base)  # None on non-platform pages (faq, etc.)
+
+    def purl(slug):
+        if slug == "":
+            return "/" if lang == "en" else "/%s/" % lang
+        return "/%s/" % slug if lang == "en" else "/%s/%s/" % (slug, lang)
+
+    nav_platforms = [
+        {"name": name, "url": purl(slug), "active": (slug == active)}
+        for name, slug in _NAV_PLATFORMS
+    ]
+    return {"nav_platforms": nav_platforms}
+
+
 COOKIE_ENV_BY_PLATFORM = {
     "twitter": "TWITTER_COOKIES_FILE",
     "tiktok": "TIKTOK_COOKIES_FILE",
