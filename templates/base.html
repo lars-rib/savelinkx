@@ -97,20 +97,14 @@
     .lang-switch a { padding: 4px 9px; font-size: 0.72rem; font-weight: 700; color: #888; text-decoration: none; transition: background 0.15s, color 0.15s; }
     .lang-switch a:hover { color: #fff; background: #222; }
     .lang-switch a.active { background: var(--accent); color: #fff; }
-    .tool-switch { width: 100%; max-width: 620px; margin-bottom: 20px; position: relative; }
-    .tool-switch a { display: none; }
+    .tool-switch-wrap { width: 100%; max-width: 620px; margin-bottom: 22px; }
+    .tool-switch-label { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; text-align: center; margin-bottom: 12px; }
+    .tool-switch { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .tool-switch a { display: inline-flex; align-items: center; padding: 9px 15px; border-radius: 11px; background: #1a1a1a; border: 1px solid #2a2a2a; color: #cfcfcf; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.15s; }
+    .tool-switch a:hover { color: #fff; border-color: var(--accent); transform: translateY(-1px); }
+    .tool-switch a.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 3px 12px rgba(0,0,0,0.3); }
     .share-btn { display: block; width: 100%; padding: 11px 16px; background: #222; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: background 0.15s, border-color 0.15s; }
     .share-btn:hover { background: #2a2a2a; border-color: var(--accent); }
-    .tool-switch-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 16px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; color: #fff; font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: border-color 0.2s; }
-    .tool-switch-btn:hover { border-color: var(--accent); }
-    .tool-switch-btn::after { content: '▾'; margin-left: auto; font-size: 0.7rem; color: #666; transition: transform 0.2s; }
-    .tool-switch.open .tool-switch-btn::after { transform: rotate(180deg); }
-    .tool-switch-dropdown { display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; z-index: 100; overflow: hidden; max-height: 360px; overflow-y: auto; }
-    .tool-switch.open .tool-switch-dropdown { display: block; }
-    .tool-switch-dropdown a { display: block; padding: 12px 16px; color: #888; text-decoration: none; font-size: 0.85rem; font-weight: 600; border-bottom: 1px solid #222; transition: all 0.15s; }
-    .tool-switch-dropdown a:last-child { border-bottom: none; }
-    .tool-switch-dropdown a:hover { background: #222; color: #fff; }
-    .tool-switch-dropdown a.sw-active { background: var(--accent); color: #fff; }
     .card-intro { font-size: 0.85rem; color: #9a9a9a; line-height: 1.6; margin-top: 16px; text-align: center; }
     .seo-section { margin-top: 32px; width: 100%; max-width: 620px; }
     .seo-section > div { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 28px 32px; }
@@ -184,7 +178,11 @@
   </header>
 
   {% block card_content %}
-  {% block toolswitch %}{% endblock %}
+  {% set _tsl = self.lang()[:2] %}
+  <div class="tool-switch-wrap">
+    <div class="tool-switch-label">{{ {'en': 'Choose a platform', 'pt': 'Escolha uma plataforma', 'es': 'Elige una plataforma'}.get(_tsl, 'Choose a platform') }}</div>
+    {% block toolswitch %}{% endblock %}
+  </div>
 
   <main class="card" role="main">
     <div class="input-row">
@@ -260,24 +258,6 @@
     </div>
   </main>
   {% endblock %}
-
-  {% set _l2 = self.lang()[:2] %}
-  {% set _sfx = '' if _l2 == 'en' else _l2 ~ '/' %}
-  {% set _xhome = '/' if _l2 == 'en' else '/' ~ _l2 ~ '/' %}
-  {% set _pslabel = {'en': 'Download from any platform', 'pt': 'Baixe de qualquer plataforma', 'es': 'Descarga de cualquier plataforma'} %}
-  <section class="platform-strip" aria-label="Supported platforms">
-    <div class="ps-label">{{ _pslabel.get(_l2, _pslabel['en']) }}</div>
-    <div class="platform-chips">
-      <a href="{{ _xhome }}">X (Twitter)</a>
-      <a href="/tiktok/{{ _sfx }}">TikTok</a>
-      <a href="/instagram/{{ _sfx }}">Instagram</a>
-      <a href="/facebook/{{ _sfx }}">Facebook</a>
-      <a href="/reddit/{{ _sfx }}">Reddit</a>
-      <a href="/vimeo/{{ _sfx }}">Vimeo</a>
-      <a href="/dailymotion/{{ _sfx }}">Dailymotion</a>
-      <a href="/pinterest/{{ _sfx }}">Pinterest</a>
-    </div>
-  </section>
 
   {% block content %}{% endblock %}
 
@@ -692,30 +672,6 @@
         }
       });
     }, { rootMargin: "200px" });
-
-    (function() {
-      var ts = document.querySelector(".tool-switch");
-      if (!ts) return;
-      var links = ts.querySelectorAll("a");
-      if (!links.length) return;
-      var active = ts.querySelector("a.active") || links[0];
-      var btn = document.createElement("button");
-      btn.className = "tool-switch-btn";
-      btn.textContent = active.textContent;
-      var dd = document.createElement("div");
-      dd.className = "tool-switch-dropdown";
-      links.forEach(function(a) {
-        var clone = a.cloneNode(true);
-        clone.className = a.className.replace("active", "").trim();
-        if (a.classList.contains("active")) clone.classList.add("sw-active");
-        dd.appendChild(clone);
-      });
-      ts.innerHTML = "";
-      ts.appendChild(btn);
-      ts.appendChild(dd);
-      btn.addEventListener("click", function(e) { e.stopPropagation(); ts.classList.toggle("open"); });
-      document.addEventListener("click", function(e) { if (!e.target.closest(".tool-switch")) ts.classList.remove("open"); });
-    })();
 
     (function() {
       var inp = document.getElementById("urlInput"), card = document.querySelector(".card");
