@@ -66,6 +66,24 @@ health-checks it every 15 min (canary to a neutral host — a Cloudflare-trace
 check gives a false "healthy") and reconnects automatically. If YT/Reddit
 break, first check `warp-cli status` and run `warp-cli disconnect && warp-cli connect`.
 
+## YouTube strategy decision (2026-07-25)
+
+YouTube is the **largest** downloader-search market (far bigger than TikTok/IG),
+so it's worth capturing — but indexing a YouTube downloader on the main domain
+risks a Google *manual action* that could poison `savelinkx.com` for ALL
+platforms. Decision:
+
+1. **Keep YouTube on savelinkx.com but `noindex`d** (current state) — functional
+   for direct/linked visitors, invisible to search, zero penalty risk to the
+   main brand. Do NOT remove the noindex on this domain.
+2. **Let the main site prove itself first** with the 8 other platforms + the
+   traffic plan.
+3. **Later: replicate the YouTube service on a SEPARATE domain** — a dedicated
+   site that chases YouTube search traffic in full isolation. If it's ever
+   penalized/DMCA'd, the main brand is untouched. Reliability (WARP + bgutil,
+   below) must be bulletproof before that launch — a flaky YT tool won't rank
+   and will bounce hard.
+
 ## YouTube: PO tokens + IP blocking (read this before debugging)
 
 Two *independent* problems. Measured on the production VPS, 2026-07-19:
