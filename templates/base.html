@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" href="/static/icon-192.png" />
   <link rel="manifest" href="/static/manifest.json" />
   <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,7 +157,7 @@
 
   <nav class="topnav" aria-label="{% block nav_aria %}Main navigation{% endblock %}">
     <a href="{% block brand_href %}/{% endblock %}" class="topnav-brand" aria-label="{% block brand_aria %}SaveLinkX home{% endblock %}">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"><text x="8.5" y="17.5" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="700" fill="#fff">S</text><circle cx="17.6" cy="16.8" r="6" fill="#0f0f0f"/><circle cx="17.6" cy="16.8" r="5" fill="var(--accent)"/><path d="M17.6 14.4v4.4M15.7 17.3l1.9 1.9 1.9-1.9" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
       SaveLinkX
     </a>
     <div class="topnav-right">
@@ -173,8 +174,11 @@
 
   <header>
     <div class="logo">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.007 2.25h6.394l4.266 5.637 5.577-5.637Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <text x="8.5" y="17.5" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="700" fill="#fff">S</text>
+        <circle cx="17.6" cy="16.8" r="6" fill="#0f0f0f"/>
+        <circle cx="17.6" cy="16.8" r="5" fill="var(--accent)"/>
+        <path d="M17.6 14.4v4.4M15.7 17.3l1.9 1.9 1.9-1.9" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <h1>{% block h1 %}{% endblock %}</h1>
