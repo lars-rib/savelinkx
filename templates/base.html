@@ -13,19 +13,9 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* --accent is the constant brand colour used across the whole site.
-       --platform-color reflects the selected platform and is used ONLY inside
-       the platform selector box (active/hover pill), so switching platforms
-       tints just that box, not the entire UI. */
-    :root { --accent: #1d9bf0; --accent-hover: #1a8cd8; --platform-color: #1d9bf0; }
-    [data-platform="tiktok"]     { --platform-color: #ff0050; }
-    [data-platform="instagram"]  { --platform-color: #E1306C; }
-    [data-platform="youtube"]    { --platform-color: #FF0000; }
-    [data-platform="facebook"]   { --platform-color: #1877F2; }
-    [data-platform="vimeo"]      { --platform-color: #1ab7ea; }
-    [data-platform="dailymotion"] { --platform-color: #0066DC; }
-    [data-platform="reddit"]     { --platform-color: #FF4500; }
-    [data-platform="pinterest"]  { --platform-color: #E60023; }
+    /* One consistent brand colour across the whole site, including the
+       platform selector (no per-platform recolouring). */
+    :root { --accent: #1d9bf0; --accent-hover: #1a8cd8; }
 
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 16px 64px; }
     header { text-align: center; margin-top: 28px; margin-bottom: 28px; }
@@ -102,13 +92,14 @@
     .lang-switch a { padding: 4px 9px; font-size: 0.72rem; font-weight: 700; color: #888; text-decoration: none; transition: background 0.15s, color 0.15s; }
     .lang-switch a:hover { color: #fff; background: #222; }
     .lang-switch a.active { background: var(--accent); color: #fff; }
-    .card-label { font-size: 0.82rem; font-weight: 700; color: #d2dbe4; margin-bottom: 11px; letter-spacing: -0.01em; }
+    .card-label { display: flex; align-items: center; gap: 7px; font-size: 0.82rem; font-weight: 700; color: #d2dbe4; margin-bottom: 11px; letter-spacing: -0.01em; }
+    .card-label svg { width: 15px; height: 15px; color: var(--accent); flex-shrink: 0; }
     .tool-switch-wrap { width: 100%; max-width: 620px; margin-top: 30px; }
     .tool-switch-label { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; text-align: center; margin-bottom: 12px; }
     .tool-switch { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
     .tool-switch a { display: inline-flex; align-items: center; padding: 9px 15px; border-radius: 11px; background: #1a1a1a; border: 1px solid #2a2a2a; color: #cfcfcf; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.15s; }
-    .tool-switch a:hover { color: #fff; border-color: var(--platform-color); transform: translateY(-1px); }
-    .tool-switch a.active { background: var(--platform-color); border-color: var(--platform-color); color: #fff; box-shadow: 0 3px 12px rgba(0,0,0,0.3); }
+    .tool-switch a:hover { color: #fff; border-color: var(--accent); transform: translateY(-1px); }
+    .tool-switch a.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 3px 12px rgba(0,0,0,0.3); }
     .share-btn { display: block; width: 100%; padding: 11px 16px; background: #222; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: background 0.15s, border-color 0.15s; }
     .share-btn:hover { background: #2a2a2a; border-color: var(--accent); }
     .card-intro { font-size: 0.85rem; color: #9a9a9a; line-height: 1.6; margin-top: 16px; text-align: center; }
@@ -143,6 +134,11 @@
     .platform-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
     .platform-chips a { font-size: 0.78rem; font-weight: 700; color: #bbb; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 7px 14px; text-decoration: none; transition: color 0.15s, border-color 0.15s, transform 0.15s; }
     .platform-chips a:hover { color: #fff; border-color: var(--accent); transform: translateY(-1px); }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: 0.01ms !important; }
+      .tool-switch a:hover, .step:hover, button:active:not(:disabled) { transform: none !important; }
+    }
     {% block extra_css %}{% endblock %}
     @media (max-width: 480px) {
       body { padding: 34px 14px 56px; }
@@ -188,7 +184,7 @@
   {% block card_content %}
   <main class="card" role="main">
     {% set _cl = self.lang()[:2] %}
-    <div class="card-label">{{ {'en': 'Paste your video link', 'pt': 'Cole o link do vídeo', 'es': 'Pega el enlace del video'}.get(_cl, 'Paste your video link') }}</div>
+    <div class="card-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>{{ {'en': 'Paste your video link', 'pt': 'Cole o link do vídeo', 'es': 'Pega el enlace del video'}.get(_cl, 'Paste your video link') }}</div>
     <div class="input-row">
       <div class="input-wrap">
         <input type="text" id="urlInput" placeholder="{% block placeholder %}{% endblock %}" autocomplete="off" />
