@@ -145,12 +145,19 @@
     .platform-chips a:hover { color: #fff; border-color: var(--accent); transform: translateY(-1px); }
     {% block extra_css %}{% endblock %}
     @media (max-width: 480px) {
+      body { padding: 34px 14px 56px; }
+      header { margin-top: 16px; }
+      header h1 { font-size: 1.5rem; }
       .steps { grid-template-columns: 1fr; }
-      header h1 { font-size: 1.4rem; }
       .thumb-wrap img { width: 90px; }
       .topnav-right { gap: 10px; }
       .topnav-right > a { font-size: 0.78rem; }
       .card { padding: 20px; }
+      /* Stack the paste box and Download button — side-by-side cramps on phones */
+      .input-row { flex-direction: column; gap: 10px; }
+      #fetchBtn { width: 100%; justify-content: center; padding: 15px; font-size: 0.95rem; }
+      /* Bigger tap targets on the platform pills (min ~44px) */
+      .tool-switch a { padding: 11px 15px; }
     }
   </style>
 </head>
