@@ -13,3 +13,6 @@ cookies.txt
 
 # Internal marketing/growth strategy - keep off the public repo
 marketing/
+
+# Local design tooling (impeccable skill) — not for production
+.claude/skills/

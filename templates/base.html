@@ -22,13 +22,14 @@
     .logo { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; }
     .logo svg { width: 28px; height: 28px; fill: var(--accent); transition: transform 0.2s; }
     .logo:hover svg { transform: scale(1.08); }
-    header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; letter-spacing: -0.3px; text-wrap: balance; }
     header h1 span { color: var(--accent); }
-    header p { color: #888; margin-top: 4px; font-size: 0.88rem; }
-    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 18px; padding: 32px; width: 100%; max-width: 620px; }
+    header p { color: #9aa1a8; margin-top: 4px; font-size: 0.88rem; text-wrap: balance; }
+    .card { background: #1a1a1a; border: 1px solid #333b45; border-radius: 18px; padding: 32px; width: 100%; max-width: 620px; box-shadow: 0 20px 44px -24px rgba(0,0,0,0.85); }
     .input-row { display: flex; gap: 8px; }
     .input-wrap { position: relative; flex: 1; }
-    input[type="text"] { width: 100%; background: #111; border: 1.5px solid #333; border-radius: 12px; padding: 13px 44px 13px 16px; color: #e8e8e8; font-size: 0.95rem; outline: none; transition: border-color 0.15s; }
+    input[type="text"] { width: 100%; background: #111; border: 1.5px solid #3a4250; border-radius: 12px; padding: 14px 44px 14px 16px; color: #e8e8e8; font-size: 1rem; outline: none; transition: border-color 0.15s; }
+    input[type="text"]::placeholder { color: #6f7d89; }
     input[type="text"]:focus { border-color: var(--accent); }
     #pasteBtn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 4px; cursor: pointer; color: #555; border-radius: 6px; transition: color 0.2s; font-size: 0; }
     #pasteBtn:hover { color: var(--accent); }
@@ -94,12 +95,13 @@
     .tool-switch-wrap { width: 100%; max-width: 620px; margin-top: 24px; }
     .tool-switch-label { font-size: 0.75rem; color: #777; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; text-align: center; margin-bottom: 10px; }
     .tool-switch { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-    .tool-switch a { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 10px; background: #1a1a1a; border: 1px solid #2a2a2a; color: #888; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+    .tool-switch a { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 10px; background: #1a1a1a; border: 1px solid #2a2a2a; color: #a2aab2; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: color 0.15s, border-color 0.15s, background 0.15s; }
     .tool-switch a:hover { color: #fff; border-color: var(--accent); }
     .tool-switch a.active { background: var(--accent); border-color: var(--accent); color: #fff; }
     .share-btn { display: block; width: 100%; padding: 11px 16px; background: #222; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: background 0.15s, border-color 0.15s; }
     .share-btn:hover { background: #2a2a2a; border-color: var(--accent); }
-    .card-intro { font-size: 0.85rem; color: #888; line-height: 1.6; margin-top: 14px; text-align: center; }
+    .card-intro { font-size: 0.9rem; color: #96a0a9; line-height: 1.7; margin-top: 28px; text-align: center; width: 100%; max-width: 620px; }
+    .card-intro:empty { display: none; }
     .seo-section { margin-top: 32px; width: 100%; max-width: 620px; }
     .seo-section > div { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 20px; padding: 28px 32px; }
     .seo-section h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
@@ -203,8 +205,6 @@
       {% for _b in _trust.get(_l, _trust['en']) %}<span class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>{{ _b }}</span>{% endfor %}
     </div>
 
-    <p class="card-intro">{% block intro %}{% endblock %}</p>
-
     <div id="status"><div id="statusSpinner"></div><span id="statusText"></span><button id="retryBtn" onclick="fetchInfo()" style="display:none;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 16px;font-size:0.8rem;font-weight:700;cursor:pointer;">Try Again</button><label id="cookieLabel" style="display:none;cursor:pointer;margin-left:8px;font-size:0.78rem;color:var(--accent);border:1px dashed #555;border-radius:8px;padding:6px 12px;">Drop cookies.txt <input type="file" id="cookieFile" accept=".txt" style="display:none;" /></label></div>
 
     <div id="videoInfo">
@@ -263,6 +263,8 @@
       {% endfor %}
     </div>
   </div>
+
+  <p class="card-intro">{% block intro %}{% endblock %}</p>
   {% endblock %}
 
   {% block content %}{% endblock %}
