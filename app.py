@@ -262,24 +262,27 @@ RELATED_TOOLS_BY_SLUG = {
             "section_title": "Related downloaders",
             "tools": [
                 {"label": "TikTok Video Downloader", "url": "/tiktok/"},
-                {"label": "Twitter GIF Downloader", "url": "/twitter-gif/"},
-                {"label": "Reddit Video Downloader", "url": "/reddit-video-with-sound/"},
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
+                {"label": "Instagram Reels No Watermark", "url": "/instagram-reels-no-watermark/"},
+                {"label": "YouTube Shorts Downloader", "url": "/youtube-shorts-downloader/"},
             ],
         },
         "pt": {
             "section_title": "Outras ferramentas",
             "tools": [
                 {"label": "Baixar Vídeos do TikTok", "url": "/tiktok/pt/"},
-                {"label": "Baixar GIF do Twitter", "url": "/twitter-gif/pt/"},
-                {"label": "Baixar Vídeos do Reddit", "url": "/reddit-video-with-sound/pt/"},
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
+                {"label": "Reels do Instagram Sem Marca", "url": "/instagram-reels-no-watermark/pt/"},
+                {"label": "Baixar Shorts do YouTube", "url": "/youtube-shorts-downloader/pt/"},
             ],
         },
         "es": {
             "section_title": "Otras herramientas",
             "tools": [
                 {"label": "Descargador de Videos de TikTok", "url": "/tiktok/es/"},
-                {"label": "Descargador de GIF de Twitter", "url": "/twitter-gif/es/"},
-                {"label": "Descargador de Videos de Reddit", "url": "/reddit-video-with-sound/es/"},
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
+                {"label": "Reels de Instagram Sin Marca", "url": "/instagram-reels-no-watermark/es/"},
+                {"label": "Descargador de Shorts de YouTube", "url": "/youtube-shorts-downloader/es/"},
             ],
         },
     },
@@ -288,24 +291,27 @@ RELATED_TOOLS_BY_SLUG = {
             "section_title": "Related downloaders",
             "tools": [
                 {"label": "X (Twitter) Video Downloader", "url": "/"},
-                {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
-                {"label": "Reddit Video Downloader", "url": "/reddit-video-with-sound/"},
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
+                {"label": "Instagram Reels No Watermark", "url": "/instagram-reels-no-watermark/"},
+                {"label": "Facebook Story Saver", "url": "/facebook-story-saver/"},
             ],
         },
         "pt": {
             "section_title": "Outras ferramentas",
             "tools": [
                 {"label": "Baixar Vídeos do X (Twitter)", "url": "/pt/"},
-                {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
-                {"label": "Baixar Vídeos do Reddit", "url": "/reddit-video-with-sound/pt/"},
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
+                {"label": "Reels do Instagram Sem Marca", "url": "/instagram-reels-no-watermark/pt/"},
+                {"label": "Salvar Stories do Facebook", "url": "/facebook-story-saver/pt/"},
             ],
         },
         "es": {
             "section_title": "Otras herramientas",
             "tools": [
                 {"label": "Descargador de Videos de X (Twitter)", "url": "/es/"},
-                {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
-                {"label": "Descargador de Videos de Reddit", "url": "/reddit-video-with-sound/es/"},
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
+                {"label": "Reels de Instagram Sin Marca", "url": "/instagram-reels-no-watermark/es/"},
+                {"label": "Guardar Stories de Facebook", "url": "/facebook-story-saver/es/"},
             ],
         },
     },
@@ -315,7 +321,8 @@ RELATED_TOOLS_BY_SLUG = {
             "tools": [
                 {"label": "Reddit Video Downloader", "url": "/reddit/"},
                 {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
-                {"label": "Twitter GIF Downloader", "url": "/twitter-gif/"},
+                {"label": "YouTube Shorts Downloader", "url": "/youtube-shorts-downloader/"},
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
             ],
         },
         "pt": {
@@ -323,7 +330,8 @@ RELATED_TOOLS_BY_SLUG = {
             "tools": [
                 {"label": "Baixar Vídeos do Reddit", "url": "/reddit/pt/"},
                 {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
-                {"label": "Baixar GIF do Twitter", "url": "/twitter-gif/pt/"},
+                {"label": "Baixar Shorts do YouTube", "url": "/youtube-shorts-downloader/pt/"},
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
             ],
         },
         "es": {
@@ -331,7 +339,124 @@ RELATED_TOOLS_BY_SLUG = {
             "tools": [
                 {"label": "Descargador de Videos de Reddit", "url": "/reddit/es/"},
                 {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
+                {"label": "Descargador de Shorts de YouTube", "url": "/youtube-shorts-downloader/es/"},
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
+            ],
+        },
+    },
+    "tiktok-no-watermark": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "TikTok Video Downloader", "url": "/tiktok/"},
+                {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
+                {"label": "Instagram Reels No Watermark", "url": "/instagram-reels-no-watermark/"},
+                {"label": "YouTube Shorts Downloader", "url": "/youtube-shorts-downloader/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Baixar Vídeos do TikTok", "url": "/tiktok/pt/"},
+                {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
+                {"label": "Reels do Instagram Sem Marca", "url": "/instagram-reels-no-watermark/pt/"},
+                {"label": "Baixar Shorts do YouTube", "url": "/youtube-shorts-downloader/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Descargador de Videos de TikTok", "url": "/tiktok/es/"},
+                {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
+                {"label": "Reels de Instagram Sin Marca", "url": "/instagram-reels-no-watermark/es/"},
+                {"label": "Descargador de Shorts de YouTube", "url": "/youtube-shorts-downloader/es/"},
+            ],
+        },
+    },
+    "instagram-reels-no-watermark": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "Instagram Video Downloader", "url": "/instagram/"},
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
+                {"label": "Facebook Story Saver", "url": "/facebook-story-saver/"},
+                {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Baixar Vídeos do Instagram", "url": "/instagram/pt/"},
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
+                {"label": "Salvar Stories do Facebook", "url": "/facebook-story-saver/pt/"},
+                {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Descargador de Videos de Instagram", "url": "/instagram/es/"},
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
+                {"label": "Guardar Stories de Facebook", "url": "/facebook-story-saver/es/"},
+                {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
+            ],
+        },
+    },
+    "facebook-story-saver": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "Facebook Video Downloader", "url": "/facebook/"},
+                {"label": "Instagram Reels No Watermark", "url": "/instagram-reels-no-watermark/"},
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
+                {"label": "Twitter GIF Downloader", "url": "/twitter-gif/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Baixar Vídeos do Facebook", "url": "/facebook/pt/"},
+                {"label": "Reels do Instagram Sem Marca", "url": "/instagram-reels-no-watermark/pt/"},
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
+                {"label": "Baixar GIF do Twitter", "url": "/twitter-gif/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Descargador de Videos de Facebook", "url": "/facebook/es/"},
+                {"label": "Reels de Instagram Sin Marca", "url": "/instagram-reels-no-watermark/es/"},
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
                 {"label": "Descargador de GIF de Twitter", "url": "/twitter-gif/es/"},
+            ],
+        },
+    },
+    "youtube-shorts-downloader": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "YouTube Video Downloader", "url": "/youtube/"},
+                {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
+                {"label": "Instagram Reels No Watermark", "url": "/instagram-reels-no-watermark/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Baixar Vídeos do YouTube", "url": "/youtube/pt/"},
+                {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
+                {"label": "Reels do Instagram Sem Marca", "url": "/instagram-reels-no-watermark/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Descargador de Videos de YouTube", "url": "/youtube/es/"},
+                {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
+                {"label": "Reels de Instagram Sin Marca", "url": "/instagram-reels-no-watermark/es/"},
             ],
         },
     },
@@ -771,6 +896,10 @@ _LANDING_PAGES = {
     "tiktok-mp3": "index_tiktok_mp3",
     "twitter-gif": "index_twitter_gif",
     "reddit-video-with-sound": "index_reddit_video_with_sound",
+    "tiktok-no-watermark": "index_tiktok_no_watermark",
+    "instagram-reels-no-watermark": "index_instagram_reels_no_watermark",
+    "facebook-story-saver": "index_facebook_story_saver",
+    "youtube-shorts-downloader": "index_youtube_shorts_downloader",
 }
 
 
@@ -1083,6 +1212,18 @@ SITEMAP_PAGES = (
     ("/reddit-video-with-sound/", "2026-07-23", "daily", "0.8"),
     ("/reddit-video-with-sound/pt/", "2026-07-23", "daily", "0.8"),
     ("/reddit-video-with-sound/es/", "2026-07-23", "daily", "0.8"),
+    ("/tiktok-no-watermark/", "2026-08-03", "daily", "0.8"),
+    ("/tiktok-no-watermark/pt/", "2026-08-03", "daily", "0.8"),
+    ("/tiktok-no-watermark/es/", "2026-08-03", "daily", "0.8"),
+    ("/instagram-reels-no-watermark/", "2026-08-03", "daily", "0.8"),
+    ("/instagram-reels-no-watermark/pt/", "2026-08-03", "daily", "0.8"),
+    ("/instagram-reels-no-watermark/es/", "2026-08-03", "daily", "0.8"),
+    ("/facebook-story-saver/", "2026-08-03", "daily", "0.8"),
+    ("/facebook-story-saver/pt/", "2026-08-03", "daily", "0.8"),
+    ("/facebook-story-saver/es/", "2026-08-03", "daily", "0.8"),
+    ("/youtube-shorts-downloader/", "2026-08-03", "daily", "0.8"),
+    ("/youtube-shorts-downloader/pt/", "2026-08-03", "daily", "0.8"),
+    ("/youtube-shorts-downloader/es/", "2026-08-03", "daily", "0.8"),
     ("/faq", "2026-04-27", "monthly", "0.8"),
     ("/termos", "2026-04-27", "monthly", "0.3"),
     ("/privacidade", "2026-04-27", "monthly", "0.3"),

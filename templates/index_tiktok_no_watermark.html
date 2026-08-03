@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block lang %}en{% endblock %}
+{% block body_attrs %}data-platform="tiktok"{% endblock %}
+
+{% block head %}
+  <title>TikTok Video Downloader Without Watermark | SaveLinkX</title>
+  <meta name="description" content="Paste any TikTok link and download the original video, no watermark, in the best available quality." />
+  <link rel="canonical" href="{{ site_url }}/tiktok-no-watermark/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="TikTok Video Downloader Without Watermark | SaveLinkX" />
+  <meta property="og:description" content="Paste any TikTok link and download the original video, no watermark, in the best available quality." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/tiktok-no-watermark/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="keywords" content="tiktok without watermark, tiktok no watermark downloader, download tiktok without watermark, tiktok no logo, clean tiktok video" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TikTok Video Downloader Without Watermark | SaveLinkX" />
+  <meta name="twitter:description" content="Paste any TikTok link and download the original video, no watermark, in the best available quality." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/tiktok-no-watermark/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/tiktok-no-watermark/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/tiktok-no-watermark/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/tiktok-no-watermark/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TikTok Video Downloader Without Watermark | SaveLinkX",
+    "description": "Paste any TikTok link and download the original video, no watermark, in the best available quality.",
+    "url": "{{ site_url }}/tiktok-no-watermark/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "en",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SaveLinkX",
+      "url": "{{ site_url }}/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Download TikTok Without Watermark",
+    "description": "Paste any TikTok link and download the original video, no watermark, in the best available quality.",
+    "inLanguage": "en",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Step 1",
+        "text": "Open TikTok, tap <strong>Share</strong> on the video and choose <strong>Copy Link</strong>."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Step 2",
+        "text": "Paste the link above and click <strong>Download</strong> to load the clean video options."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Step 3",
+        "text": "Pick <strong>No Watermark</strong> and click Download - the clean MP4 saves to your device."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I remove the TikTok watermark?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste the TikTok link into SaveLinkX, click Download, and choose the No Watermark option. The clean file is pulled directly from the source."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the no-watermark download free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, completely free. No account, subscription, or payment of any kind is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What quality do I get without the watermark?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You get the original full-HD quality the uploader posted - up to 1080p depending on the source video."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work on iPhone and Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. SaveLinkX works in any mobile browser. Paste the TikTok link and the clean video saves directly to your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download private TikTok videos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. SaveLinkX only processes public TikTok links. The video must be publicly accessible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install an app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It works 100% in your browser - no apps, extensions, or plugins."
+        }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Main navigation{% endblock %}
+{% block brand_href %}/tiktok/{% endblock %}
+{% block h1 %}<span>TikTok Without Watermark</span> - Clean HD Video{% endblock %}
+{% block subtitle %}Paste any TikTok link and download the original video, no watermark, in the best available quality.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Choose platform">
+    <a href="/x/">X (Twitter)</a>
+    <a href="/tiktok/" class="active">TikTok</a>
+    <a href="/instagram/">Instagram</a>
+    <a href="/facebook/">Facebook</a>
+    <a href="/youtube/">YouTube</a>
+    <a href="/vimeo/">Vimeo</a>
+    <a href="/dailymotion/">Dailymotion</a>
+    <a href="/reddit/">Reddit</a>
+    <a href="/pinterest/">Pinterest</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Paste TikTok URL e.g. https://www.tiktok.com/@user/video/123456789{% endblock %}
+
+{% block intro %}Download any TikTok video <strong style="color:#aaa;">without the watermark</strong>. SaveLinkX pulls the original full-quality file from a <strong style="color:#aaa;">tiktok.com</strong> link, so you get a clean, watermark-free MP4 ready to share or repost.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="How to Download TikTok Without Watermark">
+    <h2>How to Download TikTok Without Watermark</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Open TikTok, tap <strong>Share</strong> on the video and choose <strong>Copy Link</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Paste the link above and click <strong>Download</strong> to load the clean video options.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Pick <strong>No Watermark</strong> and click Download - the clean MP4 saves to your device.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Frequently Asked Questions">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>How do I remove the TikTok watermark?</summary>
+      <p>Paste the TikTok link into SaveLinkX, click Download, and choose the No Watermark option. The clean file is pulled directly from the source.</p>
+    </details>
+    <details>
+      <summary>Is the no-watermark download free?</summary>
+      <p>Yes, completely free. No account, subscription, or payment of any kind is required.</p>
+    </details>
+    <details>
+      <summary>What quality do I get without the watermark?</summary>
+      <p>You get the original full-HD quality the uploader posted - up to 1080p depending on the source video.</p>
+    </details>
+    <details>
+      <summary>Does it work on iPhone and Android?</summary>
+      <p>Yes. SaveLinkX works in any mobile browser. Paste the TikTok link and the clean video saves directly to your device.</p>
+    </details>
+    <details>
+      <summary>Can I download private TikTok videos?</summary>
+      <p>No. SaveLinkX only processes public TikTok links. The video must be publicly accessible.</p>
+    </details>
+    <details>
+      <summary>Do I need to install an app?</summary>
+      <p>No. It works 100% in your browser - no apps, extensions, or plugins.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Download TikTok Videos Without the Watermark">
+    <div>
+      <h2>Download TikTok Videos Without the Watermark</h2>
+      <p>Tired of that bouncing TikTok logo ruining your repost? SaveLinkX grabs the original MP4 with <strong style="color:#aaa;">no watermark</strong> so the video looks exactly like it did when the creator posted it.</p>
+      <p>Copy the link from the TikTok <strong style="color:#aaa;">Share</strong> menu - a full <code>tiktok.com/@user/video/...</code> or a short <code>vm.tiktok.com/...</code> link - paste it above, choose No Watermark, and download.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block related %}
+{% if related_tools %}
+<section class="related-tools" aria-label="{{ related_tools.section_title }}">
+  <h2>{{ related_tools.section_title }}</h2>
+  <div class="related-grid">
+    {% for item in related_tools.tools %}
+    <a class="related-card" href="{{ item.url }}">
+      <span>{{ item.label }}</span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}
+{% block footer_links %}
+      <a href="/tiktok/">TikTok Downloader</a>
+      <a href="/">Home</a>
+      <a href="/faq">FAQ</a>
+      <a href="/termos">Terms of Use</a>
+      <a href="/privacidade">Privacy Policy</a>
+      <a href="/contato">Contact</a>
+{% endblock %}
+{% block disclaimer %}This site is a public link processing tool and does not host any files on its servers. Please respect copyright law and use downloaded content for personal use only.{% endblock %}
+
+{% block page_config %}
+    "platform": "tiktok",
+    "lang": "en",
+    "formats": [
+          {
+                "value": "bestvideo[ext=mp4][vcodec!*=av01]+bestaudio[ext=m4a]/best[ext=mp4]/best",
+                "label": "MP4 - No Watermark (best)"
+          },
+          {
+                "value": "bestvideo[ext=mp4]+bestaudio/best[ext=mp4]/best",
+                "label": "MP4 - Video + Audio (source)"
+          },
+          {
+                "value": "bestaudio[ext=mp3]/bestaudio",
+                "label": "MP3 - Audio (best)"
+          }
+    ]
+{% endblock %}
