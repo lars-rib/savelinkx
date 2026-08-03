@@ -155,6 +155,19 @@
       .tool-switch a { padding: 11px 15px; }
       /* Related-downloaders strip: 3 columns on desktop, single column on mobile */
       .related-grid { grid-template-columns: 1fr; }
+      /* Buy Me a Coffee widget: the default button is ~217x60px and covers too
+         much of the phone viewport. Shrink it to ~55% and pin to the corner
+         so the input + Download button stay fully visible. */
+      .bmc-btn,
+      [class*="bmc-btn"],
+      [class*="bmc-wbtn"],
+      iframe[src*="buymeacoffee.com"] {
+        transform: scale(0.55) !important;
+        transform-origin: bottom right !important;
+        right: 8px !important;
+        bottom: 8px !important;
+        opacity: 0.95;
+      }
     }
 
     /* "Related downloaders" cross-link strip, used by long-tail landing pages
@@ -709,7 +722,7 @@
     })();
   </script>
   {% if cf_beacon_token %}<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ cf_beacon_token }}"}'></script>
-  {% endif %}<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="{% block bmc_message %}If SaveLinkX helped you, consider buying me a coffee! ☕{% endblock %}" data-color="#1DA1F2" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+  {% endif %}<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="savelinkx" data-description="Support me on Buy me a coffee!" data-message="{% block bmc_message %}If SaveLinkX helped you, consider buying me a coffee! ☕{% endblock %}" data-color="#1DA1F2" data-position="Right" data-x_margin="10" data-y_margin="10"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/static/sw.js").catch(function() {});
