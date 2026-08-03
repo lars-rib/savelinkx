@@ -213,7 +213,7 @@
 
     <div class="trust-row">
       {% set _l = self.lang()[:2] %}
-      {% set _trust = {'en': ['100% Free', 'No Login', 'No Watermark', 'No Ads'], 'pt': ['100% Grátis', 'Sem Login', 'Sem Marca', 'Sem Anúncios'], 'es': ['100% Gratis', 'Sin Registro', 'Sin Marca', 'Sin Anuncios']} %}
+      {% set _trust = {'en': ['100% Free', 'No Login', 'No Watermark'], 'pt': ['100% Grátis', 'Sem Login', 'Sem Marca'], 'es': ['100% Gratis', 'Sin Registro', 'Sin Marca']} %}
       {% for _b in _trust.get(_l, _trust['en']) %}<span class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>{{ _b }}</span>{% endfor %}
     </div>
 
