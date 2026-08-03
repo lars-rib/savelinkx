@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block lang %}en{% endblock %}
+{% block body_attrs %}data-platform="youtube"{% endblock %}
+
+{% block head %}
+  <title>YouTube Shorts Downloader - Save Shorts Free | SaveLinkX</title>
+  <meta name="description" content="Paste any YouTube link and download videos, audio or playlists in the best available quality." />
+  <link rel="canonical" href="{{ site_url }}/youtube-shorts-downloader/" />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="YouTube Shorts Downloader - Save Shorts Free | SaveLinkX" />
+  <meta property="og:description" content="Paste any YouTube link and download videos, audio or playlists in the best available quality." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/youtube-shorts-downloader/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="keywords" content="youtube shorts downloader, download youtube shorts, save youtube shorts, youtube shorts to mp4, youtube shorts to mp3, youtube video downloader" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="YouTube Shorts Downloader - Save Shorts Free | SaveLinkX" />
+  <meta name="twitter:description" content="Paste any YouTube link and download videos, audio or playlists in the best available quality." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/youtube-shorts-downloader/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/youtube-shorts-downloader/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/youtube-shorts-downloader/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/youtube-shorts-downloader/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "YouTube Shorts Downloader - Save Shorts Free | SaveLinkX",
+    "description": "Paste any YouTube link and download videos, audio or playlists in the best available quality.",
+    "url": "{{ site_url }}/youtube-shorts-downloader/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "en",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SaveLinkX",
+      "url": "{{ site_url }}/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Download YouTube Shorts",
+    "description": "Paste any YouTube link and download videos, audio or playlists in the best available quality.",
+    "inLanguage": "en",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Step 1",
+        "text": "Open YouTube, tap <strong>Share</strong> on the Short and choose <strong>Copy Link</strong>."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Step 2",
+        "text": "Paste the link above and click <strong>Download</strong> to load the video options."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Step 3",
+        "text": "Pick <strong>MP4</strong> or <strong>MP3</strong> and click Download - the file saves to your device."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I download YouTube Shorts as MP4?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. SaveLinkX pulls the original full-HD video (up to 1080p) and saves it as an MP4 file - the same quality YouTube streams."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I extract the audio only?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Choose MP3 to save just the audio track - the video is not included."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the YouTube Shorts download free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, completely free. No account, subscription, or payment of any kind is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What quality do I get?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SaveLinkX saves the best quality the original Short provides - typically 1080p video or 128kbps audio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work on iPhone and Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. SaveLinkX works in any mobile browser. Paste the YouTube link and the file saves directly to your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install an app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It works 100% in your browser - no apps, extensions, or plugins."
+        }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Main navigation{% endblock %}
+{% block brand_href %}/youtube/{% endblock %}
+{% block h1 %}<span>YouTube Shorts Downloader</span> - Save Any Short{% endblock %}
+{% block subtitle %}Paste any YouTube link and download videos, audio or playlists in the best available quality.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Choose platform">
+    <a href="/x/">X (Twitter)</a>
+    <a href="/tiktok/">TikTok</a>
+    <a href="/instagram/">Instagram</a>
+    <a href="/facebook/">Facebook</a>
+    <a href="/youtube/" class="active">YouTube</a>
+    <a href="/vimeo/">Vimeo</a>
+    <a href="/dailymotion/">Dailymotion</a>
+    <a href="/reddit/">Reddit</a>
+    <a href="/pinterest/">Pinterest</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Paste YouTube URL e.g. https://www.youtube.com/shorts/XXXXXXXXX{% endblock %}
+
+{% block intro %}Download any YouTube Short, video, or audio in full quality. SaveLinkX pulls the original file from a <strong style="color:#aaa;">youtube.com</strong> link - no region blocks, no quality loss.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="How to Download YouTube Shorts">
+    <h2>How to Download YouTube Shorts</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Open YouTube, tap <strong>Share</strong> on the Short and choose <strong>Copy Link</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Paste the link above and click <strong>Download</strong> to load the video options.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Pick <strong>MP4</strong> or <strong>MP3</strong> and click Download - the file saves to your device.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Frequently Asked Questions">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>Can I download YouTube Shorts as MP4?</summary>
+      <p>Yes. SaveLinkX pulls the original full-HD video (up to 1080p) and saves it as an MP4 file - the same quality YouTube streams.</p>
+    </details>
+    <details>
+      <summary>Can I extract the audio only?</summary>
+      <p>Yes. Choose MP3 to save just the audio track - the video is not included.</p>
+    </details>
+    <details>
+      <summary>Is the YouTube Shorts download free?</summary>
+      <p>Yes, completely free. No account, subscription, or payment of any kind is required.</p>
+    </details>
+    <details>
+      <summary>What quality do I get?</summary>
+      <p>SaveLinkX saves the best quality the original Short provides - typically 1080p video or 128kbps audio.</p>
+    </details>
+    <details>
+      <summary>Does it work on iPhone and Android?</summary>
+      <p>Yes. SaveLinkX works in any mobile browser. Paste the YouTube link and the file saves directly to your device.</p>
+    </details>
+    <details>
+      <summary>Do I need to install an app?</summary>
+      <p>No. It works 100% in your browser - no apps, extensions, or plugins.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Download YouTube Shorts in Full HD">
+    <div>
+      <h2>Download YouTube Shorts in Full HD</h2>
+      <p>Found a Short you want to keep? SaveLinkX grabs the original <strong style="color:#aaa;">MP4</strong> from a <code>youtube.com/shorts/...</code> link so you can save the video or extract the audio as MP3.</p>
+      <p>Copy the link from the YouTube <strong style="color:#aaa;">Share</strong> menu, paste it above, choose your format, and download.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block related %}
+{% if related_tools %}
+<section class="related-tools" aria-label="{{ related_tools.section_title }}">
+  <h2>{{ related_tools.section_title }}</h2>
+  <div class="related-grid">
+    {% for item in related_tools.tools %}
+    <a class="related-card" href="{{ item.url }}">
+      <span>{{ item.label }}</span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}
+{% block footer_links %}
+      <a href="/youtube/">YouTube Downloader</a>
+      <a href="/">Home</a>
+      <a href="/faq">FAQ</a>
+      <a href="/termos">Terms of Use</a>
+      <a href="/privacidade">Privacy Policy</a>
+      <a href="/contato">Contact</a>
+{% endblock %}
+{% block disclaimer %}This site is a public link processing tool and does not host any files on its servers. Please respect copyright law and use downloaded content for personal use only.{% endblock %}
+
+{% block page_config %}
+    "platform": "youtube",
+    "lang": "en",
+    "formats": [
+          {
+                "value": "bestvideo[ext=mp4]+bestaudio/best[ext=mp4]/best",
+                "label": "MP4 - Video + Audio (best)"
+          },
+          {
+                "value": "bestvideo[ext=mp4]/bestvideo",
+                "label": "MP4 - Video only (1080p)"
+          },
+          {
+                "value": "bestaudio[ext=mp3]/bestaudio",
+                "label": "MP3 - Audio (best)"
+          }
+    ]
+{% endblock %}

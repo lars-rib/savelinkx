@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block lang %}en{% endblock %}
+{% block body_attrs %}data-platform="facebook"{% endblock %}
+
+{% block head %}
+  <title>Facebook Story Saver - Download Stories Free | SaveLinkX</title>
+  <meta name="description" content="Paste any public Facebook Story link and download the video or photo in the best available quality." />
+  <link rel="canonical" href="{{ site_url }}/facebook-story-saver/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="Facebook Story Saver - Download Stories Free | SaveLinkX" />
+  <meta property="og:description" content="Paste any public Facebook Story link and download the video or photo in the best available quality." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/facebook-story-saver/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="keywords" content="facebook story saver, save facebook story, download facebook story, facebook stories downloader, fb story saver" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Facebook Story Saver - Download Stories Free | SaveLinkX" />
+  <meta name="twitter:description" content="Paste any public Facebook Story link and download the video or photo in the best available quality." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/facebook-story-saver/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/facebook-story-saver/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/facebook-story-saver/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/facebook-story-saver/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Facebook Story Saver - Download Stories Free | SaveLinkX",
+    "description": "Paste any public Facebook Story link and download the video or photo in the best available quality.",
+    "url": "{{ site_url }}/facebook-story-saver/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "en",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SaveLinkX",
+      "url": "{{ site_url }}/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Save a Facebook Story",
+    "description": "Paste any public Facebook Story link and download the video or photo in the best available quality.",
+    "inLanguage": "en",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Step 1",
+        "text": "Open Facebook, find the Story you want to save and tap <strong>Share</strong> &rarr; <strong>Copy Link</strong>."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Step 2",
+        "text": "Paste the link above and click <strong>Download</strong> to load the Story options."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Step 3",
+        "text": "Pick the video or photo format and click Download - the file saves to your device."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I save someone else's Facebook Story?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can save any public Story that has a shareable link. Private stories are not accessible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What formats can I download?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stories come as MP4 video or JPG/PNG photo. SaveLinkX saves them in the original format and quality."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Facebook Story saver free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, completely free. No account, subscription, or payment of any kind is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the person get notified I saved their Story?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. SaveLinkX runs anonymously in your browser - the creator does not receive any notification."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work on iPhone and Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. SaveLinkX works in any mobile browser. Paste the Story link and the file saves directly to your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install an app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It works 100% in your browser - no apps, extensions, or plugins."
+        }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Main navigation{% endblock %}
+{% block brand_href %}/facebook/{% endblock %}
+{% block h1 %}<span>Facebook Story Saver</span> - Save Any Public Story{% endblock %}
+{% block subtitle %}Paste any public Facebook Story link and download the video or photo in the best available quality.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Choose platform">
+    <a href="/x/">X (Twitter)</a>
+    <a href="/tiktok/">TikTok</a>
+    <a href="/instagram/">Instagram</a>
+    <a href="/facebook/" class="active">Facebook</a>
+    <a href="/youtube/">YouTube</a>
+    <a href="/vimeo/">Vimeo</a>
+    <a href="/dailymotion/">Dailymotion</a>
+    <a href="/reddit/">Reddit</a>
+    <a href="/pinterest/">Pinterest</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Paste Facebook Story URL e.g. https://www.facebook.com/stories/...{% endblock %}
+
+{% block intro %}Save any public Facebook Story before it disappears. SaveLinkX pulls the original video or photo from a <strong style="color:#aaa;">facebook.com/stories/</strong> link so you can keep the file forever - 24 hours is too short.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="How to Save a Facebook Story">
+    <h2>How to Save a Facebook Story</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Open Facebook, find the Story you want to save and tap <strong>Share</strong> &rarr; <strong>Copy Link</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Paste the link above and click <strong>Download</strong> to load the Story options.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Pick the video or photo format and click Download - the file saves to your device.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Frequently Asked Questions">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>Can I save someone else's Facebook Story?</summary>
+      <p>You can save any public Story that has a shareable link. Private stories are not accessible.</p>
+    </details>
+    <details>
+      <summary>What formats can I download?</summary>
+      <p>Stories come as MP4 video or JPG/PNG photo. SaveLinkX saves them in the original format and quality.</p>
+    </details>
+    <details>
+      <summary>Is the Facebook Story saver free?</summary>
+      <p>Yes, completely free. No account, subscription, or payment of any kind is required.</p>
+    </details>
+    <details>
+      <summary>Does the person get notified I saved their Story?</summary>
+      <p>No. SaveLinkX runs anonymously in your browser - the creator does not receive any notification.</p>
+    </details>
+    <details>
+      <summary>Does it work on iPhone and Android?</summary>
+      <p>Yes. SaveLinkX works in any mobile browser. Paste the Story link and the file saves directly to your device.</p>
+    </details>
+    <details>
+      <summary>Do I need to install an app?</summary>
+      <p>No. It works 100% in your browser - no apps, extensions, or plugins.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Save Facebook Stories Before They Disappear">
+    <div>
+      <h2>Save Facebook Stories Before They Disappear</h2>
+      <p>Facebook Stories vanish after 24 hours - and some are too good to lose. SaveLinkX grabs the original <strong style="color:#aaa;">video or photo</strong> from a public Story link so you can keep it forever.</p>
+      <p>Copy the Story link from the <strong style="color:#aaa;">Share</strong> menu, paste it above, and download. Works for video and photo stories in original quality.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block related %}
+{% if related_tools %}
+<section class="related-tools" aria-label="{{ related_tools.section_title }}">
+  <h2>{{ related_tools.section_title }}</h2>
+  <div class="related-grid">
+    {% for item in related_tools.tools %}
+    <a class="related-card" href="{{ item.url }}">
+      <span>{{ item.label }}</span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}
+{% block footer_links %}
+      <a href="/facebook/">Facebook Downloader</a>
+      <a href="/">Home</a>
+      <a href="/faq">FAQ</a>
+      <a href="/termos">Terms of Use</a>
+      <a href="/privacidade">Privacy Policy</a>
+      <a href="/contato">Contact</a>
+{% endblock %}
+{% block disclaimer %}This site is a public link processing tool and does not host any files on its servers. Please respect copyright law and use downloaded content for personal use only.{% endblock %}
+
+{% block page_config %}
+    "platform": "facebook",
+    "lang": "en",
+    "formats": [
+          {
+                "value": "best[ext=mp4]/best",
+                "label": "MP4 - Video Story (best)"
+          },
+          {
+                "value": "best[ext=jpeg]/{}.jpg/best[ext=png]/{}.png/best",
+                "label": "JPG/PNG - Photo Story (original)"
+          }
+    ]
+{% endblock %}
