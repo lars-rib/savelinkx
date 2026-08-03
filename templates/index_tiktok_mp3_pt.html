@@ -216,6 +216,22 @@
   </section>
 {% endblock %}
 
+{% block related %}
+{% if related_tools %}
+<section class="related-tools" aria-label="{{ related_tools.section_title }}">
+  <h2>{{ related_tools.section_title }}</h2>
+  <div class="related-grid">
+    {% for item in related_tools.tools %}
+    <a class="related-card" href="{{ item.url }}">
+      <span>{{ item.label }}</span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
 {% block footer_tagline %}SaveLinkX - Seu processador de links favorito.{% endblock %}
 {% block footer_links %}
       <a href="/tiktok/pt/">Baixar Vídeo do TikTok</a>

@@ -34,10 +34,28 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
-MONTHS_EN = {
-    1: "January", 2: "February", 3: "March", 4: "April",
-    5: "May", 6: "June", 7: "July", 8: "August",
-    9: "September", 10: "October", 11: "November", 12: "December",
+MONTHS = {
+    "en": {
+        1: "January", 2: "February", 3: "March", 4: "April",
+        5: "May", 6: "June", 7: "July", 8: "August",
+        9: "September", 10: "October", 11: "November", 12: "December",
+    },
+    "pt": {
+        1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril",
+        5: "Maio", 6: "Junho", 7: "Julho", 8: "Agosto",
+        9: "Setembro", 10: "Outubro", 11: "Novembro", 12: "Dezembro",
+    },
+    "es": {
+        1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril",
+        5: "Mayo", 6: "Junio", 7: "Julio", 8: "Agosto",
+        9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre",
+    },
+}
+
+UPDATED_PREFIX = {
+    "en": "Updated",
+    "pt": "Atualizado",
+    "es": "Actualizado",
 }
 
 TWITTER_STATUS_PATTERNS = (
@@ -221,9 +239,9 @@ def log_request_finished(response):
     return response
 
 
-def get_updated_label():
+def get_updated_label(lang="en"):
     today = date.today()
-    return f"Updated {MONTHS_EN[today.month]} {today.year}"
+    return f"{UPDATED_PREFIX[lang]} {MONTHS[lang][today.month]} {today.year}"
 
 
 def get_site_base_url():
@@ -231,6 +249,109 @@ def get_site_base_url():
     if env_url:
         return env_url
     return "https://www.savelinkx.com"
+
+
+# Long-tail landing pages each get a "Related downloaders" strip that links to
+# the parent platform + the sibling long-tail pages. Internal linking both
+# helps users discover the other tools and passes PageRank between the cluster.
+# Localized to the request's language. Templates render the strip via a
+# {% if related_tools %} block so non-long-tail pages stay clean.
+RELATED_TOOLS_BY_SLUG = {
+    "tiktok-mp3": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "TikTok Video Downloader", "url": "/tiktok/"},
+                {"label": "Twitter GIF Downloader", "url": "/twitter-gif/"},
+                {"label": "Reddit Video Downloader", "url": "/reddit-video-with-sound/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Baixar Vídeos do TikTok", "url": "/tiktok/pt/"},
+                {"label": "Baixar GIF do Twitter", "url": "/twitter-gif/pt/"},
+                {"label": "Baixar Vídeos do Reddit", "url": "/reddit-video-with-sound/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Descargador de Videos de TikTok", "url": "/tiktok/es/"},
+                {"label": "Descargador de GIF de Twitter", "url": "/twitter-gif/es/"},
+                {"label": "Descargador de Videos de Reddit", "url": "/reddit-video-with-sound/es/"},
+            ],
+        },
+    },
+    "twitter-gif": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "X (Twitter) Video Downloader", "url": "/"},
+                {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
+                {"label": "Reddit Video Downloader", "url": "/reddit-video-with-sound/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Baixar Vídeos do X (Twitter)", "url": "/pt/"},
+                {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
+                {"label": "Baixar Vídeos do Reddit", "url": "/reddit-video-with-sound/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Descargador de Videos de X (Twitter)", "url": "/es/"},
+                {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
+                {"label": "Descargador de Videos de Reddit", "url": "/reddit-video-with-sound/es/"},
+            ],
+        },
+    },
+    "reddit-video-with-sound": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "Reddit Video Downloader", "url": "/reddit/"},
+                {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
+                {"label": "Twitter GIF Downloader", "url": "/twitter-gif/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Baixar Vídeos do Reddit", "url": "/reddit/pt/"},
+                {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
+                {"label": "Baixar GIF do Twitter", "url": "/twitter-gif/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Descargador de Videos de Reddit", "url": "/reddit/es/"},
+                {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
+                {"label": "Descargador de GIF de Twitter", "url": "/twitter-gif/es/"},
+            ],
+        },
+    },
+}
+
+
+@app.context_processor
+def inject_related_tools():
+    path = request.path
+    lang = "en"
+    base = path
+    for lg in ("pt", "es"):
+        if path.endswith("/%s/" % lg):
+            lang = lg
+            base = path[: -(len(lg) + 1)]
+            break
+    for slug, by_lang in RELATED_TOOLS_BY_SLUG.items():
+        if base == "/%s/" % slug:
+            return {"related_tools": by_lang[lang]}
+    return {}
 
 
 @app.context_processor
@@ -506,17 +627,17 @@ def set_cached_metadata(url, data):
 
 @app.route("/")
 def index():
-    return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/pt/")
 def index_pt():
-    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/es/")
 def index_es():
-    return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 # X/Twitter was the historic homepage; it now lives at "/" again. The old /x/
@@ -539,107 +660,107 @@ def index_twitter_es():
 
 @app.route("/tiktok/")
 def index_tiktok():
-    return render_template("index_tiktok.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_tiktok.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/tiktok/pt/")
 def index_tiktok_pt():
-    return render_template("index_tiktok_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_tiktok_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/tiktok/es/")
 def index_tiktok_es():
-    return render_template("index_tiktok_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_tiktok_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/instagram/")
 def index_instagram():
-    return render_template("index_instagram.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_instagram.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/instagram/pt/")
 def index_instagram_pt():
-    return render_template("index_instagram_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_instagram_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/instagram/es/")
 def index_instagram_es():
-    return render_template("index_instagram_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_instagram_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/facebook/")
 def index_facebook():
-    return render_template("index_facebook.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_facebook.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/facebook/pt/")
 def index_facebook_pt():
-    return render_template("index_facebook_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_facebook_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/facebook/es/")
 def index_facebook_es():
-    return render_template("index_facebook_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_facebook_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/vimeo/")
 def index_vimeo():
-    return render_template("index_vimeo.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_vimeo.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/vimeo/pt/")
 def index_vimeo_pt():
-    return render_template("index_vimeo_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_vimeo_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/vimeo/es/")
 def index_vimeo_es():
-    return render_template("index_vimeo_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_vimeo_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/dailymotion/")
 def index_dailymotion():
-    return render_template("index_dailymotion.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_dailymotion.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/dailymotion/pt/")
 def index_dailymotion_pt():
-    return render_template("index_dailymotion_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_dailymotion_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/dailymotion/es/")
 def index_dailymotion_es():
-    return render_template("index_dailymotion_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_dailymotion_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/reddit/")
 def index_reddit():
-    return render_template("index_reddit.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_reddit.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/reddit/pt/")
 def index_reddit_pt():
-    return render_template("index_reddit_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_reddit_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/reddit/es/")
 def index_reddit_es():
-    return render_template("index_reddit_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_reddit_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/pinterest/")
 def index_pinterest():
-    return render_template("index_pinterest.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_pinterest.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/pinterest/pt/")
 def index_pinterest_pt():
-    return render_template("index_pinterest_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_pinterest_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/pinterest/es/")
 def index_pinterest_es():
-    return render_template("index_pinterest_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_pinterest_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 # --- Long-tail landing pages (WS2) ---------------------------------------
@@ -653,18 +774,18 @@ _LANDING_PAGES = {
 }
 
 
-def _make_landing(template):
+def _make_landing(template, lang="en"):
     def view():
-        return render_template(f"{template}.html", site_url=get_site_base_url(), updated=get_updated_label())
+        return render_template(f"{template}.html", site_url=get_site_base_url(), updated=get_updated_label(lang))
     return view
 
 
 for _slug, _tmpl in _LANDING_PAGES.items():
-    for _suffix, _lang in (("", ""), ("pt/", "_pt"), ("es/", "_es")):
+    for _suffix, _lang in (("", "en"), ("pt/", "pt"), ("es/", "es")):
         app.add_url_rule(
             f"/{_slug}/{_suffix}",
-            endpoint=f"{_tmpl}{_lang}",
-            view_func=_make_landing(f"{_tmpl}{_lang}"),
+            endpoint=f"{_tmpl}{('_' + _lang) if _lang != 'en' else ''}",
+            view_func=_make_landing(f"{_tmpl}{('_' + _lang) if _lang != 'en' else ''}", _lang),
         )
 
 
@@ -674,17 +795,17 @@ for _slug, _tmpl in _LANDING_PAGES.items():
 # search — while the pages stay reachable for direct/linked visitors.
 @app.route("/youtube/")
 def index_youtube():
-    return render_template("index_youtube.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_youtube.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/youtube/pt/")
 def index_youtube_pt():
-    return render_template("index_youtube_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_youtube_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/youtube/es/")
 def index_youtube_es():
-    return render_template("index_youtube_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_youtube_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/termos")
@@ -921,200 +1042,78 @@ def get_subtitles():
         return jsonify({"error": map_yt_dlp_error(exc)}), 400
 
 
+# Each entry: (path, lastmod ISO date, changefreq, priority). Dates reflect
+# the last meaningful content change for that page. Add a new row when adding
+# a page. Note: /youtube/ is intentionally excluded — YouTube pages are
+# noindex, follow to keep the platform off Google's index (per AGENTS.md).
+SITEMAP_PAGES = (
+    ("/", "2026-07-17", "daily", "1.0"),
+    ("/pt/", "2026-07-17", "daily", "0.9"),
+    ("/es/", "2026-07-17", "daily", "0.9"),
+    ("/tiktok/", "2026-07-15", "daily", "0.9"),
+    ("/tiktok/pt/", "2026-07-15", "daily", "0.9"),
+    ("/tiktok/es/", "2026-07-15", "daily", "0.9"),
+    ("/instagram/", "2026-07-16", "daily", "0.9"),
+    ("/instagram/pt/", "2026-07-16", "daily", "0.9"),
+    ("/instagram/es/", "2026-07-16", "daily", "0.9"),
+    ("/facebook/", "2026-07-17", "daily", "0.9"),
+    ("/facebook/pt/", "2026-07-17", "daily", "0.9"),
+    ("/facebook/es/", "2026-07-17", "daily", "0.9"),
+    ("/x/", "2026-07-17", "daily", "0.9"),
+    ("/x/pt/", "2026-07-17", "daily", "0.9"),
+    ("/x/es/", "2026-07-17", "daily", "0.9"),
+    ("/vimeo/", "2026-07-17", "daily", "0.9"),
+    ("/vimeo/pt/", "2026-07-17", "daily", "0.9"),
+    ("/vimeo/es/", "2026-07-17", "daily", "0.9"),
+    ("/dailymotion/", "2026-07-17", "daily", "0.9"),
+    ("/dailymotion/pt/", "2026-07-17", "daily", "0.9"),
+    ("/dailymotion/es/", "2026-07-17", "daily", "0.9"),
+    ("/reddit/", "2026-07-17", "daily", "0.9"),
+    ("/reddit/pt/", "2026-07-17", "daily", "0.9"),
+    ("/reddit/es/", "2026-07-17", "daily", "0.9"),
+    ("/pinterest/", "2026-07-17", "daily", "0.9"),
+    ("/pinterest/pt/", "2026-07-17", "daily", "0.9"),
+    ("/pinterest/es/", "2026-07-17", "daily", "0.9"),
+    ("/tiktok-mp3/", "2026-07-23", "daily", "0.8"),
+    ("/tiktok-mp3/pt/", "2026-07-23", "daily", "0.8"),
+    ("/tiktok-mp3/es/", "2026-07-23", "daily", "0.8"),
+    ("/twitter-gif/", "2026-07-23", "daily", "0.8"),
+    ("/twitter-gif/pt/", "2026-07-23", "daily", "0.8"),
+    ("/twitter-gif/es/", "2026-07-23", "daily", "0.8"),
+    ("/reddit-video-with-sound/", "2026-07-23", "daily", "0.8"),
+    ("/reddit-video-with-sound/pt/", "2026-07-23", "daily", "0.8"),
+    ("/reddit-video-with-sound/es/", "2026-07-23", "daily", "0.8"),
+    ("/faq", "2026-04-27", "monthly", "0.8"),
+    ("/termos", "2026-04-27", "monthly", "0.3"),
+    ("/privacidade", "2026-04-27", "monthly", "0.3"),
+    ("/contato", "2026-04-27", "monthly", "0.3"),
+)
+
+
+def _sitemap_url_xml(path, lastmod, changefreq, priority, base_url):
+    return (
+        f"  <url>\n"
+        f"    <loc>{base_url}{path}</loc>\n"
+        f"    <lastmod>{lastmod}</lastmod>\n"
+        f"    <changefreq>{changefreq}</changefreq>\n"
+        f"    <priority>{priority}</priority>\n"
+        f"  </url>"
+    )
+
+
 @app.route('/sitemap.xml')
 def sitemap():
-    xml = """<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      <url>
-        <loc>https://www.savelinkx.com/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/pt/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/es/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/tiktok/</loc>
-        <lastmod>2026-07-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/tiktok/pt/</loc>
-        <lastmod>2026-07-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/tiktok/es/</loc>
-        <lastmod>2026-07-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/instagram/</loc>
-        <lastmod>2026-07-16</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/instagram/pt/</loc>
-        <lastmod>2026-07-16</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-         <loc>https://www.savelinkx.com/instagram/es/</loc>
-         <lastmod>2026-07-16</lastmod>
-         <changefreq>daily</changefreq>
-         <priority>0.9</priority>
-       </url>
-       <url>
-         <loc>https://www.savelinkx.com/facebook/</loc>
-         <lastmod>2026-07-17</lastmod>
-         <changefreq>daily</changefreq>
-         <priority>0.9</priority>
-       </url>
-       <url>
-         <loc>https://www.savelinkx.com/facebook/pt/</loc>
-         <lastmod>2026-07-17</lastmod>
-         <changefreq>daily</changefreq>
-         <priority>0.9</priority>
-       </url>
-       <url>
-         <loc>https://www.savelinkx.com/facebook/es/</loc>
-         <lastmod>2026-07-17</lastmod>
-         <changefreq>daily</changefreq>
-         <priority>0.9</priority>
-       </url>
-       <url>
-         <loc>https://www.savelinkx.com/x/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/x/pt/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/x/es/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/vimeo/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/vimeo/pt/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/vimeo/es/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/dailymotion/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/dailymotion/pt/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/dailymotion/es/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/reddit/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/reddit/pt/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/reddit/es/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/pinterest/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/pinterest/pt/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/pinterest/es/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url><loc>https://www.savelinkx.com/tiktok-mp3/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url><loc>https://www.savelinkx.com/tiktok-mp3/pt/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url><loc>https://www.savelinkx.com/tiktok-mp3/es/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url><loc>https://www.savelinkx.com/twitter-gif/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url><loc>https://www.savelinkx.com/twitter-gif/pt/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url><loc>https://www.savelinkx.com/twitter-gif/es/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url><loc>https://www.savelinkx.com/reddit-video-with-sound/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url><loc>https://www.savelinkx.com/reddit-video-with-sound/pt/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url><loc>https://www.savelinkx.com/reddit-video-with-sound/es/</loc><lastmod>2026-07-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-      <url>
-        <loc>https://www.savelinkx.com/faq</loc>
-        <lastmod>2026-04-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/termos</loc>
-        <lastmod>2026-04-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.3</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/privacidade</loc>
-        <lastmod>2026-04-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.3</priority>
-      </url>
-</urlset>"""
+    base_url = get_site_base_url()
+    entries = "\n".join(
+        _sitemap_url_xml(path, lastmod, changefreq, priority, base_url)
+        for path, lastmod, changefreq, priority in SITEMAP_PAGES
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f'{entries}\n'
+        '</urlset>'
+    )
     return xml, 200, {'Content-Type': 'application/xml'}
 
 
@@ -1186,6 +1185,6 @@ def download_playlist():
 
 if __name__ == "__main__":
     debug_enabled = os.getenv("FLASK_DEBUG", "0") == "1"
-    # Configurado para 0.0.0.0 para funcionar no Railway
+    # Local dev only — production runs gunicorn under systemd on the Contabo VPS.
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=debug_enabled)
     

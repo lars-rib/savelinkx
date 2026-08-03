@@ -153,7 +153,19 @@
       #fetchBtn { width: 100%; justify-content: center; padding: 15px; font-size: 0.95rem; }
       /* Bigger tap targets on the platform pills (min ~44px) */
       .tool-switch a { padding: 11px 15px; }
+      /* Related-downloaders strip: 3 columns on desktop, single column on mobile */
+      .related-grid { grid-template-columns: 1fr; }
     }
+
+    /* "Related downloaders" cross-link strip, used by long-tail landing pages
+       (each template wraps the section in a Jinja if-relative_tools check). */
+    .related-tools { margin-top: 32px; width: 100%; max-width: 620px; }
+    .related-tools h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 14px; text-align: center; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .related-card { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; padding: 14px 16px; color: #fff; text-decoration: none; font-size: 0.82rem; font-weight: 600; line-height: 1.35; transition: border-color 0.15s, background 0.15s, transform 0.15s; }
+    .related-card:hover { border-color: var(--accent); background: #222; transform: translateY(-1px); }
+    .related-card .arrow { color: #555; flex-shrink: 0; font-size: 0.9rem; }
+    .related-card:hover .arrow { color: var(--accent); }
   </style>
 </head>
 <body {% block body_attrs %}{% endblock %}>
@@ -268,6 +280,8 @@
   {% endblock %}
 
   {% block content %}{% endblock %}
+
+  {% block related %}{% endblock %}
 
   <footer>
     <p class="footer-tagline">{% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}</p>
