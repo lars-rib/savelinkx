@@ -83,6 +83,8 @@
     .topnav { width: 100%; max-width: 620px; display: flex; justify-content: space-between; align-items: center; padding: 0 0 24px; }
     .topnav-brand { font-size: 1rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 7px; line-height: 1; }
     .topnav-brand svg { width: 25px; height: 25px; fill: var(--accent); flex-shrink: 0; }
+    .topnav-tagline { font-size: 0.7rem; font-weight: 500; color: #8a8a8a; letter-spacing: 0.02em; }
+    @media (max-width: 480px) { .topnav-tagline { display: none; } }
     .topnav-right { display: flex; align-items: center; gap: 16px; }
     .topnav-right > a { color: #8a8a8a; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; white-space: nowrap; }
     .topnav-right > a:hover { color: var(--accent); }
@@ -184,9 +186,9 @@
 <body {% block body_attrs %}{% endblock %}>
 
   <nav class="topnav" aria-label="{% block nav_aria %}Main navigation{% endblock %}">
-    <a href="{% block brand_href %}/{% endblock %}" class="topnav-brand" aria-label="{% block brand_aria %}SaveLinkX home{% endblock %}">
+    <a href="{% block brand_href %}/{% endblock %}" class="topnav-brand" aria-label="{% block brand_aria %}SaveLinkX - Fast, Free and Safe{% endblock %}">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"><text x="8.5" y="17.5" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="700" fill="#fff">S</text><circle cx="17.6" cy="16.8" r="6" fill="#0f0f0f"/><circle cx="17.6" cy="16.8" r="5" fill="var(--accent)"/><path d="M17.6 14.4v4.4M15.7 17.3l1.9 1.9 1.9-1.9" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      SaveLinkX
+      SaveLinkX <span class="topnav-tagline">Fast, Free and Safe</span>
     </a>
     <div class="topnav-right">
       {% set _nl = self.lang()[:2] %}
