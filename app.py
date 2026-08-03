@@ -33,10 +33,28 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
-MONTHS_EN = {
-    1: "January", 2: "February", 3: "March", 4: "April",
-    5: "May", 6: "June", 7: "July", 8: "August",
-    9: "September", 10: "October", 11: "November", 12: "December",
+MONTHS = {
+    "en": {
+        1: "January", 2: "February", 3: "March", 4: "April",
+        5: "May", 6: "June", 7: "July", 8: "August",
+        9: "September", 10: "October", 11: "November", 12: "December",
+    },
+    "pt": {
+        1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril",
+        5: "Maio", 6: "Junho", 7: "Julho", 8: "Agosto",
+        9: "Setembro", 10: "Outubro", 11: "Novembro", 12: "Dezembro",
+    },
+    "es": {
+        1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril",
+        5: "Mayo", 6: "Junio", 7: "Julio", 8: "Agosto",
+        9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre",
+    },
+}
+
+UPDATED_PREFIX = {
+    "en": "Updated",
+    "pt": "Atualizado",
+    "es": "Actualizado",
 }
 
 TWITTER_STATUS_PATTERNS = (
@@ -96,9 +114,9 @@ def log_request_finished(response):
     return response
 
 
-def get_updated_label():
+def get_updated_label(lang="en"):
     today = date.today()
-    return f"Updated {MONTHS_EN[today.month]} {today.year}"
+    return f"{UPDATED_PREFIX[lang]} {MONTHS[lang][today.month]} {today.year}"
 
 
 def get_site_base_url():
@@ -315,47 +333,47 @@ def set_cached_metadata(url, data):
 
 @app.route("/")
 def index():
-    return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/pt/")
 def index_pt():
-    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/es/")
 def index_es():
-    return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/tiktok/")
 def index_tiktok():
-    return render_template("index_tiktok.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_tiktok.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/tiktok/pt/")
 def index_tiktok_pt():
-    return render_template("index_tiktok_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_tiktok_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/tiktok/es/")
 def index_tiktok_es():
-    return render_template("index_tiktok_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_tiktok_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/instagram/")
 def index_instagram():
-    return render_template("index_instagram.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_instagram.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
 
 
 @app.route("/instagram/pt/")
 def index_instagram_pt():
-    return render_template("index_instagram_pt.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_instagram_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
 
 
 @app.route("/instagram/es/")
 def index_instagram_es():
-    return render_template("index_instagram_es.html", site_url=get_site_base_url(), updated=get_updated_label())
+    return render_template("index_instagram_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 @app.route("/termos")
@@ -490,88 +508,53 @@ def download():
     return send_file(path, as_attachment=True, download_name=filename)
 
 
+# Each entry: (path, lastmod ISO date, changefreq, priority). Dates reflect the
+# last meaningful content change for that page. Add a new row when adding pages.
+SITEMAP_PAGES = (
+    ("/", "2026-04-27", "daily", "1.0"),
+    ("/pt/", "2026-07-14", "daily", "0.9"),
+    ("/es/", "2026-07-14", "daily", "0.9"),
+    ("/tiktok/", "2026-07-15", "daily", "0.9"),
+    ("/tiktok/pt/", "2026-07-15", "daily", "0.9"),
+    ("/tiktok/es/", "2026-07-15", "daily", "0.9"),
+    ("/instagram/", "2026-07-16", "daily", "0.9"),
+    ("/instagram/pt/", "2026-07-16", "daily", "0.9"),
+    ("/instagram/es/", "2026-07-16", "daily", "0.9"),
+    ("/faq", "2026-04-27", "monthly", "0.8"),
+    ("/termos", "2026-04-27", "monthly", "0.3"),
+    ("/privacidade", "2026-04-27", "monthly", "0.3"),
+)
+
+
+def _sitemap_url_xml(path, lastmod, changefreq, priority, base_url):
+    return (
+        f"  <url>\n"
+        f"    <loc>{base_url}{path}</loc>\n"
+        f"    <lastmod>{lastmod}</lastmod>\n"
+        f"    <changefreq>{changefreq}</changefreq>\n"
+        f"    <priority>{priority}</priority>\n"
+        f"  </url>"
+    )
+
+
 @app.route('/sitemap.xml')
 def sitemap():
-    xml = """<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      <url>
-        <loc>https://www.savelinkx.com/</loc>
-        <lastmod>2026-04-27</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/pt/</loc>
-        <lastmod>2026-07-14</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/es/</loc>
-        <lastmod>2026-07-14</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/tiktok/</loc>
-        <lastmod>2026-07-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/tiktok/pt/</loc>
-        <lastmod>2026-07-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/tiktok/es/</loc>
-        <lastmod>2026-07-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/instagram/</loc>
-        <lastmod>2026-07-16</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/instagram/pt/</loc>
-        <lastmod>2026-07-16</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/instagram/es/</loc>
-        <lastmod>2026-07-16</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/faq</loc>
-        <lastmod>2026-04-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/termos</loc>
-        <lastmod>2026-04-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.3</priority>
-      </url>
-      <url>
-        <loc>https://www.savelinkx.com/privacidade</loc>
-        <lastmod>2026-04-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.3</priority>
-      </url>
-    </urlset>"""
+    base_url = get_site_base_url()
+    entries = "\n".join(
+        _sitemap_url_xml(path, lastmod, changefreq, priority, base_url)
+        for path, lastmod, changefreq, priority in SITEMAP_PAGES
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f'{entries}\n'
+        '</urlset>'
+    )
     return xml, 200, {'Content-Type': 'application/xml'}
 
 
 if __name__ == "__main__":
     debug_enabled = os.getenv("FLASK_DEBUG", "0") == "1"
-    # Configurado para 0.0.0.0 para funcionar no Railway
+    # Local dev only — production runs gunicorn under systemd on the Contabo VPS.
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=debug_enabled)
     
