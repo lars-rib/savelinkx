@@ -84,7 +84,7 @@
     .topnav-brand { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
     .topnav-brand-row { font-size: 1rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 7px; line-height: 1; }
     .topnav-brand-row svg { width: 25px; height: 25px; fill: var(--accent); flex-shrink: 0; }
-    .topnav-tagline { font-size: 0.64rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-left: 32px; opacity: 0.9; }
+    .topnav-tagline { font-size: 0.64rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-left: 32px; opacity: 0.9; white-space: nowrap; }
     .topnav-right { display: flex; align-items: center; gap: 16px; }
     .topnav-right > a { color: #8a8a8a; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; white-space: nowrap; }
     .topnav-right > a:hover { color: var(--accent); }
@@ -127,9 +127,6 @@
     .playlist-entry-info { font-size: 0.72rem; color: #777; margin-top: 3px; display: flex; gap: 12px; }
     .playlist-dl-btn { background: var(--accent); color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; }
     .playlist-dl-btn:hover:not(:disabled) { background: var(--accent-hover); }
-    .trust-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
-    .trust-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.75rem; color: #b0b0b0; background: #141414; border: 1px solid #2a2a2a; border-radius: 20px; padding: 5px 11px; font-weight: 600; }
-    .trust-badge svg { width: 13px; height: 13px; stroke: var(--accent); flex-shrink: 0; }
     .platform-strip { width: 100%; max-width: 620px; margin-top: 32px; text-align: center; }
     .platform-strip .ps-label { font-size: 0.72rem; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; font-weight: 600; }
     .platform-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
@@ -148,8 +145,14 @@
       .steps { grid-template-columns: 1fr; }
       .thumb-wrap img { width: 90px; }
       .topnav-right { gap: 10px; }
-      .topnav-right > a { font-size: 0.78rem; }
+      /* Vertical padding lifts these from ~17px tall to a ~40px tap target,
+         matching the standard already applied to the platform pills below. */
+      .topnav-right > a { font-size: 0.78rem; padding: 11px 2px; }
+      .lang-switch a { padding: 10px 10px; }
       .card { padding: 20px; }
+      /* Match the card's mobile padding — 32px sides left the text column
+         only ~282px wide and forced awkward wrapping. */
+      .seo-section > div { padding: 22px 20px; }
       /* Stack the paste box and Download button — side-by-side cramps on phones */
       .input-row { flex-direction: column; gap: 10px; }
       #fetchBtn { width: 100%; justify-content: center; padding: 15px; font-size: 0.95rem; }
@@ -165,6 +168,13 @@
         transform: scale(0.68) !important;
         transform-origin: bottom right !important;
       }
+    }
+
+    /* On the narrowest phones the brand block and the FAQ/Contact/language
+       links run into each other, so the tagline steps aside. It still shows
+       from ~361px up, which covers every mainstream handset. */
+    @media (max-width: 360px) {
+      .topnav-tagline { display: none; }
     }
 
     /* "Related downloaders" cross-link strip, used by long-tail landing pages
@@ -222,12 +232,6 @@
         <div class="spinner" id="fetchSpinner"></div>
         <span id="fetchLabel">{% block fetch_label %}Download{% endblock %}</span>
       </button>
-    </div>
-
-    <div class="trust-row">
-      {% set _l = self.lang()[:2] %}
-      {% set _trust = {'en': ['100% Free', 'No Login', 'No Watermark'], 'pt': ['100% Grátis', 'Sem Login', 'Sem Marca'], 'es': ['100% Gratis', 'Sin Registro', 'Sin Marca']} %}
-      {% for _b in _trust.get(_l, _trust['en']) %}<span class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>{{ _b }}</span>{% endfor %}
     </div>
 
     <div id="status"><div id="statusSpinner"></div><span id="statusText"></span><button id="retryBtn" onclick="fetchInfo()" style="display:none;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 16px;font-size:0.8rem;font-weight:700;cursor:pointer;">Try Again</button><label id="cookieLabel" style="display:none;cursor:pointer;margin-left:8px;font-size:0.78rem;color:var(--accent);border:1px dashed #555;border-radius:8px;padding:6px 12px;">Drop cookies.txt <input type="file" id="cookieFile" accept=".txt" style="display:none;" /></label></div>
