@@ -175,6 +175,11 @@
        from ~361px up, which covers every mainstream handset. */
     @media (max-width: 360px) {
       .topnav-tagline { display: none; }
+      /* Reclaim horizontal room the tap-target padding above costs us —
+         trimming only the sides keeps the ~40px touch height intact. */
+      .topnav-right { gap: 8px; }
+      .topnav-right > a { padding-left: 0; padding-right: 0; }
+      .lang-switch a { padding-left: 7px; padding-right: 7px; }
     }
 
     /* "Related downloaders" cross-link strip, used by long-tail landing pages
