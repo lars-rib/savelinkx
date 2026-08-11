@@ -508,6 +508,32 @@ _PATH_TO_SLUG = {
     "/youtube/": "youtube", "/facebook/": "facebook", "/reddit/": "reddit",
     "/vimeo/": "vimeo", "/dailymotion/": "dailymotion", "/pinterest/": "pinterest",
     "/tiktok-mp3/": "tiktok", "/twitter-gif/": "", "/reddit-video-with-sound/": "reddit",
+    "/tiktok-no-watermark/": "tiktok", "/instagram-reels-no-watermark/": "instagram",
+    "/facebook-story-saver/": "facebook", "/youtube-shorts-downloader/": "youtube",
+}
+
+# The long-tail landing pages, surfaced site-wide by the "popular tools" strip
+# in base.html. Before this they were linked only from the sitemap and from
+# each other, so almost no internal links pointed at them — the homepage
+# reached just one of the seven. Slug order here is the render order.
+_LONGTAIL_TOOLS = [
+    ("tiktok-no-watermark", {
+        "en": "TikTok No Watermark", "pt": "TikTok Sem Marca D'água", "es": "TikTok Sin Marca de Agua"}),
+    ("instagram-reels-no-watermark", {
+        "en": "Reels No Watermark", "pt": "Reels Sem Marca", "es": "Reels Sin Marca"}),
+    ("tiktok-mp3", {
+        "en": "TikTok to MP3", "pt": "TikTok para MP3", "es": "TikTok a MP3"}),
+    ("twitter-gif", {
+        "en": "Twitter GIF", "pt": "GIF do Twitter", "es": "GIF de Twitter"}),
+    ("reddit-video-with-sound", {
+        "en": "Reddit Video + Sound", "pt": "Vídeo do Reddit com Som", "es": "Video de Reddit con Sonido"}),
+    ("facebook-story-saver", {
+        "en": "Facebook Story Saver", "pt": "Stories do Facebook", "es": "Stories de Facebook"}),
+    ("youtube-shorts-downloader", {
+        "en": "YouTube Shorts", "pt": "Shorts do YouTube", "es": "Shorts de YouTube"}),
+]
+_LONGTAIL_LABEL = {
+    "en": "Popular tools", "pt": "Ferramentas populares", "es": "Herramientas populares",
 }
 
 
@@ -530,7 +556,20 @@ def inject_nav():
         {"name": name, "url": purl(slug), "active": (slug == active)}
         for name, slug in _NAV_PLATFORMS
     ]
-    return {"nav_platforms": nav_platforms}
+
+    def turl(slug):
+        return "/%s/" % slug if lang == "en" else "/%s/%s/" % (slug, lang)
+
+    longtail_tools = [
+        {"name": names.get(lang, names["en"]), "url": turl(slug),
+         "active": (base == "/%s/" % slug)}
+        for slug, names in _LONGTAIL_TOOLS
+    ]
+    return {
+        "nav_platforms": nav_platforms,
+        "longtail_tools": longtail_tools,
+        "longtail_label": _LONGTAIL_LABEL.get(lang, _LONGTAIL_LABEL["en"]),
+    }
 
 
 COOKIE_ENV_BY_PLATFORM = {
@@ -1175,6 +1214,14 @@ def get_subtitles():
 # the last meaningful content change for that page. Add a new row when adding
 # a page. Note: /youtube/ is intentionally excluded — YouTube pages are
 # noindex, follow to keep the platform off Google's index (per AGENTS.md).
+# Only final, indexable, self-canonical URLs belong here. Deliberately absent:
+#   /x/, /x/pt/, /x/es/   -> redirect to and canonicalise on "/" (Google would
+#                            report "Duplicate, submitted URL not selected as
+#                            canonical"); they stay live as entry points.
+#   /youtube/*, /youtube-shorts-downloader/*
+#                         -> carry <meta robots="noindex"> by design, so
+#                            submitting them triggers "Submitted URL marked
+#                            noindex" in Search Console.
 SITEMAP_PAGES = (
     ("/", "2026-07-17", "daily", "1.0"),
     ("/pt/", "2026-07-17", "daily", "0.9"),
@@ -1188,9 +1235,6 @@ SITEMAP_PAGES = (
     ("/facebook/", "2026-07-17", "daily", "0.9"),
     ("/facebook/pt/", "2026-07-17", "daily", "0.9"),
     ("/facebook/es/", "2026-07-17", "daily", "0.9"),
-    ("/x/", "2026-07-17", "daily", "0.9"),
-    ("/x/pt/", "2026-07-17", "daily", "0.9"),
-    ("/x/es/", "2026-07-17", "daily", "0.9"),
     ("/vimeo/", "2026-07-17", "daily", "0.9"),
     ("/vimeo/pt/", "2026-07-17", "daily", "0.9"),
     ("/vimeo/es/", "2026-07-17", "daily", "0.9"),
@@ -1221,9 +1265,6 @@ SITEMAP_PAGES = (
     ("/facebook-story-saver/", "2026-08-03", "daily", "0.8"),
     ("/facebook-story-saver/pt/", "2026-08-03", "daily", "0.8"),
     ("/facebook-story-saver/es/", "2026-08-03", "daily", "0.8"),
-    ("/youtube-shorts-downloader/", "2026-08-03", "daily", "0.8"),
-    ("/youtube-shorts-downloader/pt/", "2026-08-03", "daily", "0.8"),
-    ("/youtube-shorts-downloader/es/", "2026-08-03", "daily", "0.8"),
     ("/faq", "2026-04-27", "monthly", "0.8"),
     ("/termos", "2026-04-27", "monthly", "0.3"),
     ("/privacidade", "2026-04-27", "monthly", "0.3"),
