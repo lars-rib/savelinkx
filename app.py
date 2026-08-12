@@ -132,6 +132,13 @@ REDDIT_HOSTS = {"reddit.com", "www.reddit.com", "old.reddit.com", "v.redd.it", "
 PINTEREST_HOSTS = {"pinterest.com", "www.pinterest.com", "pin.it", "www.pin.it"}
 PINTEREST_PIN_PATTERN = re.compile(r"^/pin/(\d+)(?:/.*)?$")
 
+LINKEDIN_HOSTS = {"linkedin.com", "www.linkedin.com"}
+# Mirrors yt-dlp's LinkedInIE._VALID_URL so we never accept a link the
+# extractor will reject: a post permalink ends in "-<activity id>-<4 chars>",
+# and the feed form carries the activity urn directly.
+LINKEDIN_POST_PATTERN = re.compile(r"^/posts/[^/?#]+-(\d+)-\w{4}/?$", re.IGNORECASE)
+LINKEDIN_FEED_PATTERN = re.compile(r"^/feed/update/urn:li:activity:(\d+)/?$", re.IGNORECASE)
+
 
 def normalize_and_validate_facebook_url(parsed):
     hostname = (parsed.hostname or "").lower()
@@ -226,6 +233,13 @@ def normalize_and_validate_reddit_url(parsed):
     if "/comments/" not in path.lower():
         return None, "Please enter a valid Reddit post URL containing a video."
     return f"https://www.reddit.com{path}" + (f"?{query}" if query else ""), None
+
+
+def normalize_and_validate_linkedin_url(parsed):
+    path = parsed.path or ""
+    if not (LINKEDIN_POST_PATTERN.match(path) or LINKEDIN_FEED_PATTERN.match(path)):
+        return None, "Please paste a LinkedIn post link like https://www.linkedin.com/posts/name-activity-1234567890-abcd/"
+    return f"https://www.linkedin.com{path}", None
 
 
 def normalize_and_validate_pinterest_url(parsed):
@@ -617,12 +631,14 @@ _NAV_PLATFORMS = [
     ("Vimeo", "vimeo"),
     ("Dailymotion", "dailymotion"),
     ("Pinterest", "pinterest"),
+    ("LinkedIn", "linkedin"),
 ]
 # base EN path -> active platform slug (landing pages map to their parent)
 _PATH_TO_SLUG = {
     "/": "", "/tiktok/": "tiktok", "/instagram/": "instagram",
     "/youtube/": "youtube", "/facebook/": "facebook", "/reddit/": "reddit",
     "/vimeo/": "vimeo", "/dailymotion/": "dailymotion", "/pinterest/": "pinterest",
+    "/linkedin/": "linkedin",
     "/tiktok-mp3/": "tiktok", "/twitter-gif/": "", "/reddit-video-with-sound/": "reddit",
     "/tiktok-no-watermark/": "tiktok", "/instagram-reels-no-watermark/": "instagram",
     "/facebook-story-saver/": "facebook", "/youtube-shorts-downloader/": "youtube",
@@ -708,6 +724,7 @@ COOKIE_ENV_BY_PLATFORM = {
     "dailymotion": "DAILYMOTION_COOKIES_FILE",
     "reddit": "REDDIT_COOKIES_FILE",
     "pinterest": "PINTEREST_COOKIES_FILE",
+    "linkedin": "LINKEDIN_COOKIES_FILE",
 }
 
 
@@ -804,6 +821,7 @@ PLATFORM_VALIDATORS = (
     ("dailymotion", DAILYMOTION_HOSTS, normalize_and_validate_dailymotion_url),
     ("reddit", REDDIT_HOSTS, normalize_and_validate_reddit_url),
     ("pinterest", PINTEREST_HOSTS, normalize_and_validate_pinterest_url),
+    ("linkedin", LINKEDIN_HOSTS, normalize_and_validate_linkedin_url),
 )
 
 
@@ -1051,6 +1069,21 @@ def index_pinterest_pt():
 @app.route("/pinterest/es/")
 def index_pinterest_es():
     return render_template("index_pinterest_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
+
+
+@app.route("/linkedin/")
+def index_linkedin():
+    return render_template("index_linkedin.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
+
+
+@app.route("/linkedin/pt/")
+def index_linkedin_pt():
+    return render_template("index_linkedin_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
+
+
+@app.route("/linkedin/es/")
+def index_linkedin_es():
+    return render_template("index_linkedin_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 # --- Long-tail landing pages (WS2) ---------------------------------------
@@ -1377,6 +1410,9 @@ SITEMAP_PAGES = (
     ("/pinterest/", "2026-07-17", "daily", "0.9"),
     ("/pinterest/pt/", "2026-07-17", "daily", "0.9"),
     ("/pinterest/es/", "2026-07-17", "daily", "0.9"),
+    ("/linkedin/", "2026-08-12", "daily", "0.9"),
+    ("/linkedin/pt/", "2026-08-12", "daily", "0.9"),
+    ("/linkedin/es/", "2026-08-12", "daily", "0.9"),
     ("/tiktok-mp3/", "2026-07-23", "daily", "0.8"),
     ("/tiktok-mp3/pt/", "2026-07-23", "daily", "0.8"),
     ("/tiktok-mp3/es/", "2026-07-23", "daily", "0.8"),
