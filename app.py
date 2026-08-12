@@ -498,6 +498,32 @@ RELATED_TOOLS_BY_SLUG = {
             ],
         },
     },
+    "video-to-mp3": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
+                {"label": "Facebook Reels Downloader", "url": "/facebook-reels-downloader/"},
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
+                {"label": "Baixar Reels do Facebook", "url": "/facebook-reels-downloader/pt/"},
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
+                {"label": "Descargar Reels de Facebook", "url": "/facebook-reels-downloader/es/"},
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
+            ],
+        },
+    },
 }
 
 
@@ -572,6 +598,8 @@ _LONGTAIL_TOOLS = [
         "en": "Facebook Reels", "pt": "Reels do Facebook", "es": "Reels de Facebook"}),
     ("youtube-shorts-downloader", {
         "en": "YouTube Shorts", "pt": "Shorts do YouTube", "es": "Shorts de YouTube"}),
+    ("video-to-mp3", {
+        "en": "Video to MP3", "pt": "Vídeo para MP3", "es": "Video a MP3"}),
 ]
 _LONGTAIL_LABEL = {
     "en": "Popular tools", "pt": "Ferramentas populares", "es": "Herramientas populares",
@@ -981,6 +1009,7 @@ _LANDING_PAGES = {
     "facebook-story-saver": "index_facebook_story_saver",
     "facebook-reels-downloader": "index_facebook_reels_downloader",
     "youtube-shorts-downloader": "index_youtube_shorts_downloader",
+    "video-to-mp3": "index_video_to_mp3",
 }
 
 
@@ -1310,6 +1339,9 @@ SITEMAP_PAGES = (
     ("/facebook-reels-downloader/", "2026-08-12", "daily", "0.8"),
     ("/facebook-reels-downloader/pt/", "2026-08-12", "daily", "0.8"),
     ("/facebook-reels-downloader/es/", "2026-08-12", "daily", "0.8"),
+    ("/video-to-mp3/", "2026-08-12", "daily", "0.8"),
+    ("/video-to-mp3/pt/", "2026-08-12", "daily", "0.8"),
+    ("/video-to-mp3/es/", "2026-08-12", "daily", "0.8"),
     ("/faq", "2026-04-27", "monthly", "0.8"),
     ("/termos", "2026-04-27", "monthly", "0.3"),
     ("/privacidade", "2026-04-27", "monthly", "0.3"),
