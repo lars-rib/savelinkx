@@ -132,6 +132,15 @@ REDDIT_HOSTS = {"reddit.com", "www.reddit.com", "old.reddit.com", "v.redd.it", "
 PINTEREST_HOSTS = {"pinterest.com", "www.pinterest.com", "pin.it", "www.pin.it"}
 PINTEREST_PIN_PATTERN = re.compile(r"^/pin/(\d+)(?:/.*)?$")
 
+# Kwai has no dedicated yt-dlp extractor — it is served by the *generic*
+# extractor, which finds the CDN URL embedded in the page. Verified working end
+# to end (h264+aac mp4). Two consequences worth knowing: the generic path is
+# more fragile than a real extractor (a page-structure change on Kwai's side
+# breaks it), and it reports a single format, so there is no quality selector
+# for Kwai — do not promise one in the page copy.
+KWAI_HOSTS = {"kwai.com", "www.kwai.com", "m.kwai.com"}
+KWAI_VIDEO_PATTERN = re.compile(r"^/@[\w.\-]+/video/(\d+)/?$", re.IGNORECASE)
+
 LINKEDIN_HOSTS = {"linkedin.com", "www.linkedin.com"}
 # Mirrors yt-dlp's LinkedInIE._VALID_URL so we never accept a link the
 # extractor will reject: a post permalink ends in "-<activity id>-<4 chars>",
@@ -233,6 +242,13 @@ def normalize_and_validate_reddit_url(parsed):
     if "/comments/" not in path.lower():
         return None, "Please enter a valid Reddit post URL containing a video."
     return f"https://www.reddit.com{path}" + (f"?{query}" if query else ""), None
+
+
+def normalize_and_validate_kwai_url(parsed):
+    path = parsed.path or ""
+    if not KWAI_VIDEO_PATTERN.match(path):
+        return None, "Please paste a Kwai video link like https://www.kwai.com/@user/video/1234567890"
+    return f"https://www.kwai.com{path}", None
 
 
 def normalize_and_validate_linkedin_url(parsed):
@@ -632,13 +648,14 @@ _NAV_PLATFORMS = [
     ("Dailymotion", "dailymotion"),
     ("Pinterest", "pinterest"),
     ("LinkedIn", "linkedin"),
+    ("Kwai", "kwai"),
 ]
 # base EN path -> active platform slug (landing pages map to their parent)
 _PATH_TO_SLUG = {
     "/": "", "/tiktok/": "tiktok", "/instagram/": "instagram",
     "/youtube/": "youtube", "/facebook/": "facebook", "/reddit/": "reddit",
     "/vimeo/": "vimeo", "/dailymotion/": "dailymotion", "/pinterest/": "pinterest",
-    "/linkedin/": "linkedin",
+    "/linkedin/": "linkedin", "/kwai/": "kwai",
     "/tiktok-mp3/": "tiktok", "/twitter-gif/": "", "/reddit-video-with-sound/": "reddit",
     "/tiktok-no-watermark/": "tiktok", "/instagram-reels-no-watermark/": "instagram",
     "/facebook-story-saver/": "facebook", "/youtube-shorts-downloader/": "youtube",
@@ -725,6 +742,7 @@ COOKIE_ENV_BY_PLATFORM = {
     "reddit": "REDDIT_COOKIES_FILE",
     "pinterest": "PINTEREST_COOKIES_FILE",
     "linkedin": "LINKEDIN_COOKIES_FILE",
+    "kwai": "KWAI_COOKIES_FILE",
 }
 
 
@@ -822,6 +840,7 @@ PLATFORM_VALIDATORS = (
     ("reddit", REDDIT_HOSTS, normalize_and_validate_reddit_url),
     ("pinterest", PINTEREST_HOSTS, normalize_and_validate_pinterest_url),
     ("linkedin", LINKEDIN_HOSTS, normalize_and_validate_linkedin_url),
+    ("kwai", KWAI_HOSTS, normalize_and_validate_kwai_url),
 )
 
 
@@ -847,7 +866,7 @@ def detect_and_normalize_url(raw_url):
                 return None, None, error
             return normalized, platform, None
 
-    return None, None, "Unsupported link. Please paste a Facebook, YouTube, Twitter/X, TikTok, Instagram, Vimeo, Dailymotion, Reddit, Pinterest, or LinkedIn URL."
+    return None, None, "Unsupported link. Please paste a Facebook, YouTube, Twitter/X, TikTok, Instagram, Vimeo, Dailymotion, Reddit, Pinterest, LinkedIn, or Kwai URL."
 
 
 def map_yt_dlp_error(exc):
@@ -1084,6 +1103,21 @@ def index_linkedin_pt():
 @app.route("/linkedin/es/")
 def index_linkedin_es():
     return render_template("index_linkedin_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
+
+
+@app.route("/kwai/")
+def index_kwai():
+    return render_template("index_kwai.html", site_url=get_site_base_url(), updated=get_updated_label("en"))
+
+
+@app.route("/kwai/pt/")
+def index_kwai_pt():
+    return render_template("index_kwai_pt.html", site_url=get_site_base_url(), updated=get_updated_label("pt"))
+
+
+@app.route("/kwai/es/")
+def index_kwai_es():
+    return render_template("index_kwai_es.html", site_url=get_site_base_url(), updated=get_updated_label("es"))
 
 
 # --- Long-tail landing pages (WS2) ---------------------------------------
@@ -1413,6 +1447,9 @@ SITEMAP_PAGES = (
     ("/linkedin/", "2026-08-12", "daily", "0.9"),
     ("/linkedin/pt/", "2026-08-12", "daily", "0.9"),
     ("/linkedin/es/", "2026-08-12", "daily", "0.9"),
+    ("/kwai/", "2026-08-12", "daily", "0.9"),
+    ("/kwai/pt/", "2026-08-12", "daily", "0.9"),
+    ("/kwai/es/", "2026-08-12", "daily", "0.9"),
     ("/tiktok-mp3/", "2026-07-23", "daily", "0.8"),
     ("/tiktok-mp3/pt/", "2026-07-23", "daily", "0.8"),
     ("/tiktok-mp3/es/", "2026-07-23", "daily", "0.8"),
