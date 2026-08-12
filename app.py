@@ -431,6 +431,32 @@ RELATED_TOOLS_BY_SLUG = {
             ],
         },
     },
+    "facebook-reels-downloader": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "Facebook Story Saver", "url": "/facebook-story-saver/"},
+                {"label": "Instagram Reels No Watermark", "url": "/instagram-reels-no-watermark/"},
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Salvar Stories do Facebook", "url": "/facebook-story-saver/pt/"},
+                {"label": "Reels do Instagram Sem Marca", "url": "/instagram-reels-no-watermark/pt/"},
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Guardar Stories de Facebook", "url": "/facebook-story-saver/es/"},
+                {"label": "Reels de Instagram Sin Marca", "url": "/instagram-reels-no-watermark/es/"},
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
+            ],
+        },
+    },
     "youtube-shorts-downloader": {
         "en": {
             "section_title": "Related downloaders",
@@ -510,6 +536,7 @@ _PATH_TO_SLUG = {
     "/tiktok-mp3/": "tiktok", "/twitter-gif/": "", "/reddit-video-with-sound/": "reddit",
     "/tiktok-no-watermark/": "tiktok", "/instagram-reels-no-watermark/": "instagram",
     "/facebook-story-saver/": "facebook", "/youtube-shorts-downloader/": "youtube",
+    "/facebook-reels-downloader/": "facebook",
 }
 
 # The long-tail landing pages, surfaced site-wide by the "popular tools" strip
@@ -529,6 +556,8 @@ _LONGTAIL_TOOLS = [
         "en": "Reddit Video + Sound", "pt": "Vídeo do Reddit com Som", "es": "Video de Reddit con Sonido"}),
     ("facebook-story-saver", {
         "en": "Facebook Story Saver", "pt": "Stories do Facebook", "es": "Stories de Facebook"}),
+    ("facebook-reels-downloader", {
+        "en": "Facebook Reels", "pt": "Reels do Facebook", "es": "Reels de Facebook"}),
     ("youtube-shorts-downloader", {
         "en": "YouTube Shorts", "pt": "Shorts do YouTube", "es": "Shorts de YouTube"}),
 ]
@@ -938,6 +967,7 @@ _LANDING_PAGES = {
     "tiktok-no-watermark": "index_tiktok_no_watermark",
     "instagram-reels-no-watermark": "index_instagram_reels_no_watermark",
     "facebook-story-saver": "index_facebook_story_saver",
+    "facebook-reels-downloader": "index_facebook_reels_downloader",
     "youtube-shorts-downloader": "index_youtube_shorts_downloader",
 }
 
@@ -1265,6 +1295,9 @@ SITEMAP_PAGES = (
     ("/facebook-story-saver/", "2026-08-03", "daily", "0.8"),
     ("/facebook-story-saver/pt/", "2026-08-03", "daily", "0.8"),
     ("/facebook-story-saver/es/", "2026-08-03", "daily", "0.8"),
+    ("/facebook-reels-downloader/", "2026-08-12", "daily", "0.8"),
+    ("/facebook-reels-downloader/pt/", "2026-08-12", "daily", "0.8"),
+    ("/facebook-reels-downloader/es/", "2026-08-12", "daily", "0.8"),
     ("/faq", "2026-04-27", "monthly", "0.8"),
     ("/termos", "2026-04-27", "monthly", "0.3"),
     ("/privacidade", "2026-04-27", "monthly", "0.3"),
