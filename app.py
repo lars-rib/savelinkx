@@ -524,6 +524,58 @@ RELATED_TOOLS_BY_SLUG = {
             ],
         },
     },
+    "instagram-audio": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "Instagram Reels No Watermark", "url": "/instagram-reels-no-watermark/"},
+                {"label": "Video to MP3 Converter", "url": "/video-to-mp3/"},
+                {"label": "TikTok to MP3", "url": "/tiktok-mp3/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "Reels do Instagram Sem Marca", "url": "/instagram-reels-no-watermark/pt/"},
+                {"label": "Vídeo para MP3", "url": "/video-to-mp3/pt/"},
+                {"label": "TikTok para MP3", "url": "/tiktok-mp3/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "Reels de Instagram Sin Marca", "url": "/instagram-reels-no-watermark/es/"},
+                {"label": "Video a MP3", "url": "/video-to-mp3/es/"},
+                {"label": "TikTok a MP3", "url": "/tiktok-mp3/es/"},
+            ],
+        },
+    },
+    "pinterest-no-watermark": {
+        "en": {
+            "section_title": "Related downloaders",
+            "tools": [
+                {"label": "TikTok Without Watermark", "url": "/tiktok-no-watermark/"},
+                {"label": "Instagram Reels No Watermark", "url": "/instagram-reels-no-watermark/"},
+                {"label": "Video to MP3 Converter", "url": "/video-to-mp3/"},
+            ],
+        },
+        "pt": {
+            "section_title": "Outras ferramentas",
+            "tools": [
+                {"label": "TikTok Sem Marca D'água", "url": "/tiktok-no-watermark/pt/"},
+                {"label": "Reels do Instagram Sem Marca", "url": "/instagram-reels-no-watermark/pt/"},
+                {"label": "Vídeo para MP3", "url": "/video-to-mp3/pt/"},
+            ],
+        },
+        "es": {
+            "section_title": "Otras herramientas",
+            "tools": [
+                {"label": "TikTok Sin Marca de Agua", "url": "/tiktok-no-watermark/es/"},
+                {"label": "Reels de Instagram Sin Marca", "url": "/instagram-reels-no-watermark/es/"},
+                {"label": "Video a MP3", "url": "/video-to-mp3/es/"},
+            ],
+        },
+    },
 }
 
 
@@ -574,7 +626,8 @@ _PATH_TO_SLUG = {
     "/tiktok-mp3/": "tiktok", "/twitter-gif/": "", "/reddit-video-with-sound/": "reddit",
     "/tiktok-no-watermark/": "tiktok", "/instagram-reels-no-watermark/": "instagram",
     "/facebook-story-saver/": "facebook", "/youtube-shorts-downloader/": "youtube",
-    "/facebook-reels-downloader/": "facebook",
+    "/facebook-reels-downloader/": "facebook", "/instagram-audio/": "instagram",
+    "/pinterest-no-watermark/": "pinterest",
 }
 
 # The long-tail landing pages, surfaced site-wide by the "popular tools" strip
@@ -600,6 +653,10 @@ _LONGTAIL_TOOLS = [
         "en": "YouTube Shorts", "pt": "Shorts do YouTube", "es": "Shorts de YouTube"}),
     ("video-to-mp3", {
         "en": "Video to MP3", "pt": "Vídeo para MP3", "es": "Video a MP3"}),
+    ("instagram-audio", {
+        "en": "Instagram Audio", "pt": "Áudio do Instagram", "es": "Audio de Instagram"}),
+    ("pinterest-no-watermark", {
+        "en": "Pinterest No Watermark", "pt": "Pinterest Sem Marca D'água", "es": "Pinterest Sin Marca de Agua"}),
 ]
 _LONGTAIL_LABEL = {
     "en": "Popular tools", "pt": "Ferramentas populares", "es": "Herramientas populares",
@@ -1010,6 +1067,8 @@ _LANDING_PAGES = {
     "facebook-reels-downloader": "index_facebook_reels_downloader",
     "youtube-shorts-downloader": "index_youtube_shorts_downloader",
     "video-to-mp3": "index_video_to_mp3",
+    "instagram-audio": "index_instagram_audio",
+    "pinterest-no-watermark": "index_pinterest_no_watermark",
 }
 
 
@@ -1342,6 +1401,12 @@ SITEMAP_PAGES = (
     ("/video-to-mp3/", "2026-08-12", "daily", "0.8"),
     ("/video-to-mp3/pt/", "2026-08-12", "daily", "0.8"),
     ("/video-to-mp3/es/", "2026-08-12", "daily", "0.8"),
+    ("/instagram-audio/", "2026-08-12", "daily", "0.8"),
+    ("/instagram-audio/pt/", "2026-08-12", "daily", "0.8"),
+    ("/instagram-audio/es/", "2026-08-12", "daily", "0.8"),
+    ("/pinterest-no-watermark/", "2026-08-12", "daily", "0.8"),
+    ("/pinterest-no-watermark/pt/", "2026-08-12", "daily", "0.8"),
+    ("/pinterest-no-watermark/es/", "2026-08-12", "daily", "0.8"),
     ("/faq", "2026-04-27", "monthly", "0.8"),
     ("/termos", "2026-04-27", "monthly", "0.3"),
     ("/privacidade", "2026-04-27", "monthly", "0.3"),

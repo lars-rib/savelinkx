@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block lang %}en{% endblock %}
+{% block body_attrs %}data-platform="instagram"{% endblock %}
+
+{% block head %}
+  <title>Instagram Audio Downloader - Save Reel & Video Sound as MP3 | SaveLinkX</title>
+  <meta name="description" content="Paste an Instagram Reel or video post link and download just the audio as MP3 or M4A - the sound, song, or voiceover, no video file." />
+  <link rel="canonical" href="{{ site_url }}/instagram-audio/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="Instagram Audio Downloader - Save Reel & Video Sound as MP3 | SaveLinkX" />
+  <meta property="og:description" content="Paste an Instagram Reel or video post link and download just the audio as MP3 or M4A - the sound, song, or voiceover, no video file." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/instagram-audio/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="keywords" content="instagram audio downloader, instagram to mp3, download instagram audio, instagram sound downloader, extract audio from instagram reel, instagram music downloader" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Instagram Audio Downloader - Save Reel & Video Sound as MP3 | SaveLinkX" />
+  <meta name="twitter:description" content="Paste an Instagram Reel or video post link and download just the audio as MP3 or M4A - the sound, song, or voiceover, no video file." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/instagram-audio/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/instagram-audio/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/instagram-audio/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/instagram-audio/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Instagram Audio Downloader - Save Reel & Video Sound as MP3 | SaveLinkX",
+    "description": "Paste an Instagram Reel or video post link and download just the audio as MP3 or M4A - the sound, song, or voiceover, no video file.",
+    "url": "{{ site_url }}/instagram-audio/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "en",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SaveLinkX",
+      "url": "{{ site_url }}/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Download Instagram Audio",
+    "description": "Paste an Instagram Reel or video post link and download just the audio as MP3 or M4A - the sound, song, or voiceover, no video file.",
+    "inLanguage": "en",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Step 1",
+        "text": "Open Instagram, tap <strong>Share</strong> on the Reel or video post and choose <strong>Copy Link</strong>."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Step 2",
+        "text": "Paste the link above and click <strong>Download</strong> to load the audio options."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Step 3",
+        "text": "Pick <strong>MP3</strong> or <strong>M4A</strong> and click Download - the audio file saves to your device."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I download audio from Instagram?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste the Reel or video post link into SaveLinkX, click Download, and choose the MP3 or M4A option. Only the audio track is saved - no video file."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download the sound without the video?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Choose MP3 or M4A from the format list and SaveLinkX extracts just the audio track from the Reel or post."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this work with Instagram Reels and video posts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Paste a link to a public Reel or a video post - links from /reel/, /reels/, /p/, or /tv/ all work, with or without the username in the URL."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Instagram audio download free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, completely free. No account, subscription, or payment of any kind is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What audio quality do I get?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SaveLinkX extracts the best audio quality available from the original Reel or video post."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work on iPhone and Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. SaveLinkX works in any mobile browser. Paste the Instagram link and the audio saves directly to your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install an app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It works 100% in your browser - no apps, extensions, or plugins."
+        }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Main navigation{% endblock %}
+{% block brand_href %}/instagram/{% endblock %}
+{% block h1 %}<span>Instagram Audio</span> - Download Reel & Video Sound{% endblock %}
+{% block subtitle %}Paste an Instagram Reel or video post link and download just the audio as MP3 or M4A.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Choose platform">
+    <a href="/x/">X (Twitter)</a>
+    <a href="/tiktok/">TikTok</a>
+    <a href="/instagram/" class="active">Instagram</a>
+    <a href="/facebook/">Facebook</a>
+    <a href="/youtube/">YouTube</a>
+    <a href="/vimeo/">Vimeo</a>
+    <a href="/dailymotion/">Dailymotion</a>
+    <a href="/reddit/">Reddit</a>
+    <a href="/pinterest/">Pinterest</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Paste Instagram URL e.g. https://www.instagram.com/reel/XXXXXXXXX/{% endblock %}
+
+{% block intro %}Turn any Instagram Reel or video post into an <strong style="color:#aaa;">MP3</strong>. SaveLinkX pulls the original audio track from a public <strong style="color:#aaa;">instagram.com</strong> link, so you get the sound, song, or voiceover as a clean audio file - no video, works on any device.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="How to Download Instagram Audio">
+    <h2>How to Download Instagram Audio</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Open Instagram, tap <strong>Share</strong> on the Reel or video post and choose <strong>Copy Link</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Paste the link above and click <strong>Download</strong> to load the audio options.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Pick <strong>MP3</strong> or <strong>M4A</strong> and click Download - the audio file saves to your device.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Frequently Asked Questions">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>How do I download audio from Instagram?</summary>
+      <p>Paste the Reel or video post link into SaveLinkX, click Download, and choose the MP3 or M4A option. Only the audio track is saved - no video file.</p>
+    </details>
+    <details>
+      <summary>Can I download the sound without the video?</summary>
+      <p>Yes. Choose MP3 or M4A from the format list and SaveLinkX extracts just the audio track from the Reel or post.</p>
+    </details>
+    <details>
+      <summary>Does this work with Instagram Reels and video posts?</summary>
+      <p>Yes. Paste a link to a public Reel or a video post - links from /reel/, /reels/, /p/, or /tv/ all work, with or without the username in the URL.</p>
+    </details>
+    <details>
+      <summary>Is the Instagram audio download free?</summary>
+      <p>Yes, completely free. No account, subscription, or payment of any kind is required.</p>
+    </details>
+    <details>
+      <summary>What audio quality do I get?</summary>
+      <p>SaveLinkX extracts the best audio quality available from the original Reel or video post.</p>
+    </details>
+    <details>
+      <summary>Does it work on iPhone and Android?</summary>
+      <p>Yes. SaveLinkX works in any mobile browser. Paste the Instagram link and the audio saves directly to your device.</p>
+    </details>
+    <details>
+      <summary>Do I need to install an app?</summary>
+      <p>No. It works 100% in your browser - no apps, extensions, or plugins.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Download Instagram Sound and Music as MP3">
+    <div>
+      <h2>Download Instagram Sound and Music as MP3</h2>
+      <p>Found a sound, song, or voiceover on an Instagram Reel you want to keep? SaveLinkX works as an <strong style="color:#aaa;">Instagram audio downloader</strong> - it extracts the original audio track and saves it as MP3 or M4A, without downloading the video.</p>
+      <p>Copy the link from the Instagram <strong style="color:#aaa;">Share</strong> menu - a Reel link, a video post link, or an IGTV link - paste it above, choose MP3 or M4A, and download.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block related %}
+{% if related_tools %}
+<section class="related-tools" aria-label="{{ related_tools.section_title }}">
+  <h2>{{ related_tools.section_title }}</h2>
+  <div class="related-grid">
+    {% for item in related_tools.tools %}
+    <a class="related-card" href="{{ item.url }}">
+      <span>{{ item.label }}</span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Your favorite link processor.{% endblock %}
+{% block footer_links %}
+      <a href="/instagram/">Instagram Downloader</a>
+      <a href="/">Home</a>
+      <a href="/faq">FAQ</a>
+      <a href="/termos">Terms of Use</a>
+      <a href="/privacidade">Privacy Policy</a>
+      <a href="/contato">Contact</a>
+{% endblock %}
+{% block disclaimer %}This site is a public link processing tool and does not host any files on its servers. Please respect copyright law and use downloaded content for personal use only.{% endblock %}
+
+{% block page_config %}
+    "platform": "instagram",
+    "lang": "en",
+    "formats": [
+          {
+                "value": "bestaudio[ext=mp3]/bestaudio",
+                "label": "MP3 - Audio (best)"
+          },
+          {
+                "value": "bestaudio[ext=m4a]/bestaudio",
+                "label": "M4A - Audio (best)"
+          },
+          {
+                "value": "bestvideo[ext=mp4]+bestaudio/best[ext=mp4]/best",
+                "label": "MP4 - Video + Audio (source)"
+          }
+    ]
+{% endblock %}
