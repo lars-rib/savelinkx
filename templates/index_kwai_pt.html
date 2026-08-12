@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+
+{% block lang %}pt-BR{% endblock %}
+{% block body_attrs %}data-platform="kwai"{% endblock %}
+
+{% block head %}
+  <title>SaveLinkX | Baixar Vídeo do Kwai - MP4 Grátis, Não o App</title>
+  <meta name="description" content="Baixar vídeo do Kwai grátis em MP4. Cole o link de um vídeo público do Kwai e salve na hora - isso baixa o vídeo, não instala o aplicativo Kwai." />
+  <link rel="canonical" href="{{ site_url }}/kwai/pt/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="SaveLinkX - Baixar Vídeo do Kwai Grátis em MP4" />
+  <meta property="og:description" content="Cole o link de um vídeo público do Kwai e baixe o MP4. Grátis, sem conta - isso baixa o vídeo, não o aplicativo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/kwai/pt/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="keywords" content="baixar video kwai, baixar video do kwai, baixar video do kwai sem marca d'água, kwai baixar vídeos, baixar vídeo do kwai, baixar videos do kwai" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SaveLinkX - Baixar Vídeos do Kwai Grátis" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaveLinkX - Baixar Vídeo do Kwai" />
+  <meta name="twitter:description" content="Baixe vídeos do Kwai grátis em MP4." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/kwai/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/kwai/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/kwai/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/kwai/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Baixar Vídeo do Kwai",
+    "description": "Baixe vídeos do Kwai online grátis em MP4. Sem conta necessária. Isso baixa o arquivo de vídeo, não instala o aplicativo Kwai.",
+    "url": "{{ site_url }}/kwai/pt/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "pt",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+    "publisher": { "@type": "Organization", "name": "SaveLinkX", "url": "{{ site_url }}/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Como Baixar Vídeo do Kwai",
+    "description": "Baixe vídeo do Kwai grátis em MP4. Cole o link de um vídeo público do Kwai e salve na hora.",
+    "inLanguage": "pt",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Passo 1",
+        "text": "Abra o vídeo público no Kwai, toque em Compartilhar e escolha Copiar Link - ou copie o link da barra de endereços. Deve ter o formato https://www.kwai.com/@usuario/video/1234567890."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Passo 2",
+        "text": "Cole o link no campo acima e clique em Baixar para carregar o vídeo."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Passo 3",
+        "text": "Clique em Baixar Agora - o MP4 é salvo no seu dispositivo. O Kwai entrega um único arquivo, então não há menu de qualidade."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Isso instala o aplicativo do Kwai?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. O SaveLinkX apenas baixa o arquivo de vídeo por trás de um link do Kwai, em MP4, para você salvar no seu dispositivo. Não tem relação nenhuma com instalar o app do Kwai - se é o aplicativo que você procura, baixe na loja de apps do seu celular."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "É grátis baixar vídeos do Kwai?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim, o SaveLinkX é completamente grátis. Nenhuma conta, assinatura ou pagamento é necessário."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quais links do Kwai funcionam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Links de vídeo no formato kwai.com/@usuario/video/1234567890 (com ID numérico) são suportados, em kwai.com, www.kwai.com ou m.kwai.com. Links de perfil sem /video/ não são suportados."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Dá para escolher a qualidade do vídeo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. O Kwai não tem um extrator dedicado, então o SaveLinkX pega o único arquivo MP4 que o player do Kwai entrega - não há seletor de resolução nem opção de extrair só o áudio para o Kwai."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O download remove a marca d'água do Kwai?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. Você recebe o vídeo exatamente como o servidor do Kwai entrega. Se uma marca d'água ou logo já está gravada nos pixels do vídeo, nenhuma ferramenta - incluindo o SaveLinkX - consegue removê-la."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Posso baixar um vídeo privado do Kwai?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. O SaveLinkX só funciona com vídeos públicos do Kwai. Vídeos privados ou restritos não podem ser processados."
+        }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Navegação principal{% endblock %}
+{% block brand_href %}/kwai/pt/{% endblock %}
+{% block brand_aria %}SaveLinkX início{% endblock %}
+{% block nav_links %}
+      <li><a href="/kwai/pt/">Kwai</a></li>
+      <li><a href="/linkedin/pt/">LinkedIn</a></li>
+      <li><a href="/youtube/pt/">YouTube</a></li>
+      <li><a href="/pt/">X (Twitter)</a></li>
+      <li><a href="/tiktok/pt/">TikTok</a></li>
+      <li><a href="/instagram/pt/">Instagram</a></li>
+      <li><a href="/facebook/pt/">Facebook</a></li>
+      <li><a href="/vimeo/pt/">Vimeo</a></li>
+      <li><a href="/dailymotion/pt/">Dailymotion</a></li>
+      <li><a href="/reddit/pt/">Reddit</a></li>
+      <li><a href="/pinterest/pt/">Pinterest</a></li>
+      <li><a href="/faq">FAQ</a></li>
+{% endblock %}
+
+{% block h1 %}<span>Baixar Vídeo do Kwai</span> - o Vídeo, Não o Aplicativo{% endblock %}
+{% block subtitle %}Cole o link de um vídeo público do Kwai e baixe o MP4 no seu celular ou computador. Isso baixa o vídeo - não instala o app do Kwai.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Escolha a plataforma">
+    <a href="/youtube/pt/">YouTube</a>
+    <a href="/pt/">X (Twitter)</a>
+    <a href="/tiktok/pt/">TikTok</a>
+    <a href="/instagram/pt/">Instagram</a>
+    <a href="/facebook/pt/">Facebook</a>
+    <a href="/vimeo/pt/">Vimeo</a>
+    <a href="/dailymotion/pt/">Dailymotion</a>
+    <a href="/reddit/pt/">Reddit</a>
+    <a href="/pinterest/pt/">Pinterest</a>
+    <a href="/linkedin/pt/">LinkedIn</a>
+    <a href="/kwai/pt/" class="active">Kwai</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Cole o link do vídeo do Kwai ex: https://www.kwai.com/@usuario/video/1234567890{% endblock %}
+{% block fetch_label %}Baixar{% endblock %}
+{% block dl_label %}Baixar Agora{% endblock %}
+
+{% block intro %}O SaveLinkX é um <strong style="color:#aaa;">baixador de vídeos do Kwai</strong> rápido e grátis - ele salva o arquivo de vídeo, não instala o aplicativo. Cole o link de qualquer vídeo público do Kwai e receba um MP4 para guardar no celular ou computador. Sem instalação de app, sem conta, funciona em qualquer dispositivo.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="Como baixar">
+    <h2>Como Baixar Vídeos do Kwai</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Abra o vídeo público no Kwai, toque em <strong>Compartilhar</strong> e escolha <strong>Copiar Link</strong> - ou copie da barra de endereços no kwai.com. Deve ficar assim: <code>kwai.com/@usuario/video/1234567890</code>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Cole o link no campo acima e clique em <strong>Baixar</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Clique em <strong>Baixar Agora</strong> - o MP4 é salvo no seu dispositivo. O Kwai entrega um único arquivo, então não há menu de qualidade para escolher.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Perguntas frequentes">
+    <h2>Perguntas Frequentes</h2>
+
+    <details>
+      <summary>Isso instala o aplicativo do Kwai?</summary>
+      <p>Não. O SaveLinkX só baixa o arquivo de vídeo por trás de um link do Kwai, em MP4, para você salvar no seu dispositivo. Não tem nada a ver com instalar o app do Kwai - se é o aplicativo que você procura, baixe na loja de apps do seu celular.</p>
+    </details>
+    <details>
+      <summary>É grátis baixar vídeos do Kwai?</summary>
+      <p>Sim, o SaveLinkX é completamente grátis. Nenhuma conta, assinatura ou pagamento é necessário.</p>
+    </details>
+    <details>
+      <summary>Quais links do Kwai funcionam?</summary>
+      <p>Links de vídeo no formato <code>kwai.com/@usuario/video/1234567890</code> (com ID numérico) são suportados, em kwai.com, www.kwai.com ou m.kwai.com. Links de perfil sem <code>/video/</code> não são suportados - abra o vídeo específico primeiro e copie esse link.</p>
+    </details>
+    <details>
+      <summary>Dá para escolher a qualidade do vídeo?</summary>
+      <p>Não. O Kwai não tem um extrator dedicado, então o SaveLinkX pega o único arquivo MP4 que o player do Kwai entrega - não há seletor de resolução nem opção de extrair só o áudio aqui, diferente do TikTok ou Instagram.</p>
+    </details>
+    <details>
+      <summary>O download remove a marca d'água do Kwai?</summary>
+      <p>Não. Você recebe o vídeo exatamente como o servidor do Kwai entrega. Se uma marca d'água ou logo já está gravada nos pixels do vídeo, nenhuma ferramenta - incluindo o SaveLinkX - consegue removê-la.</p>
+    </details>
+    <details>
+      <summary>Posso baixar um vídeo privado do Kwai?</summary>
+      <p>Não. O SaveLinkX só funciona com vídeos públicos do Kwai. Vídeos privados ou restritos não podem ser processados.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Baixar vídeos do Kwai">
+    <div>
+      <h2>Baixar Vídeo do Kwai em MP4 - Rápido e Grátis</h2>
+      <p>O SaveLinkX facilita salvar qualquer vídeo público do Kwai como MP4. Cole o link e baixe - sem instalar o app, sem cadastro, sem marca d'água adicionada por nós.</p>
+      <p>Formato suportado: <code>kwai.com/@usuario/video/1234567890</code>, em kwai.com, www.kwai.com ou m.kwai.com. Como o Kwai é processado por um extrator genérico, e não um extrator dedicado, o SaveLinkX entrega um único arquivo MP4, sem seletor de qualidade e sem extração de áudio em MP3 para essa plataforma.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Seu processador de links favorito.{% endblock %}
+{% block footer_links %}
+      <a href="/linkedin/pt/">Baixar LinkedIn</a>
+      &nbsp;|&nbsp;
+      <a href="/youtube/pt/">Baixar YouTube</a>
+      &nbsp;|&nbsp;
+      <a href="/pt/">Baixar X (Twitter)</a>
+      &nbsp;|&nbsp;
+      <a href="/tiktok/pt/">Baixar TikTok</a>
+      &nbsp;|&nbsp;
+      <a href="/instagram/pt/">Baixar Instagram</a>
+      &nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos">Termos de Uso</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade">Política de Privacidade</a>
+      &nbsp;|&nbsp;
+      <a href="/contato">Contato</a>
+{% endblock %}
+{% block disclaimer %}Este site é uma ferramenta pública de processamento de links e não hospeda arquivos em seus servidores. Respeite os direitos autorais e use os vídeos baixados apenas para uso pessoal. Não somos afiliados ao Kwai.{% endblock %}
+
+{% block bmc_message %}Se o SaveLinkX te ajudou, considere me pagar um café! ☕{% endblock %}
+
+{% block page_config %}
+    "platform": "kwai",
+    "lang": "pt",
+    "formats": [
+          { "value": "best", "label": "MP4 - Qualidade Original (arquivo único)" }
+    ],
+    "strings": {
+      "enter_link": "Por favor, insira um link.",
+      "preparing": "Preparando opções de download...",
+      "checking": "Verificando...",
+      "fetch": "Baixar",
+      "err_unknown": "Erro desconhecido",
+      "downloading_label": "Baixando...",
+      "downloading_msg": "Baixando - aguarde.",
+      "err_download": "Falha no download",
+      "ok_audio": "Download de áudio iniciado! Verifique sua pasta de downloads.",
+      "ok_video": "Download iniciado! Verifique sua pasta de downloads.",
+      "download_now": "Baixar Agora",
+      "err_prefix": "Erro: "
+    }
+{% endblock %}
