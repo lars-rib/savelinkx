@@ -847,7 +847,7 @@ def detect_and_normalize_url(raw_url):
                 return None, None, error
             return normalized, platform, None
 
-    return None, None, "Unsupported link. Please paste a Facebook, YouTube, Twitter/X, TikTok, Instagram, Vimeo, Dailymotion, Reddit, or Pinterest URL."
+    return None, None, "Unsupported link. Please paste a Facebook, YouTube, Twitter/X, TikTok, Instagram, Vimeo, Dailymotion, Reddit, Pinterest, or LinkedIn URL."
 
 
 def map_yt_dlp_error(exc):
