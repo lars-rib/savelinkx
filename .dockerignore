@@ -1,0 +1,19 @@
+.git
+.gitignore
+__pycache__/
+*.pyc
+.venv/
+.venv_test/
+venv/
+downloads/
+*.log
+
+# Live account credentials — must never reach the image
+cookies/
+cookies.txt
+*.cookies
+
+marketing/
+.claude/
+AGENTS.md
+deploy_savelinkx.sh

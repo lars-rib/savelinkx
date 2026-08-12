@@ -1,0 +1,18 @@
+services:
+  savelinkx:
+    build: .
+    image: savelinkx:latest
+    container_name: savelinkx
+    ports:
+      - "5000:5000"
+    environment:
+      # All optional — the app boots with none of these set.
+      # SECRET_KEY: "change-me"
+      # SITE_URL: "https://example.com"
+      # CF_BEACON_TOKEN: ""
+      LOG_LEVEL: INFO
+    # Mount cookies.txt files here if a platform needs an authenticated session.
+    # These are live account credentials: keep them out of the image.
+    # volumes:
+    #   - ./cookies:/app/cookies:ro
+    restart: unless-stopped
