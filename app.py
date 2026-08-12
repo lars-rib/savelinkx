@@ -111,9 +111,14 @@ YOUTUBE_SHORT_PATTERN = re.compile(r"^/([A-Za-z0-9_-]{11})(?:/.*)?$")
 
 FACEBOOK_HOSTS = {
     "facebook.com", "www.facebook.com", "m.facebook.com",
-    "fb.watch", "www.fb.watch",
     "fb.com", "www.fb.com",
 }
+# fb.watch share links carry the video id as the entire path ("/AbC123/"), so
+# they match none of the /reel/ or /videos/ markers the long-form check looks
+# for. They also have to keep their own host — rewriting one onto facebook.com
+# yields a dead URL. Same shape as the vm./vt.tiktok.com handling above.
+FACEBOOK_SHORT_HOSTS = {"fb.watch", "www.fb.watch"}
+FACEBOOK_SHORT_CODE_PATTERN = re.compile(r"^/([A-Za-z0-9_-]+)/?$")
 
 VIMEO_HOSTS = {"vimeo.com", "www.vimeo.com", "player.vimeo.com"}
 VIMEO_PATTERN = re.compile(r"^/(\d+)(?:/.*)?$")
@@ -129,8 +134,15 @@ PINTEREST_PIN_PATTERN = re.compile(r"^/pin/(\d+)(?:/.*)?$")
 
 
 def normalize_and_validate_facebook_url(parsed):
+    hostname = (parsed.hostname or "").lower()
     path = parsed.path or ""
     query = parsed.query or ""
+    if hostname in FACEBOOK_SHORT_HOSTS:
+        if not FACEBOOK_SHORT_CODE_PATTERN.match(path):
+            return None, "Please paste a valid Facebook link like https://fb.watch/AbC123/"
+        if not path.endswith("/"):
+            path += "/"
+        return f"https://{hostname}{path}", None
     path_lower = path.lower()
     valid = (
         "/videos/" in path_lower or
@@ -702,7 +714,7 @@ PLATFORM_VALIDATORS = (
     ("tiktok", TIKTOK_HOSTS | TIKTOK_SHORT_HOSTS, normalize_and_validate_tiktok_url),
     ("instagram", INSTAGRAM_HOSTS, normalize_and_validate_instagram_url),
     ("youtube", YOUTUBE_HOSTS, normalize_and_validate_youtube_url),
-    ("facebook", FACEBOOK_HOSTS, normalize_and_validate_facebook_url),
+    ("facebook", FACEBOOK_HOSTS | FACEBOOK_SHORT_HOSTS, normalize_and_validate_facebook_url),
     ("vimeo", VIMEO_HOSTS, normalize_and_validate_vimeo_url),
     ("dailymotion", DAILYMOTION_HOSTS, normalize_and_validate_dailymotion_url),
     ("reddit", REDDIT_HOSTS, normalize_and_validate_reddit_url),
