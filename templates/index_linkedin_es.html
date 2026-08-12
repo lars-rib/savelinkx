@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block lang %}es{% endblock %}
+{% block body_attrs %}data-platform="linkedin"{% endblock %}
+
+{% block head %}
+  <title>SaveLinkX | Descargar Video de LinkedIn - Descarga Gratis en MP4</title>
+  <meta name="description" content="Descarga videos de LinkedIn gratis en MP4. Pega el enlace de cualquier publicación pública de LinkedIn y guárdalo al instante." />
+  <link rel="canonical" href="{{ site_url }}/linkedin/es/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="SaveLinkX" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta property="og:title" content="SaveLinkX - Descargar Video de LinkedIn Gratis en MP4" />
+  <meta property="og:description" content="Pega el enlace de cualquier publicación pública de LinkedIn y descarga el video en la mejor calidad. Gratis, sin cuenta." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site_url }}/linkedin/es/" />
+  <meta property="og:site_name" content="SaveLinkX" />
+  <meta property="og:locale" content="es" />
+  <meta name="keywords" content="descargar video linkedin, descargar video de linkedin, bajar video linkedin, linkedin a mp4, descargar publicacion linkedin, descargar linkedin gratis" />
+  <meta property="og:image" content="{{ site_url }}/static/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SaveLinkX - Descargar Videos de LinkedIn Gratis" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaveLinkX - Descargar Video de LinkedIn" />
+  <meta name="twitter:description" content="Descarga videos de LinkedIn gratis." />
+  <meta name="twitter:image" content="{{ site_url }}/static/og-image.png" />
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/linkedin/" />
+  <link rel="alternate" hreflang="pt" href="{{ site_url }}/linkedin/pt/" />
+  <link rel="alternate" hreflang="es" href="{{ site_url }}/linkedin/es/" />
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/linkedin/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Descargar Video de LinkedIn",
+    "description": "Descarga videos de LinkedIn online gratis en MP4. Sin cuenta necesaria.",
+    "url": "{{ site_url }}/linkedin/es/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "inLanguage": "es",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "SaveLinkX", "url": "{{ site_url }}/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Cómo Descargar Videos de LinkedIn",
+    "description": "Descarga videos de LinkedIn gratis en MP4. Pega el enlace de cualquier publicación pública de LinkedIn y guárdalo al instante.",
+    "inLanguage": "es",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Paso 1",
+        "text": "Abre la publicación pública en LinkedIn y copia el enlace de la barra de direcciones, o usa el menú \"...\" y elige Copiar enlace a la publicación."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Paso 2",
+        "text": "Pega el enlace en el campo de arriba y haz clic en Descargar para cargar las opciones de calidad."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Paso 3",
+        "text": "Elige la calidad y haz clic en Descargar Ahora - el MP4 se guarda en tu dispositivo."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Es gratis descargar videos de LinkedIn?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, SaveLinkX es completamente gratis. No se necesita cuenta, suscripción ni pago."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué formatos de video son compatibles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los videos se descargan en MP4, compatible con todos los teléfonos, tablets y computadoras. El audio se puede guardar como MP3 o M4A."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué enlaces de LinkedIn funcionan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Se admiten enlaces de publicación con el formato linkedin.com/posts/nombre_slug-activity-1234567890-abcd/ y enlaces de feed como linkedin.com/feed/update/urn:li:activity:1234567890. Los enlaces de perfil (/in/usuario/) y de página de empresa (/company/...) no son compatibles."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo descargar el video de una publicación privada?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. SaveLinkX solo funciona con publicaciones públicas de LinkedIn. Las publicaciones visibles solo para tu red o tus conexiones no se pueden procesar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo usarlo para guardar presentaciones o grabaciones de webinars?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Si una charla, presentación o webinar se compartió como una publicación pública de video en LinkedIn, puedes guardarla en MP4 y verla offline más tarde."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Necesito instalar algún programa o extensión?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. SaveLinkX funciona 100% en tu navegador - sin apps, extensiones ni plugins. Solo pega el enlace y listo."
+        }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block nav_aria %}Navegación principal{% endblock %}
+{% block brand_href %}/linkedin/es/{% endblock %}
+{% block brand_aria %}SaveLinkX inicio{% endblock %}
+{% block nav_links %}
+      <li><a href="/linkedin/es/">LinkedIn</a></li>
+      <li><a href="/youtube/es/">YouTube</a></li>
+      <li><a href="/es/">X (Twitter)</a></li>
+      <li><a href="/tiktok/es/">TikTok</a></li>
+      <li><a href="/instagram/es/">Instagram</a></li>
+      <li><a href="/facebook/es/">Facebook</a></li>
+      <li><a href="/vimeo/es/">Vimeo</a></li>
+      <li><a href="/dailymotion/es/">Dailymotion</a></li>
+      <li><a href="/reddit/es/">Reddit</a></li>
+      <li><a href="/pinterest/es/">Pinterest</a></li>
+      <li><a href="/faq">FAQ</a></li>
+{% endblock %}
+
+{% block h1 %}<span>Descargar Video de LinkedIn</span>{% endblock %}
+{% block subtitle %}Pega el enlace de cualquier publicación pública de LinkedIn y descarga el video en la mejor calidad.{% endblock %}
+
+{% block toolswitch %}
+  <div class="tool-switch" aria-label="Elegir plataforma">
+    <a href="/youtube/es/">YouTube</a>
+    <a href="/es/">X (Twitter)</a>
+    <a href="/tiktok/es/">TikTok</a>
+    <a href="/instagram/es/">Instagram</a>
+    <a href="/facebook/es/">Facebook</a>
+    <a href="/vimeo/es/">Vimeo</a>
+    <a href="/dailymotion/es/">Dailymotion</a>
+    <a href="/reddit/es/">Reddit</a>
+    <a href="/pinterest/es/">Pinterest</a>
+    <a href="/linkedin/es/" class="active">LinkedIn</a>
+  </div>
+{% endblock %}
+
+{% block placeholder %}Pega el enlace de la publicación de LinkedIn ej: https://www.linkedin.com/posts/janedoe_liderazgo-activity-7123456789012345678-ab12/{% endblock %}
+{% block fetch_label %}Descargar{% endblock %}
+{% block dl_label %}Descargar Ahora{% endblock %}
+
+{% block intro %}SaveLinkX es un <strong style="color:#aaa;">descargador de videos de LinkedIn</strong> rápido, gratis y pensado para uso profesional. Pega el enlace de cualquier publicación pública de video en LinkedIn - una charla, una presentación, una demostración de producto o tu propia publicación - y guárdala en MP4. Sin instalación, sin cuenta, funciona en cualquier dispositivo.{% endblock %}
+
+{% block content %}
+  <section class="how-to" aria-label="Cómo descargar">
+    <h2>Cómo Descargar Videos de LinkedIn</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Abre la publicación pública en LinkedIn y copia el enlace de la barra de direcciones, o usa el menú <strong>"..."</strong> y elige <strong>Copiar enlace a la publicación</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Pega el enlace en el campo de arriba y haz clic en <strong>Descargar</strong> para cargar las opciones de calidad.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Elige la calidad y haz clic en <strong>Descargar Ahora</strong> - el MP4 se guarda en tu dispositivo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Preguntas frecuentes">
+    <h2>Preguntas Frecuentes</h2>
+
+    <details>
+      <summary>¿Es gratis descargar videos de LinkedIn?</summary>
+      <p>Sí, SaveLinkX es completamente gratis. No se necesita cuenta, suscripción ni pago.</p>
+    </details>
+    <details>
+      <summary>¿Qué formatos de video son compatibles?</summary>
+      <p>Los videos se descargan en MP4, compatible con todos los teléfonos, tablets y computadoras. El audio se puede guardar como MP3 o M4A.</p>
+    </details>
+    <details>
+      <summary>¿Qué enlaces de LinkedIn funcionan?</summary>
+      <p>Se admiten dos formatos: enlaces de publicación como <code>linkedin.com/posts/nombre_slug-activity-1234567890-abcd/</code> y enlaces de feed como <code>linkedin.com/feed/update/urn:li:activity:1234567890</code>. Los enlaces de perfil (<code>/in/usuario/</code>) y de página de empresa (<code>/company/...</code>) no son compatibles - copia el enlace de la publicación individual.</p>
+    </details>
+    <details>
+      <summary>¿Puedo descargar el video de una publicación privada?</summary>
+      <p>No. SaveLinkX solo funciona con publicaciones públicas de LinkedIn. Las publicaciones restringidas a tu red o a conexiones específicas no se pueden procesar.</p>
+    </details>
+    <details>
+      <summary>¿Puedo usarlo para guardar presentaciones o grabaciones de webinars?</summary>
+      <p>Sí. Si una charla, presentación o webinar se compartió como una publicación pública de video en LinkedIn, puedes guardarla en MP4 y verla offline o conservarla como material de referencia más tarde.</p>
+    </details>
+    <details>
+      <summary>¿Necesito instalar algún programa o extensión?</summary>
+      <p>No. SaveLinkX funciona 100% en tu navegador - sin apps, extensiones ni plugins. Solo pega el enlace y listo.</p>
+    </details>
+  </section>
+
+  <section class="seo-section" aria-label="Descargar videos de LinkedIn">
+    <div>
+      <h2>Descargar Videos de LinkedIn en MP4 - Rápido y Gratis</h2>
+      <p>SaveLinkX facilita guardar cualquier publicación pública de video de LinkedIn como MP4 - una conferencia, un fragmento de panel, un lanzamiento de producto o una publicación que quieras conservar como referencia. Solo pega el enlace y descarga al instante.</p>
+      <p>Formatos soportados: <code>linkedin.com/posts/nombre_slug-activity-1234567890-abcd/</code> y <code>linkedin.com/feed/update/urn:li:activity:1234567890</code>. Las páginas de perfil y de empresa no son compatibles - solo publicaciones individuales públicas. Sin extensiones, sin registro.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer_tagline %}SaveLinkX - Tu procesador de enlaces favorito.{% endblock %}
+{% block footer_links %}
+      <a href="/youtube/es/">Descargar YouTube</a>
+      &nbsp;|&nbsp;
+      <a href="/es/">Descargar X (Twitter)</a>
+      &nbsp;|&nbsp;
+      <a href="/tiktok/es/">Descargar TikTok</a>
+      &nbsp;|&nbsp;
+      <a href="/instagram/es/">Descargar Instagram</a>
+      &nbsp;|&nbsp;
+      <a href="/facebook/es/">Descargar Facebook</a>
+      &nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>
+      &nbsp;|&nbsp;
+      <a href="/termos">Términos de Uso</a>
+      &nbsp;|&nbsp;
+      <a href="/privacidade">Política de Privacidad</a>
+      &nbsp;|&nbsp;
+      <a href="/contato">Contacto</a>
+{% endblock %}
+{% block disclaimer %}Este sitio es una herramienta pública de procesamiento de enlaces y no aloja archivos en sus servidores. Respeta los derechos de autor y usa los videos descargados solo para uso personal. No estamos afiliados con LinkedIn.{% endblock %}
+
+{% block bmc_message %}¡Si SaveLinkX te ayudó, considera invitarme un café! ☕{% endblock %}
+
+{% block page_config %}
+    "platform": "linkedin",
+    "lang": "es",
+    "strings": {
+      "enter_link": "Por favor, introduce un enlace.",
+      "preparing": "Preparando opciones de descarga...",
+      "checking": "Verificando...",
+      "fetch": "Descargar",
+      "err_unknown": "Error desconocido",
+      "downloading_label": "Descargando...",
+      "downloading_msg": "Descargando - espera.",
+      "err_download": "Error en la descarga",
+      "ok_audio": "¡Descarga de audio iniciada! Revisa tu carpeta de descargas.",
+      "ok_video": "¡Descarga iniciada! Revisa tu carpeta de descargas.",
+      "download_now": "Descargar Ahora",
+      "err_prefix": "Error: "
+    }
+{% endblock %}
