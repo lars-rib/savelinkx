@@ -281,6 +281,19 @@ def log_request_finished(response):
     return response
 
 
+@app.after_request
+def add_security_headers(response):
+    # None of these were being sent. Deliberately omitted: HSTS, because a
+    # browser caches it for its whole max-age and it cannot be taken back
+    # quickly; and CSP, because the pages carry inline <script> and <style>
+    # throughout, so a meaningful policy needs its own pass to avoid breaking
+    # the download flow. Both are worth adding later, on purpose.
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    return response
+
+
 def get_updated_label(lang="en"):
     today = date.today()
     return f"{UPDATED_PREFIX[lang]} {MONTHS[lang][today.month]} {today.year}"
