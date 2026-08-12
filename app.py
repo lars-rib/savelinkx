@@ -934,7 +934,7 @@ def build_formats(info):
             note = (item.get("format_note") or "").strip()
             if note:
                 label = f"{ext.upper()} - {note}"
-            elif (item.get("vcodec") or "none") == "none" or ext in ("mp3", "m4a"):
+            elif item.get("vcodec") == "none" or ext in ("mp3", "m4a"):
                 label = f"{ext.upper()} - audio"
             else:
                 label = f"{ext.upper()} - original quality"
