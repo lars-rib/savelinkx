@@ -927,8 +927,17 @@ def build_formats(info):
                 quality = f"{height}p"
             label = f"{ext.upper()} - {quality}"
         else:
+            # A missing height does not mean audio-only: the generic extractor
+            # (Kwai) reports a full video with unknown resolution. Only call it
+            # audio when the format actually has no video stream, otherwise a
+            # perfectly good MP4 gets mislabelled and users skip it.
             note = (item.get("format_note") or "").strip()
-            label = f"{ext.upper()} - {note}" if note else f"{ext.upper()} - audio"
+            if note:
+                label = f"{ext.upper()} - {note}"
+            elif (item.get("vcodec") or "none") == "none" or ext in ("mp3", "m4a"):
+                label = f"{ext.upper()} - audio"
+            else:
+                label = f"{ext.upper()} - original quality"
 
         if label in seen:
             continue
